@@ -1,0 +1,137 @@
+.header {
+    color: $black;
+    position: relative;
+}
+
+.header-topbar {
+    height: 4rem;
+    background: $color-primary;
+    display: flex;
+    align-items: center;
+    color: #eeeeee;
+    
+
+    &__links {
+        a {
+            i { margin-right: 5px; }
+            &:link, &:visited {
+               
+                color: #eeeeee;
+                text-decoration: none;
+            }
+
+            &:not(:last-child) {
+                margin-right: 2rem;
+            }
+        }
+    }
+
+    &__login {
+        a {
+            i { margin-right: 5px; }
+            &:link, &:visited {
+                color: #eeeeee;
+                text-decoration: none;
+            }
+        }
+
+        span {
+            margin: 0 1rem;
+        }
+    }
+
+
+    &__container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.header-navbar {
+    height: 7rem;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.06);
+
+
+
+    &__container {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        justify-content: space-between;
+    }
+
+    &__links-container {
+        height: 7rem;
+        display: flex;
+        flex-direction: row;
+        a {
+            &:link, &:visited{ 
+                display: flex;
+                align-items: center;
+                height: 5rem;
+                color: #333;
+                text-decoration: none;
+                padding: 0 2rem;
+                height: 100%;
+            }
+
+            &:hover, &:active{ 
+                background: rgba($black, 0.1);
+            }
+        }
+    }
+
+
+    &__links {
+        display: flex;
+        flex-direction: row-reverse;
+
+
+       
+    }
+}
+
+.display-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 16rem 0;
+
+
+    &__container {
+        background: #eee;
+    }
+
+
+    &__logo {
+        margin-right: 7rem;
+        svg {
+            width: 23rem;
+            height: 23rem;
+            filter: drop-shadow(0 2px 8px rgba(134,151,168,.15)) drop-shadow(0 8px 32px rgba(134,151,168,.15));
+            g {  clip-path: url(#logo-shape);  }
+        }
+    }
+
+
+    &__contents {
+        h1 {
+            font-weight: 800;
+            font-size: 5.5rem;
+        }
+
+        p {
+            color: #8a949f;
+            font-size: 1.7rem;
+            font-style: italic;
+        }
+    }
+}

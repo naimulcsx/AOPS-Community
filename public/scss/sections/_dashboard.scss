@@ -1,0 +1,61 @@
+.dashboard {
+    &__sidebar {
+        position: fixed;
+        height: 100vh;
+        background: $color-primary;
+        color: $white;
+        top: 0;
+        left: 0;
+    }
+
+
+    &__header {
+        background: #fff;
+        height: 5rem;
+        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.06);
+    }
+
+
+
+    &__link-group {
+        padding: 1.5rem 0;
+        border-bottom: 1px solid rgba(#fff, 0.05);
+
+        a {
+            i {margin-right: 10px; color: #73818f; transition: color .3s; }
+            &:first-child {
+                &:link, &:visited {
+                    padding: .5rem 2rem;
+                    display: block;
+                    color: darken($white, 30%);
+                    text-decoration: none;
+                    background: $color-primary;
+                    transition: color .3s;
+                }   
+                &:hover, &:active {
+                    color: $white;
+                    i {
+                        color: $white;
+                    }
+                }
+            }
+        
+            &:not(:first-child) {
+                &:link, &:visited {
+                    display: block;
+                    color: darken($white, 30%);
+                    text-decoration: none;
+                    margin-left: 5rem;
+                    font-size: 1.4rem;
+                    transition: color .3s;
+                }   
+
+                &:hover, &:active {
+                    color: $white;
+                }
+                
+            }
+            
+        }
+    }
+}
