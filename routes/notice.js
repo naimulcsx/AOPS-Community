@@ -28,8 +28,6 @@ const showAllNotices = async (req, res) => {
             .skip(skipCount * noticesPerPage);
 
 
-    console.log(req.query);
-
     notices.forEach(notice => {
         notice.excerpt = 
             striptags(notice.desc)
