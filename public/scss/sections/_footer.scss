@@ -1,0 +1,25 @@
+.footer {
+    color: $white;
+    h4 {font-size: 2rem; margin-bottom: 2rem; font-weight: 700; }
+    a {
+        
+        &:link, &:visited {
+            color: #fff;
+            text-decoration: none;
+        }
+    }
+
+    i { margin-right: 5px; }
+
+
+    &__top {
+        background: $black;
+        padding-top: 5rem;
+        padding-bottom: 2rem;
+    }
+
+    &__bottom {
+        padding: 1.5rem 0;
+        background: darken($black, 5%);
+    }
+}

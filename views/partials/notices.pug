@@ -1,0 +1,12 @@
+.notices
+  .notices__title
+    p NOTICES / NEWS
+  .notices__contents
+    each single in notices
+      .notices__single
+        p.mb-1 #{ moment(single.created).format('MMMM DD YYYY') }
+        a(href=`/notice/${single._id}`)
+          | #{single.title}
+  .notices__all
+    a(href='/notice')
+      | View all notices

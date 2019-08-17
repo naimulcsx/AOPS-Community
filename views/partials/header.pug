@@ -1,0 +1,32 @@
+header.header
+  .header-topbar
+    .container
+      .header-topbar__container
+        .header-topbar__links
+          a(href='#')
+            i.fas.fa-envelope
+            | #{AOPSInfo.contactEmail}
+          a(href='#')
+            i.fas.fa-phone
+            | #{AOPSInfo.contactPhone}
+        .header-topbar__login
+          a(href='/login')
+            i.fas.fa-sign-in-alt
+            |  Login
+          span /
+          a(href='/registration')
+            i.fas.fa-user
+            |  Registration
+
+  nav.header-navbar
+    .container
+      .header-navbar__container
+        img.header-navbar__logo(src='https://dummyimage.com/70x70/fff/aaa&text=Logo' alt='')
+        .header-navbar__links
+          .header-navbar__links-container
+            a(href='/') Home
+            a(href='#') About
+            a(href='#') Organization
+            a(href='#') Club Activities
+            a(href='#') Members
+

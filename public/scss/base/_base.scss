@@ -1,0 +1,61 @@
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.8;
+    background: #f7f7f7;
+}
+
+::-webkit-scrollbar { width:15px;height:15px;}
+::-webkit-scrollbar-track {background: transparent;}
+::-webkit-scrollbar-thumb {background:#B9B9B9;}
+
+
+.button {
+    &:link, &:active {
+        font-size: 1.6rem !important;
+        padding: .6rem 1.5rem;
+        border-radius: 2rem;
+        border: 1px solid $color-primary;
+        background-color: $white;
+        color: $color-primary;
+    }
+
+    &:hover, &:active {
+        border: 1px solid $color-primary;
+        background: darken(#fff, 5%);
+        color: $color-primary;
+    }
+}
+
+
+.pagination {
+    margin: 2rem 0;
+
+    .page-item {
+        border: 0;
+        height: 4rem;
+        a { 
+            color: $black;
+            padding: 1.25rem 1.75rem;
+            border: 1px solid rgba(0, 0, 0, .1);
+        }
+        span {
+            padding: 1.25rem 1.75rem;
+            border: 1px solid rgba(0, 0, 0, .1);
+
+        }
+    }
+
+    .page-item.active {
+        a {
+            background: $color-primary !important;
+            border: 0;
+
+        }
+    }
+}

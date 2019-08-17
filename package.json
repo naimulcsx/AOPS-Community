@@ -1,0 +1,32 @@
+{
+  "name": "aops-community",
+  "version": "1.0.0",
+  "description": "A Community Management System built using NodeJS, Express and MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imnaimul/AOPS-Community.git"
+  },
+  "author": "Naimul Haque",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imnaimul/AOPS-Community/issues"
+  },
+  "homepage": "https://github.com/imnaimul/AOPS-Community#readme",
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^4.0.2",
+    "moment": "^2.24.0",
+    "mongoose": "^5.6.9",
+    "morgan": "^1.9.1",
+    "pug": "^2.0.4",
+    "striptags": "^3.1.1"
+  }
+}

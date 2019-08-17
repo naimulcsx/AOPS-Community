@@ -1,0 +1,60 @@
+doctype html
+html
+  head
+    // meta informations
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+
+    // title of the webpage
+    title Dashboard &mdash; AOPS Computing Society
+
+    // favicon
+    link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
+
+    // stylesheets
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='/css/all.min.css')
+    link(rel='stylesheet' href='/css/bootstrap.css')
+    link(rel='stylesheet' href='/css/style.css')
+
+  body
+    .dashboard
+      header.dashboard__header
+
+      .container-fluid.mx-0
+        .row
+          .dashboard__sidebar.col-md-2.px-0
+            .dashboard__options
+              .dashboard__link-group
+                a.dashboard__link(href="#") 
+                  i.fas.fa-calculator
+                  | Notice
+      
+                a.dashboard__link(href="#") Create a new notice
+                a.dashboard__link(href="#") View all notices
+
+              .dashboard__link-group
+                a.dashboard__link(href="#") 
+                  i.fas.fa-calendar-week
+                  | Events
+      
+                a.dashboard__link(href="#") Create a new event
+                a.dashboard__link(href="#") View all events
+
+              .dashboard__link-group
+                a.dashboard__link(href="#") 
+                  i.fas.fa-user
+                  | Members
+      
+                a.dashboard__link(href="#") Generate invitation token
+                a.dashboard__link(href="#") View all members
+
+              .dashboard__link-group
+                a.dashboard__link(href="#") 
+                  i.fas.fa-cog
+                  | Settings
+                a.dashboard__link(href="#") Community Info
+                a.dashboard__link(href="#") Homepage
+                  
+
