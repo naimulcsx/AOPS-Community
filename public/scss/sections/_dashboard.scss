@@ -22,7 +22,7 @@
         border-bottom: 1px solid rgba(#fff, 0.05);
 
         a {
-            i {margin-right: 10px; color: #73818f; transition: color .3s; }
+            i {margin-right: 10px; color: #73818f; }
             &:first-child {
                 &:link, &:visited {
                     padding: .5rem 2rem;
@@ -30,7 +30,6 @@
                     color: darken($white, 30%);
                     text-decoration: none;
                     background: $color-primary;
-                    transition: color .3s;
                 }   
                 &:hover, &:active {
                     color: $white;
@@ -45,9 +44,8 @@
                     display: block;
                     color: darken($white, 30%);
                     text-decoration: none;
-                    margin-left: 5rem;
-                    font-size: 1.4rem;
-                    transition: color .3s;
+                    margin-left: 4.5rem;
+                    font-size: 1.3rem;
                 }   
 
                 &:hover, &:active {
@@ -57,5 +55,136 @@
             }
             
         }
+
+        a.active {
+            i {
+                color: #fff !important;
+            }
+            color: #fff !important;
+        }
     }
+}
+
+
+.dashboard-content {
+    margin: 4rem 0;
+
+    margin-left: 16.66%;
+}
+
+.dashboard-notice {
+    &__container {
+        max-width: 1024px;
+        background: #fff;
+        box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+        border-radius: 1rem;
+        overflow: hidden; 
+    }
+
+    &__single {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem 2rem;
+        border-bottom: 1px solid rgba(0,0,0, .05);
+
+        h3 {
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+
+        p {
+            font-size: 1.3rem;
+            margin: 0;
+            color: darken(#fff, 50%);
+        }
+    }
+
+
+    &__links {
+        a {
+            border-radius: 1rem;
+            padding: .5rem 1rem;
+            text-decoration: none;
+
+            &:not(:last-child) {
+                margin-right: 1rem;
+            }
+
+            
+        }
+        .view {
+            background: #20bf6b;
+            color: #fff;
+            padding: .5rem 1rem;
+            &:hover {
+                background: darken(#20bf6b, 8%);
+            }
+        }
+
+
+        .update {
+            background: #fa8231;
+            color: #fff;
+            &:hover {
+                background: darken(#fa8231, 15%);
+            }
+        }
+
+        .delete {
+            background: #eb3b5a;
+            color: #fff;
+            &:hover {
+                background: darken(#eb3b5a, 15%);
+            }
+        }
+    }
+}
+
+
+#editor {
+    min-height: 550px;
+}
+
+#toolbar {
+    position: relative;
+    padding: 1.25rem 1rem;
+}
+
+.save {
+    background: #20bf6b;
+    border-radius: 1rem;
+    padding: .3rem 1rem;
+    text-decoration: none !important;
+    color: #fff !important;
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    &:hover {
+        background: darken(#20bf6b, 8%);
+    }
+}
+
+
+.title-input {
+    position: relative;
+    span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: $color-primary;
+        color: $white;
+        padding: 1rem 2rem;
+
+    }
+}
+
+
+input.title {
+    width: 100%;
+    border: 0;
+    padding: 1rem 2rem;
+    margin-left: 12rem;
+    border-bottom: 1px solid rgba(0,0,0, .05);
+    outline: 0;
 }

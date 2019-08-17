@@ -1,0 +1,37 @@
+.dashboard__sidebar.col-md-2.px-0
+  .dashboard__options
+    .dashboard__link-group
+      a.dashboard__link(href="/dashboard" class= url == '/' ? "active" : "")
+        i.fas.fa-tachometer-alt
+        | Dashboard
+
+    .dashboard__link-group
+      a.dashboard__link(href="/dashboard/notice" class= url == '/notice' ? "active" : "") 
+        i.fas.fa-calculator
+        | Notice
+
+      a.dashboard__link(href="/dashboard/notice/new") Create a new notice
+      a.dashboard__link(href="/dashboard/notice") View all notices
+
+    .dashboard__link-group
+      a.dashboard__link(href="#") 
+        i.fas.fa-calendar-week
+        | Events
+
+      a.dashboard__link(href="#") Create a new event
+      a.dashboard__link(href="#") View all events
+
+    .dashboard__link-group
+      a.dashboard__link(href="#") 
+        i.fas.fa-user
+        | Members
+
+      a.dashboard__link(href="#") Generate invitation token
+      a.dashboard__link(href="#") View all members
+
+    .dashboard__link-group
+      a.dashboard__link(href="#") 
+        i.fas.fa-cog
+        | Settings
+      a.dashboard__link(href="#") Community Info
+      a.dashboard__link(href="#") Homepage
