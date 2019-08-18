@@ -1,0 +1,41 @@
+doctype html
+html
+  head
+    // meta informations
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+
+    // title of the webpage
+    title All Notices &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
+
+    // favicon
+    link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
+
+    // stylesheets
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='/css/all.min.css')
+    link(rel='stylesheet' href='/css/bootstrap.css')
+    link(rel='stylesheet' href='/css/style.css')
+
+  body
+    main.login-box
+      .container-fluid
+        .row
+          .col-md-3
+            .login-box__container
+              .login-box__title
+                p Login
+              .login-box__contents
+                p
+                  | Not a member? 
+                  a(href='/register') Register
+                form(action="/login" method="POST")
+                  .form-group.mb-4
+                    input#emailInput.form-control(type='email' placeholder='Email' name="email")
+                  .form-group.mb-3
+                    input#passwordInput.form-control(type='password' placeholder='Password' name="password")
+                  p.mb-0.my-3.forget-pass
+                    a(href='/reset') Lost your password?
+                  .form-group.mb-0
+                    input.btn.btn-primary(type='submit')

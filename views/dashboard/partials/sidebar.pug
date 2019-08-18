@@ -34,11 +34,11 @@
       a.dashboard__link(href="#") View all events
 
     .dashboard__link-group
-      a.dashboard__link(href="#") 
+      a.dashboard__link(href="#" class= url.includes('members') ? "active" : "") 
         i.fas.fa-user
         | Members
 
-      a.dashboard__link(href="#") Generate invitation token
+      a.dashboard__link(href="/dashboard/members/invite" class= url == '/dashboard/members/invite' ? "active" : "") Invite Members
       a.dashboard__link(href="#") View all members
 
     .dashboard__link-group

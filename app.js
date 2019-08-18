@@ -34,7 +34,20 @@ app.use((req, res, next) => {
     next();
 });
 
+// var token = jwt.sign({
+//     data: 'foobar'
+//   }, 'secret', { expiresIn: '1m' });
 
+// console.log(token);
+
+// app.get('/token', (req, res) => {
+//     try {
+//         var x = jwt.verify(token, 'secret');
+//         res.send(x);
+//     } catch(err) {
+//         res.send('Expired');
+//     }
+// });
 
 
 // data models
@@ -45,7 +58,6 @@ mongoose
     .connect( 'mongodb://localhost:27017/AOPS', {useNewUrlParser: true, useFindAndModify:false} )
     .then( con => console.log('Connected to database!') )
     .catch( err => console.log('Error connecting to database!') );
-
 
 // seed database
 const seed = require('./db-seed');
