@@ -1,7 +1,7 @@
 .dashboard__sidebar.col-md-2.px-0
   .dashboard__options
     .dashboard__link-group
-      a.dashboard__link(href="/dashboard" class= url == '/' ? "active" : "")
+      a.dashboard__link(href="/dashboard" class= url == '/dashboard' ? "active" : "")
         i.fas.fa-tachometer-alt
         | Dashboard
 
@@ -18,8 +18,12 @@
         i.fas.fa-calculator
         | Notice
 
-      a.dashboard__link(href="/dashboard/notice/new" class= url == '/notice/new' ? "active" : "") Create a new notice
-      a.dashboard__link(href="/dashboard/notice" class= url == '/notice' ? "active" : "") View all notices
+      a.dashboard__link(href="/dashboard/notice/new" class= url == '/dashboard/notice/new' ? "active" : "") 
+        i.fas.fa-plus
+        |Create a new notice
+      a.dashboard__link(href="/dashboard/notice" class= url == '/dashboard/notice' ? "active" : "") 
+        i.fas.fa-asterisk
+        |View all notices
 
     .dashboard__link-group
       a.dashboard__link(href="#") 
@@ -38,12 +42,18 @@
       a.dashboard__link(href="#") View all members
 
     .dashboard__link-group
-      a.dashboard__link(href="#") 
+      a.dashboard__link(href="/dashboard/settings" class= url.includes('settings') ? "active" : "") 
         i.fas.fa-cog
         | Settings
 
-      a.dashboard__link(href="#") Homepage
-      a.dashboard__link(href="#") General
-      a.dashboard__links(href="#") Member roles
-      a.dashboard__link(href="#") Community Info
+      a.dashboard__link(href="/dashboard/settings/general" class= url == '/dashboard/settings/general' ? "active" : "") 
+        i.fas.fa-asterisk
+        |General
+      a.dashboard__link(href="/dashboard/settings/about" class= url == '/dashboard/settings/about' ? "active" : "") 
+        i.fas.fa-home
+        | About Community
+
+      a.dashboard__links(href="#") 
+        i.fas.fa-user
+        |Member roles
       

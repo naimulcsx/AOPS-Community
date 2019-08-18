@@ -31,12 +31,15 @@ html
             .dashboard-flash-messages
               -if (successMessage.length > 0)
                 .alert.alert-success
-                  p #{successMessage}
+                  | #{successMessage}
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
 
               - if (errorMessage.length > 0)
                 .alert.alert-danger
-                  p #{errorMessage}
-
+                  | #{errorMessage}
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
 
             .dashboard-notice__container.mx-auto
               - for (let i = 0; i < notices.length; ++i) {

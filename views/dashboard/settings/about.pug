@@ -1,0 +1,117 @@
+doctype html
+html
+  head
+    // meta informations
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+
+    // title of the webpage
+    title About Community &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
+
+    // favicon
+    link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
+
+    // stylesheets
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='/css/all.min.css')
+    link(rel='stylesheet' href='/css/bootstrap.css')
+    link(rel='stylesheet' href='/css/style.css')
+    link(href='/css/quill.snow.css' rel='stylesheet')
+
+
+  body
+    .dashboard
+      header.dashboard__header
+
+      .container-fluid.mx-0
+        .row
+          include ../partials/sidebar
+
+          .col-md-10.dashboard-content
+            form.new-notice(action=`/dashboard/settings?_method=PUT` method="POST")
+              input(type="text" name="aboutDesc")
+            
+            .dashboard-flash-messages
+              -if (successMessage.length > 0)
+                .alert.alert-success
+                  | #{successMessage}
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
+
+              - if (errorMessage.length > 0)
+                .alert.alert-danger
+                  | #{errorMessage}
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
+
+            .dashboard-notice__container.mx-auto
+              
+              #toolbar
+                span.ql-formats
+                  select.ql-header
+                    option(value='1') Heading
+                    option(value='2') Subheading
+                    option(selected='') Normal
+                  select.ql-font
+                    option(selected='') Sans Serif
+                    option(value='serif') Serif
+                    option(value='monospace') Monospace
+                span.ql-formats
+                  button.ql-bold
+                  button.ql-italic
+                  button.ql-underline
+                  button.ql-strike
+                span.ql-formats
+                  select.ql-color
+                  select.ql-background
+                span.ql-formats
+                  button.ql-list(value='ordered')
+                  button.ql-list(value='bullet')
+                  select.ql-align
+                    option(selected='')
+                    option(value='center')
+                    option(value='right')
+                    option(value='justify')
+                span.ql-formats
+                  button.ql-blockquote
+                  button.ql-link
+                  button.ql-image
+                  button.ql-code-block
+                  button.ql-video
+                span.ql-formats
+                  button.ql-clean
+
+
+                a.save(href="/") Update
+
+              .title-about
+                span About #{AOPSInfo.name} #{AOPSInfo.type}
+                             
+              #editor
+                | !{AOPSInfo.aboutDesc}
+                
+
+            
+    include ../partials/footer
+    script(src='/js/image-resize.min.js')
+    script.
+      var editor = new Quill('#editor', {
+        modules: { 
+          toolbar: '#toolbar', 
+          imageResize: {} 
+        },
+        theme: 'snow',
+      });
+
+      var saveBtn = document.querySelector('a.save');
+      var form = document.querySelector('form.new-notice');
+      var editorContents = document.querySelector('.ql-editor');
+
+      saveBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        form.elements.aboutDesc.value = editorContents.innerHTML;
+        form.submit();
+      });
+                  
+

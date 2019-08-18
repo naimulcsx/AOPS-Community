@@ -30,6 +30,7 @@ app.use( flash() );
 app.use((req, res, next) => {
     res.locals.successMessage = req.flash("success");
     res.locals.errorMessage = req.flash("error");
+    res.locals.url = req.url;
     next();
 });
 
@@ -41,7 +42,7 @@ const {Notice, AOPS} = require('./models');
 
 // database
 mongoose
-    .connect( 'mongodb://localhost:27017/AOPS', {useNewUrlParser: true} )
+    .connect( 'mongodb://localhost:27017/AOPS', {useNewUrlParser: true, useFindAndModify:false} )
     .then( con => console.log('Connected to database!') )
     .catch( err => console.log('Error connecting to database!') );
 

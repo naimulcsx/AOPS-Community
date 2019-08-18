@@ -12,7 +12,6 @@ const renderDashboardNotice = async (req, res) => {
     res.render('dashboard/notice/index', {
         notices,
         AOPSInfo: AOPSInfoObj,
-        url: req.url
     });
 }
 
@@ -22,7 +21,6 @@ const renderDashboardNoticeNew = async (req, res) => {
 
     res.render('dashboard/notice/new', {
         AOPSInfo: AOPSInfoObj,
-        url: req.url
     });
 }
 
@@ -34,7 +32,6 @@ const renderUpdateNotice = async(req, res) => {
     console.log(notice);
     res.render('dashboard/notice/update', {
         AOPSInfo: AOPSInfoObj,
-        url: req.url,
         notice 
     });
 }

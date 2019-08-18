@@ -10,6 +10,7 @@ module.exports = {
     numberOfNoticesOnNoticeIndex: 5,
     address: {
         city: 'Chittagong',
-        country: 'Bangladesh'
+        country: 'Bangladesh',
+        zip: 4205
     }
 };
