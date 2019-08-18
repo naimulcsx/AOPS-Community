@@ -72,6 +72,18 @@
     margin-left: 16.66%;
 }
 
+
+.dashboard-flash-messages {
+    max-width: 1024px;
+    box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+    margin: 0 auto;
+    border-radius: 2rem;
+
+    p {
+        margin: 0;
+    }
+}
+
 .dashboard-notice {
     &__container {
         max-width: 1024px;
@@ -143,7 +155,10 @@
 
 
 #editor {
-    min-height: 550px;
+    min-height: 60rem;
+    max-height: 60rem;
+    overflow: auto;
+    font-size: 1.6rem;
 }
 
 #toolbar {
@@ -187,4 +202,12 @@ input.title {
     margin-left: 12rem;
     border-bottom: 1px solid rgba(0,0,0, .05);
     outline: 0;
+}
+
+
+form.new-notice {
+    height: 0;
+    width: 0;
+    position: relative;
+    overflow: hidden;
 }

@@ -6,12 +6,20 @@
         | Dashboard
 
     .dashboard__link-group
-      a.dashboard__link(href="/dashboard/notice" class= url == '/notice' ? "active" : "") 
+      a.dashboard__link(href="/dashboard" class= url == '/pages' ? "active" : "")
+        i.fas.fa-pager
+        | Pages
+      
+      a.dashboard__link(href="/dashboard/notice/new") Create a new page
+      a.dashboard__link(href="/dashboard/notice") All pages
+
+    .dashboard__link-group
+      a.dashboard__link(href="/dashboard/notice" class= url.includes('notice') ? "active" : "") 
         i.fas.fa-calculator
         | Notice
 
-      a.dashboard__link(href="/dashboard/notice/new") Create a new notice
-      a.dashboard__link(href="/dashboard/notice") View all notices
+      a.dashboard__link(href="/dashboard/notice/new" class= url == '/notice/new' ? "active" : "") Create a new notice
+      a.dashboard__link(href="/dashboard/notice" class= url == '/notice' ? "active" : "") View all notices
 
     .dashboard__link-group
       a.dashboard__link(href="#") 
@@ -33,5 +41,9 @@
       a.dashboard__link(href="#") 
         i.fas.fa-cog
         | Settings
-      a.dashboard__link(href="#") Community Info
+
       a.dashboard__link(href="#") Homepage
+      a.dashboard__link(href="#") General
+      a.dashboard__links(href="#") Member roles
+      a.dashboard__link(href="#") Community Info
+      

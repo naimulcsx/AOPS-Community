@@ -7,7 +7,7 @@ html
     meta(http-equiv='X-UA-Compatible' content='ie=edge')
 
     // title of the webpage
-    title New Notice &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
+    title #{notice.title} &mdash; Update Notice
 
     // favicon
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
@@ -29,7 +29,7 @@ html
           include ../partials/sidebar
 
           .col-md-10.dashboard-content
-            form.new-notice(action=`/notice` method="POST")
+            form.new-notice(action=`/notice/${notice._id}?_method=PUT` method="POST")
               input(type="text" name="title")
               textarea(name="desc", cols="30", rows="10")
 
@@ -76,8 +76,9 @@ html
 
               .title-input
                 span Notice Title
-                input.title(type="text" placeholder="Notice title")              
+                input.title(type="text" placeholder="Notice title" value=`${notice.title}`)              
               #editor
+                | !{notice.desc}
                 
 
             
