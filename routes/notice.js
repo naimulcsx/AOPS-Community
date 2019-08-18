@@ -39,9 +39,8 @@ const showAllNotices = async (req, res) => {
     res.render('notice/index', {
         notices,
         AOPSInfo: AOPSInfoObj,
-        errorMessage: req.flash('error'),
         paginateCount,
-        currentPage
+        currentPage,
     });
 }
 
@@ -74,12 +73,54 @@ const showSingleNotice = async (req, res) => {
     });
 }
 
+
+const createNewNote = (req, res) => {
+    Notice
+        .create(req.body)
+        .then(notice => {
+            req.flash('success', 'Notice created successfully.');
+            res.redirect('/dashboard/notice');
+        })
+        .catch(err => {
+            res.redirect('/dashboard/notice/new');
+        });
+}
+
+const deleteSingleNotice = async (req, res) => {
+    let data = await Notice.findByIdAndDelete(req.params.id);
+
+    if ( !data ) {
+        req.flash('error', 'The notice doesn\'t exist.');
+        res.redirect('/dashboard/notice');
+        return;
+    }
+
+    req.flash('success', 'Successfully deleted the notice.');
+    res.redirect('/dashboard/notice');
+}
+
+
+const updateNotice = async(req, res) => {
+    Notice.findByIdAndUpdate(req.params.id, req.body)
+        .then(arr => {
+            req.flash('success', 'Successfully updated the notice.');
+            res.redirect('/dashboard/notice');
+        })
+        .catch(err => {
+            req.flash('error', 'Couldn\'t update the notice.');
+            res.redirect('/dashboard/notice');
+        });
+}
+
 router
     .route('/')
-    .get( showAllNotices );
+    .get( showAllNotices )
+    .post( createNewNote );
 
 router
     .route('/:id')
-    .get(showSingleNotice);
+    .get( showSingleNotice )
+    .delete( deleteSingleNotice )
+    .put( updateNotice );
 
 module.exports = router;

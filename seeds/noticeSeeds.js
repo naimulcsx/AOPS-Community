@@ -48,11 +48,11 @@ module.exports = [
     {
         title: 'Registration is open for AOPS Computing Society',
         desc: noticeDesc,
-        created: new Date("2019-8-30")
+        created: new Date("2019-4-30")
     },
     {
         title: 'Programming Contest on Graph Theory',
         desc: noticeDesc,
-        created: new Date("2019-9-17")
+        created: new Date("2019-7-17")
     }
 ];

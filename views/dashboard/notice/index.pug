@@ -7,7 +7,7 @@ html
     meta(http-equiv='X-UA-Compatible' content='ie=edge')
 
     // title of the webpage
-    title Dashboard &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
+    title All Notices &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
 
     // favicon
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
@@ -28,6 +28,16 @@ html
           include ../partials/sidebar
 
           .col-md-10.dashboard-content
+            .dashboard-flash-messages
+              -if (successMessage.length > 0)
+                .alert.alert-success
+                  p #{successMessage}
+
+              - if (errorMessage.length > 0)
+                .alert.alert-danger
+                  p #{errorMessage}
+
+
             .dashboard-notice__container.mx-auto
               - for (let i = 0; i < notices.length; ++i) {
                 .dashboard-notice__single
@@ -37,10 +47,21 @@ html
                       span Posted on #{ moment(notices[i].created).format('llll') }
                   .dashboard-notice__links
                     a.view(href=`/notice/${notices[i]._id}`) View
-                    a.update(href="#") Edit
-                    a.delete(href="#") Delete
+                    a.update(href=`/dashboard/notice/update/${notices[i]._id}`) Edit
+                    form(class="d-inline delete-notice-form" action=`/notice/${notices[i]._id}?_method=DELETE` method="POST")
+                      a.delete(href="/") Delete
               - }
             
     include ../partials/footer
+    script. 
+      let deleteButtons = document.querySelectorAll('a.delete');
+
+      deleteButtons.forEach(single => {
+        single.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.target.parentElement.submit();
+        })
+      })
+      
                   
 
