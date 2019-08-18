@@ -22,14 +22,28 @@ const renderHomepage = async(req, res) => {
         });
 }
 
+const renderLoginPage = async(req, res) => {
+    const AOPSInfo = await AOPS.find({});
+    const AOPSInfoObject = AOPSInfo[0];
+
+    res.render('login', {
+        AOPSInfo: AOPSInfoObject
+    });
+}
+
+const handleLogin = async(req, res) => {
+    console.log(req.body);
+    res.send('hello world');
+}
+
 router
     .route('/')
     .get( renderHomepage );
 
 router
     .route('/login')
-    .get((req, res) => {
-    });
+    .get( renderLoginPage )
+    .post( handleLogin );
 
 router
     .route('/register')
