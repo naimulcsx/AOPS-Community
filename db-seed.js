@@ -1,30 +1,51 @@
-const {Notice, AOPS} = require('./models');
-
-const {noticeSeeds, AOPSSeed} = require('./seeds');
+const mongoose = require('mongoose');
+const {Notice, AOPS, Member} = require('./models');
+const {noticeSeeds, AOPSSeed, memberSeed} = require('./seeds');
 
 const seedDatabase = () => {
-    Notice // remove all notices
+    Notice // remove all notices and insert seed
         .deleteMany({})
-        .then( () => console.log('Removed all notices') )
+        .then( () => {
+            console.log('Removed all notices') 
+
+            noticeSeeds.forEach(async (notice) => {
+                try {
+                    await new Notice(notice).save();
+                    console.log('Notice created!');
+                } catch(err) { console.log(err)  }
+            });
+        
+        })
         .catch( () => console.log('Couldn\'t remove the notices') );
 
-    noticeSeeds.forEach(async (notice) => {
-        await new Notice(notice).save();
-        console.log('Notice created!');
-    });
 
-    // remove AOPSInfo
-    AOPS
+    
+    AOPS // remove AOPSInfo and insert
         .deleteMany({})
-        .then( () => console.log('Reset config') )
+        .then( () => {
+            console.log('Reset config') 
+            return new AOPS(AOPSSeed).save();
+        })
+        .then( data => {
+            console.log('Created AOPSInfo!');
+        })
         .catch( () => console.log('Couldn\'t remove the notices') );
 
-    // create AOPSInfo
-    let AOPSConfig = new AOPS(AOPSSeed);
-    AOPSConfig
-        .save()
-        .then(data => console.log('Created AOPS Info'))
-        .catch(err => console.log(err) );
+    
+    Member // Remove all members and insert
+        .deleteMany({})
+        .then(() => {
+            console.log('Removed All Members');
+
+            memberSeed.forEach(async (member) => {
+                try {
+                    await Member.create(member);
+                    console.log('Member created!');
+                } catch(err) { console.log(err); }
+            })
+
+        })
+        .catch(err => console.log('Member coundn\'t be created'));    
 }
 
 module.exports = seedDatabase;

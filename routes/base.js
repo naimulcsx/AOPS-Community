@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {Notice, AOPS} = require('../models');
+const {Notice, AOPS, Member} = require('../models');
 
 
 const renderHomepage = async(req, res) => {
@@ -31,9 +31,61 @@ const renderLoginPage = async(req, res) => {
     });
 }
 
+
+const renderRegisterPage = async(req, res) => {
+    const AOPSInfo = await AOPS.find({});
+    const AOPSInfoObj = AOPSInfo[0];
+
+    res.render('register', {
+        AOPSInfo: AOPSInfoObj
+    });
+}
+
 const handleLogin = async(req, res) => {
     console.log(req.body);
     res.send('hello world');
+}
+
+const handleRegister = async (req, res) => {
+    const AOPSInfo = await AOPS.find({});
+    const AOPSInfoObj = AOPSInfo[0];
+    let validationErrors = []
+
+    if (req.body.password != req.body.confPassword) 
+        validationErrors.push('Passwords are not identical.');
+    
+    const newMember = new Member(req.body);
+    
+    newMember
+        .validate()
+        .then(user => {
+            if (validationErrors.length > 0) {
+                return res.render('register', {
+                    AOPSInfo: AOPSInfoObj,
+                    validationErrors
+                });
+            }
+            return newMember.save();
+        })
+        .then(user => {
+            req.flash('success', 'Account created successfully. You may login now.')
+            res.redirect('/login');
+        })
+        .catch(err => {
+            let fields = ['name', 'password', 'email', 'phone'];
+            
+            fields.forEach(field => {
+                if (err.errors[field]) validationErrors.push(err.errors[field].message);
+            });
+
+            console.log(validationErrors);
+
+            res.render('register', {
+                AOPSInfo: AOPSInfoObj,
+                validationErrors,
+                prevData: req.body
+            });
+        });
 }
 
 router
@@ -47,7 +99,7 @@ router
 
 router
     .route('/register')
-    .get((req, res) => {
-    });
+    .get( renderRegisterPage ) 
+    .post( handleRegister );
 
 module.exports = router;
