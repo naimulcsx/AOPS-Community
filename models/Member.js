@@ -1,10 +1,18 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcrypt');
 
 const memberSchema = new mongoose.Schema({
     name: {
         type: String,
-        require: [true, 'Name is required']
+        require: [true, 'Name is required'],
+        validate: {
+            validator: function(name) {
+                let names = name.split(' ');
+                return names.length >= 2;
+            },
+            message: 'Full name must contain firstname and lastname.'
+        }
     },
     email: {
         type: String,
@@ -29,22 +37,54 @@ const memberSchema = new mongoose.Schema({
             message: 'A valid password contains at least 8 charecters.'
         }
     },
-    passwordConfirm: {
+    phone: {
         type: String,
-        required: [true, 'Confirm password is required'],
-        validate: {
-            validator: function( val ) {
-                return val === this.password;
-            },
-            message: 'Passwords are not the same.'
-        }
+        required: [true, 'Phone number is required'],
+        validate: [validator.isMobilePhone, 'Phone number is not valid.']
+    },
+    canPostNotices: {
+        type: Boolean,
+        default: true
+    },
+    canDeleteNotices: {
+        type: Boolean,
+        default: true
+    },
+    canPostEvents: {
+        type: Boolean,
+        default: true
+    },
+    canDeleteEvents: {
+        type: Boolean,
+        default: false
+    },
+    canChangeAOPSInfo: {
+        type: Boolean,
+        default: false
     }
 });
 
-// userSchema.path('email').validate(async (value) => {
-//     const emailCount = await mongoose.models.userSchema.countDocuments({email: value });
-//     return !emailCount;
-// }, 'Email already exists');
+memberSchema.pre('save', function(next) {
+    const user = this;    
+    if (!user.isModified('password')) return next();
 
+    bcrypt.hash(user.password, 10)
+        .then(hash => {
+            user.password = hash;
+            next();
+        })
+        .catch(err => {
+            next(err);
+        });
+});
 
-module.exports = mongoose.model('Member ', memberSchema);
+memberSchema.methods.comparePassword = function(password, cb) {
+    bcrypt
+        .compare(password, this.password)
+        .then(isMatch => {
+            cb(null, isMatch);
+        })
+        .catch(err => cb(err));
+}
+
+module.exports = mongoose.model('Member', memberSchema);

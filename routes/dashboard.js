@@ -127,6 +127,9 @@ const inviteMember = async(req, res) => {
     const AOPSInfoObj = await AOPS.find({});
     const AOPSInfo = AOPSInfoObj[0];
 
+
+    // TODO: if an user with the email exists, give flash message
+
     const msg = {
         to: req.body.email,
         from: `${AOPSInfo.contactEmail}`,

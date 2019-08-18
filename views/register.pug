@@ -1,0 +1,55 @@
+doctype html
+html
+  head
+    // meta informations
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+
+    // title of the webpage
+    title All Notices &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
+
+    // favicon
+    link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
+
+    // stylesheets
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='/css/all.min.css')
+    link(rel='stylesheet' href='/css/bootstrap.css')
+    link(rel='stylesheet' href='/css/style.css')
+
+  body
+    main.login-box
+      .container-fluid
+        .row
+          .col-md-4
+            - if (validationErrors) {
+              .alert.alert-danger.mb-5
+                p.mb-0(style="font-size: 1.8rem;") Please fix the following errors
+                - for (let i = 0; i < validationErrors.length; ++i) {
+                  li 
+                    | #{validationErrors[i]}
+                - }
+            - }
+
+            .login-box__container.login-box__reg
+              .login-box__title
+                p Register
+              .login-box__contents
+
+                form(action="/register" method="POST")
+                  .form-row.mb-4
+                    .col-6.mb-4.px-4
+                      input#emailInput.form-control(type='text' placeholder='Full Name' name="name" value= prevData ? prevData.name : '')
+                    .col-6.mb-4.px-4
+                      input#passwordInput.form-control(type='text' placeholder='Email' name="email" value= prevData ? prevData.email : '')
+                    .col-6.mb-4.px-4
+                      input#emailInput.form-control(type='password' placeholder='Password' name="password" value= prevData ? prevData.password : '')
+                    .col-6.mb-4.px-4
+                      input#emailInput.form-control(type='password' placeholder='Confirm Password' name="confPassword" value= prevData ? prevData.confPassword : '')
+                    .col-6.mb-4.px-4
+                      input#emailInput.form-control(type='text' placeholder='Phone' name="phone" value= prevData ? prevData.phone: '')
+                    
+                  
+                  .form-group.mb-0
+                    input.btn.btn-primary(type='submit')

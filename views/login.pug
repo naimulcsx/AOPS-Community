@@ -23,6 +23,10 @@ html
       .container-fluid
         .row
           .col-md-3
+            - if (successMessage.length > 0)
+              .alert.alert-success.mb-5
+                | #{successMessage}
+            
             .login-box__container
               .login-box__title
                 p Login

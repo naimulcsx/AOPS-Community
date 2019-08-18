@@ -5,7 +5,9 @@ const cookieParser            = require( 'cookie-parser' ),
       express                 = require( 'express' ),
       morgan                  = require( 'morgan' ),
       app                     = express();
-      methodOverride          = require('method-override');
+      methodOverride          = require('method-override'),
+      passport                = require('passport'),
+      localStrategy           = require('passport-local').Strategy;
 
 // middlewares
 app.use( morgan('dev') );
@@ -24,7 +26,12 @@ app.use( session({
     saveUninitialized: true
 }) );
 
+// flash messages
 app.use( flash() );
+
+
+// passport setup
+
 
 // middleware for flash messages
 app.use((req, res, next) => {
@@ -61,7 +68,7 @@ mongoose
 
 // seed database
 const seed = require('./db-seed');
-
+seed();
 
 // routes
 const noticeRoute = require('./routes/notice');
