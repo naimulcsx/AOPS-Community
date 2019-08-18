@@ -26,6 +26,7 @@
             &:first-child {
                 &:link, &:visited {
                     padding: .5rem 2rem;
+                    font-size: 1.8rem;
                     display: block;
                     color: darken($white, 30%);
                     text-decoration: none;
@@ -45,7 +46,7 @@
                     color: darken($white, 30%);
                     text-decoration: none;
                     margin-left: 4.5rem;
-                    font-size: 1.3rem;
+                    font-size: 1.5rem;
                 }   
 
                 &:hover, &:active {
@@ -115,7 +116,7 @@
 
     &__links {
         a {
-            border-radius: 1rem;
+            border-radius: .4rem;
             padding: .5rem 1rem;
             text-decoration: none;
 
@@ -128,7 +129,6 @@
         .view {
             background: #20bf6b;
             color: #fff;
-            padding: .5rem 1rem;
             &:hover {
                 background: darken(#20bf6b, 8%);
             }
@@ -158,7 +158,10 @@
     min-height: 60rem;
     max-height: 60rem;
     overflow: auto;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
+    p {
+        margin-bottom: 1.5rem;
+    }
 }
 
 #toolbar {
@@ -210,4 +213,33 @@ form.new-notice {
     width: 0;
     position: relative;
     overflow: hidden;
+}
+
+.dashboard-settings {
+    &__container {
+        padding: 2rem;
+
+        .form-control {
+            font-size: 1.6rem !important;
+        }
+
+        .btn {
+            font-size: 1.6rem !important;
+        }
+    }
+}
+
+
+.title-about {
+
+    span {
+        position: relative;
+        padding: 1.3rem 2rem;
+        background: $color-primary;
+        color: #fff;
+        display: block;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+    }
 }

@@ -1,0 +1,112 @@
+doctype html
+html
+  head
+    // meta informations
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+
+    // title of the webpage
+    title General Settings &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
+
+    // favicon
+    link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
+
+    // stylesheets
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='/css/all.min.css')
+    link(rel='stylesheet' href='/css/bootstrap.css')
+    link(rel='stylesheet' href='/css/style.css')
+    link(href='//cdn.quilljs.com/1.3.6/quill.snow.css' rel='stylesheet')
+
+    
+
+  body
+    .dashboard
+      header.dashboard__header
+
+      .container-fluid.mx-0
+        .row
+          include ../partials/sidebar
+          .col-md-10.dashboard-content
+            .dashboard-flash-messages
+              -if (successMessage.length > 0)
+                .alert.alert-success
+                  | #{successMessage}
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
+
+              - if (errorMessage.length > 0)
+                .alert.alert-danger
+                  | #{errorMessage}
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
+
+
+            .dashboard-notice__container.mx-auto
+              .dashboard-settings__container 
+                form(action="/dashboard/settings?_method=PUT" method="POST")
+                  .form-row(style="margin-bottom: 4rem;")
+                    .col-12
+                      .form-title
+                        h4 Community Info
+
+                    .col-6.mb-3
+                      label(for='title') Community Title
+                      input#title.form-control(type='text' placeholder='Community Title' value=`${AOPSInfo.name}` required='true' name='name')
+                   
+                    .col-6.mb-3
+                      label(for='type') Community Type
+                      input#type.form-control(type='text' placeholder='Community Type' value=`${AOPSInfo.type}` required='true' name='type')
+                
+                    .col-12.mb-3
+                      label(for='tagline') Community Tagline
+                      input#tagline.form-control(type='text' placeholder='Community Type' value=`${AOPSInfo.tagline}` required='true' name='tagline')
+              
+
+                  .form-row
+                    .col-12
+                      .form-title
+                        h4 Contact Info
+
+                    .col-md-6.mb-3
+                      label(for='email') Contact email
+                      input#email.form-control(type='text' placeholder='Email' value=`${AOPSInfo.contactEmail}` name='contactEmail' required='true' )
+                     
+                    .col-md-6.mb-3
+                      label(for='phone') Contact phone
+                      input#phone.form-control(type='text' placeholder='Phone' value=`${AOPSInfo.contactPhone}` name='contactPhone' required='true')
+
+                 
+
+                  .form-row(style="margin-bottom: 4rem;")
+                    .col-md-6.mb-3
+                      label(for='city') City
+                      input#city.form-control(type='text' placeholder='City' value=`${AOPSInfo.address.city}` name='city' required='true')
+                  
+                    .col-md-3.mb-3
+                      label(for='country') Country
+                      input#country.form-control(type='text' placeholder='State' value=`${AOPSInfo.address.country}` name='country' required='true')
+                     
+                    .col-md-3.mb-3
+                      label(for='zip') Zip
+                      input#zip.form-control(type='text' placeholder='Zip' value=`${AOPSInfo.address.zip}` name='zip' required='true')
+                      
+                  .form-row(style="margin-bottom: 4rem;")
+                    .col-12
+                      .form-title
+                        h4 Frontend
+                    .col-md-6.mb-3
+                      label(for='notice-homepage') Number of notices in homepage
+                      input#notice-homepage.form-control(type='text' placeholder='Notices on homepage' value=`${AOPSInfo.numberOfNoticesOnHomepage}` name='numberOfNoticesOnHomepage' required='true')
+
+                    .col-md-6.mb-3
+                      label(for='notice-page') Number of notices per page
+                      input#notice-page.form-control(type='text' placeholder='Notices per page' value=`${AOPSInfo.numberOfNoticesOnNoticeIndex}` name='numberOfNoticesOnNoticeIndex' required='true')
+                  
+                  button.btn.btn-primary(type='submit') Update Info
+
+
+    
+    include ../partials/footer
+

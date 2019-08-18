@@ -5,7 +5,7 @@ const ObjectId = mongoose.Types.ObjectId;
 const showAllNotices = async (req, res) => {
     const AOPSInfo = await AOPS.find({});
     const AOPSInfoObj = AOPSInfo[0];
-    const noticesPerPage = 5;
+    const noticesPerPage = AOPSInfoObj.numberOfNoticesOnNoticeIndex;
 
     let skipCount = 0, currentPage = 1;
 

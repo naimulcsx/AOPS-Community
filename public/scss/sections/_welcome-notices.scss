@@ -207,6 +207,9 @@
     color: $white;
     box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
     margin-bottom: 5rem;
+    span {
+        font-size: 2.8rem;
+    }
 }
 
 .alert-danger {
@@ -215,4 +218,23 @@
 
 .alert-success {
     background: #6ab04c !important;
+}
+
+
+.form-title {
+    h4 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 3rem;
+
+        &:after {
+            content: "";
+            display: block;
+            position: relative;
+            top: 5px;
+            height: 2px;
+            width: 50px;
+            background: $color-primary;
+        }
+    }
 }
