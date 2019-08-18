@@ -2,10 +2,15 @@ const express = require('express');
 const router = express.Router();
 const {Notice, AOPS} = require('.././models');
 
+const {
+    renderDashboardNotice,
+    renderDashboardNoticeNew,
+    renderUpdateNotice
+} = require('../handles/dashboard-notice');
+
 const renderDashboard = async (req, res) => {
     const AOPSInfo = await AOPS.find({});
     const AOPSInfoObj = AOPSInfo[0];
-
 
     res.render('dashboard/index', {
         AOPSInfo: AOPSInfoObj, 
@@ -13,45 +18,7 @@ const renderDashboard = async (req, res) => {
     });
 }
 
-const renderDashboardNotice = async (req, res) => {
-    const AOPSInfo = await AOPS.find({});
-    const AOPSInfoObj = AOPSInfo[0];
-
-    const notices = 
-        await Notice
-        .find({})
-        .sort({created: -1});
-
-    res.render('dashboard/notice/index', {
-        notices,
-        AOPSInfo: AOPSInfoObj,
-        url: req.url
-    });
-}
-
-const renderDashboardNoticeNew = async (req, res) => {
-    const AOPSInfo = await AOPS.find({});
-    const AOPSInfoObj = AOPSInfo[0];
-
-    res.render('dashboard/notice/new', {
-        AOPSInfo: AOPSInfoObj,
-        url: req.url
-    });
-}
-
-const renderUpdateNotice = async(req, res) => {
-    const AOPSInfo = await AOPS.find({});
-    const AOPSInfoObj = AOPSInfo[0];
-    const notice = await Notice.findById(req.params.id);
-
-    console.log(notice);
-    res.render('dashboard/notice/update', {
-        AOPSInfo: AOPSInfoObj,
-        url: req.url,
-        notice 
-    });
-}
-
+// render dashboard main
 router
     .route('/')
     .get( renderDashboard );
