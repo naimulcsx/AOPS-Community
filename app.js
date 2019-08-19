@@ -6,8 +6,7 @@ const cookieParser            = require( 'cookie-parser' ),
       morgan                  = require( 'morgan' ),
       app                     = express();
       methodOverride          = require('method-override'),
-      passport                = require('passport'),
-      localStrategy           = require('passport-local').Strategy;
+      passport                = require('passport');
 
 // middlewares
 app.use( morgan('dev') );
@@ -19,46 +18,38 @@ app.use( express.static( 'public' ) );
 app.locals.moment = require('moment');
 app.use( cookieParser('secret') );
 
+
 app.use( session({
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 6000000 },
     secret: 'Hello world',
-    resave: true,
+    resave: false,
     saveUninitialized: true
 }) );
+
+app.use( passport.initialize() );
+app.use ( passport.session() ); 
 
 // flash messages
 app.use( flash() );
 
-
-// passport setup
-
-
 // middleware for flash messages
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
+    const AOPSInfo = await AOPS.find({});
+    const AOPSInfoObj = AOPSInfo[0];
+
+    res.locals.AOPSInfo = AOPSInfoObj;
     res.locals.successMessage = req.flash("success");
     res.locals.errorMessage = req.flash("error");
+    res.locals.user = req.user;
     res.locals.url = req.url;
+
+    console.log( !!req.user );
     next();
 });
 
-// var token = jwt.sign({
-//     data: 'foobar'
-//   }, 'secret', { expiresIn: '1m' });
-
-// console.log(token);
-
-// app.get('/token', (req, res) => {
-//     try {
-//         var x = jwt.verify(token, 'secret');
-//         res.send(x);
-//     } catch(err) {
-//         res.send('Expired');
-//     }
-// });
-
 
 // data models
-const {Notice, AOPS} = require('./models');
+const {Notice, AOPS, Member} = require('./models');
 
 // database
 mongoose
@@ -68,7 +59,10 @@ mongoose
 
 // seed database
 const seed = require('./db-seed');
-seed();
+
+
+
+  
 
 // routes
 const noticeRoute = require('./routes/notice');

@@ -10,13 +10,24 @@ header.header
             i.fas.fa-phone
             | #{AOPSInfo.contactPhone}
         .header-topbar__login
-          a(href='/login')
-            i.fas.fa-sign-in-alt
-            |  Login
-          span /
-          a(href='/registration')
-            i.fas.fa-user
-            |  Registration
+          - if (!user) {
+            a(href='/login')
+              i.fas.fa-sign-in-alt
+              |  Login
+            span /
+            a(href='/registration')
+              i.fas.fa-user
+              |  Registration
+          - } else {
+            span 
+              | Logged in as,
+            a(href=`/member/${user._id}`)
+              | #{user.name}
+            span.mx-3 |
+            a(href='/dashboard')
+              i.fas.fa-tachometer-alt
+              | Dashboard
+          - }
 
   nav.header-navbar
     .container
@@ -29,4 +40,5 @@ header.header
             a(href='#') Organization
             a(href='#') Club Activities
             a(href='#') Members
+
 

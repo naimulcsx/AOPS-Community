@@ -49,9 +49,16 @@
         i.fas.fa-cog
         | Settings
 
+      
+
       a.dashboard__link(href="/dashboard/settings/general" class= url == '/dashboard/settings/general' ? "active" : "") 
         i.fas.fa-asterisk
         |General
+
+      a.dashboard__link(href="/dashboard/settings/account" class= url == '/dashboard/settings/account' ? "active" : "") 
+        i.fas.fa-user
+        | Account settings
+
       a.dashboard__link(href="/dashboard/settings/about" class= url == '/dashboard/settings/about' ? "active" : "") 
         i.fas.fa-home
         | About Community

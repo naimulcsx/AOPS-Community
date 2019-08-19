@@ -14,6 +14,10 @@ const memberSchema = new mongoose.Schema({
             message: 'Full name must contain firstname and lastname.'
         }
     },
+    role: {
+        type: String,
+        require: [true, 'Member role is required']
+    },
     email: {
         type: String,
         require: [true, 'Email is required'],
@@ -44,15 +48,15 @@ const memberSchema = new mongoose.Schema({
     },
     canPostNotices: {
         type: Boolean,
-        default: true
+        default: false
     },
     canDeleteNotices: {
         type: Boolean,
-        default: true
+        default: false
     },
     canPostEvents: {
         type: Boolean,
-        default: true
+        default: false
     },
     canDeleteEvents: {
         type: Boolean,
@@ -77,14 +81,5 @@ memberSchema.pre('save', function(next) {
             next(err);
         });
 });
-
-memberSchema.methods.comparePassword = function(password, cb) {
-    bcrypt
-        .compare(password, this.password)
-        .then(isMatch => {
-            cb(null, isMatch);
-        })
-        .catch(err => cb(err));
-}
 
 module.exports = mongoose.model('Member', memberSchema);
