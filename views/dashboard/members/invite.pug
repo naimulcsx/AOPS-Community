@@ -18,6 +18,8 @@ html
     link(rel='stylesheet' href='/css/bootstrap.css')
     link(rel='stylesheet' href='/css/style.css')
     link(href='//cdn.quilljs.com/1.3.6/quill.snow.css' rel='stylesheet')
+    script(src='/js/picker.min.js')
+
 
     
   body
@@ -58,6 +60,17 @@ html
                     .col-6.mb-3
                       label(for='email') Email
                       input#email.form-control(type='text' placeholder='Email' required='true' name='email')
+
+                  .form-row
+                    .col-12.mb-4
+                      .form-group
+                        label(for="roles") Member Role
+                        select#roles.form-control(name="role")
+                          option(value="1") Member
+                          option(value="2") Faculty Member
+                          option(value="3") Lab Assistant
+                          option(value="4") Executive
+                          option(value="5") Stuff
                    
                   button.btn.btn-primary(type='submit') Invite
 
@@ -68,4 +81,5 @@ html
 
     
     include ../partials/footer
-
+    script. 
+      

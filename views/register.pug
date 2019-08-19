@@ -21,7 +21,6 @@ html
     script(src='/js/jquery.min.js')
     script(src='/js/popper.min.js')
     script(src='/js/bootstrap.min.js')
-    script(src='/js/picker.min.js')
     style. 
       .picker {display: block;}
       .pc-select{min-width: 100% !important;}
@@ -50,34 +49,36 @@ html
                   .form-row.mb-4
                     .col-6.mb-4.pr-4
                       label(for="nameInput") Name
-                      input#nameInput.form-control(type='text' placeholder='Full Name' name="name" value= prevData ? prevData.name : '')
+                      input#nameInput.form-control(type='text' placeholder='Full Name' name="name" value= name)
                     .col-6.mb-4.pl-4
                       label(for="emailInput") Email
-                      input#emailInput.form-control(type='text' placeholder='Email' name="email" value= prevData ? prevData.email : '')
+                      input#emailInput.form-control(type='text' placeholder='Email' name="email" value= email)
                     .col-6.mb-4.pr-4
                       label(for="passwordInput") Password
-                      input#passwordInput.form-control(type='password' placeholder='Password'  name="password" value= prevData ? prevData.password : '')
+                      input#passwordInput.form-control(type='password' placeholder='Password'  name="password")
                     .col-6.mb-4.pl-4
                       label(for="passwordConfInput")  Confirm Password
-                      input#passwordConfInput.form-control(type='password' placegolder='Confirm password' name="confPassword" value= prevData ? prevData.confPassword : '')
+                      input#passwordConfInput.form-control(type='password' placeholder='Confirm password' name="confPassword")
                     .col-6.mb-4.pr-4
                       label(for="phoneInput") Phone
-                      input#phoneInput.form-control(type='text' placeholder='Phone' name="phone" value= prevData ? prevData.phone: '')
-                    .col-6.nb-4.pl-4
-                      .form-group
-                        label(for="roles") Member Role
-                        select#roles.form-control(name="role")
-                          option(value="1") Member
-                          option(value="2") Faculty Member
-                          option(value="2") Lab Assistant
-                          option(value="3") Executive
+                      input#phoneInput.form-control(type='text' placeholder='Phone' name="phone")
+                    
+                    .col-6.mb-4.pl-4
+                      label(for="roleDisplayInput") Role
+                      input#roleDisplayInput.form-control(style="background: #fff; border: 1px solid rgba(0,0,0,.2);")(disabled type='text' placeholder='Role' name="roleDisplayInput" value= `${role}`)
 
+                    .col-12.mb-4.pl-4.d-none
+                      label(for="tokenInput") Role
+                      input#tokenInput.form-control( type='text' name="role" value = `${role}`)
+
+                    .col-12.mb-4.pl-4.d-none
+                      label(for="tokenInput") Token
+                      input#tokenInput.form-control( type='text' name="token" value = `${token}`)
+                    
                     
                   .form-row
                     .col-12
                       input.btn.btn-primary(type='submit' value='Register')
                       
     script. 
-      $(document).ready(function(){
-        $('#roles').picker();
-      });
+      

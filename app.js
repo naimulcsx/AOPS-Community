@@ -7,7 +7,6 @@ const cookieParser            = require( 'cookie-parser' ),
       app                     = express();
       methodOverride          = require('method-override'),
       passport                = require('passport');
-
 // middlewares
 app.use( morgan('dev') );
 app.use(methodOverride('_method'));
@@ -59,10 +58,7 @@ mongoose
 
 // seed database
 const seed = require('./db-seed');
-
-
-
-  
+seed();
 
 // routes
 const noticeRoute = require('./routes/notice');
