@@ -1,0 +1,68 @@
+.profile {
+    margin-top: 10rem;
+    position: relative;
+
+    a {
+        color: #168dee;
+    }
+
+
+    a.settings {
+        position: absolute;
+        top: 3rem;
+        right: 5rem;
+        text-decoration: none;
+        i {font-size: 4rem;}
+    }
+    &__container {
+        background: #fff;
+        box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+        padding: 3rem;
+        border-radius: 3rem;
+    }
+
+    &__header {
+        text-align: center;
+        margin-top: -9rem;
+    }
+
+    &__photo {
+        margin-bottom: 2rem;
+        svg {
+            height: 17rem;
+            filter: drop-shadow(0 2px 8px rgba(134,151,168,.15)) drop-shadow(0 8px 32px rgba(134,151,168,.15));
+            g {
+                clip-path: url('#member-image-shape');
+            }
+        }
+    }
+
+
+    &__desc {
+        h1 {
+            font-weight: bold;
+            font-size: 3rem;
+        }
+
+        p {
+            background: #f0f0f6;
+            display: inline-block;
+            padding: .5rem 1rem;
+            font-size: 1.4rem;
+            border-radius: 1rem;
+            font-weight: bold;
+            font-size: 1.7rem;
+        }
+    }
+
+
+    &__links {
+        a {
+            i {
+                margin-right: 5px;
+            }
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+    }
+}

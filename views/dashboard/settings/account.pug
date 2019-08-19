@@ -1,0 +1,98 @@
+doctype html
+html
+  head
+    // meta informations
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+
+    // title of the webpage
+    title General Settings &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
+
+    // favicon
+    link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
+
+    // stylesheets
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='/css/all.min.css')
+    link(rel='stylesheet' href='/css/bootstrap.css')
+    link(rel='stylesheet' href='/css/style.css')
+    link(href='//cdn.quilljs.com/1.3.6/quill.snow.css' rel='stylesheet')
+
+    
+
+  body
+    .dashboard
+      include ../partials/header
+
+      .container-fluid.mx-0
+        .row
+          include ../partials/sidebar
+          .col-md-10.dashboard-content
+            .dashboard-flash-messages
+              -if (successMessage.length > 0)
+                .alert.alert-success
+                  | #{successMessage}
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
+
+              - if (errorMessage.length > 0)
+                .alert.alert-danger
+                  | #{errorMessage}
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
+
+
+            .dashboard-notice__container.mx-auto
+              .dashboard-settings__container 
+                form(action="/dashboard/settings/account?_method=PUT" method="POST")
+                  .form-row(style="margin-bottom: 4rem;")
+                    .col-12
+                      .form-title
+                        h4 Personal Informations
+
+                    .col-6.mb-4
+                      label(for='name') Full Name
+                      input#name.form-control(type='text' placeholder='Full Name' value=`${user.name}` required='true' name='name')
+                   
+                    .col-6.mb-4
+                      label(for='phone') Phone
+                      input#phone.form-control(type='test' placeholder='Phone' value=`${user.phone}` required='true' name='phone')
+                
+                    .col-6.mb-3
+                      label(for='email') Email Address
+                      input#email.form-control(type='email' placeholder='Email' value=`${user.email}` required='true' name='email')
+                    
+                    .col-6.mb-3
+                      label(for='role') Role
+                      input#role.form-control(disabled type='text' placeholder='Role' value=`${user.role}` required='true' name='role')
+
+                  .form-row
+                    .col-12
+                      .form-title
+                        h4 Change password
+
+                    .col-6.mb-3
+                      label(for='passwordChange') New password
+                      input#passwordChange.form-control(type='text' placeholder='New password' value=``  name='passwordChange')
+                    .col-6.mb-3
+                      label(for='passwordChange') Repeat new password
+                      input#passwordChange.form-control(type='text' placeholder='Repeat new Ppssword' value=`` name='passwordChangeRepeat')
+                    
+                    .col-12.mb-3
+                      label(for='passwordOld') Old password
+                      input#passwordOld.form-control(type='text' placeholder='Repeat new password' value=`` name='passwordOld')
+
+
+
+
+                 
+
+                  
+                  button.btn.btn-primary(type='submit') Update Info
+
+
+    
+    include ../partials/footer
+
+

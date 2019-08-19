@@ -23,7 +23,7 @@ html
 
   body
     .dashboard
-      header.dashboard__header
+      include ../partials/header
 
       .container-fluid.mx-0
         .row
@@ -51,18 +51,22 @@ html
                       .form-title
                         h4 Community Info
 
-                    .col-6.mb-3
+                    .col-6.mb-5
                       label(for='title') Community Title
                       input#title.form-control(type='text' placeholder='Community Title' value=`${AOPSInfo.name}` required='true' name='name')
                    
-                    .col-6.mb-3
+                    .col-6.mb-5
                       label(for='type') Community Type
                       input#type.form-control(type='text' placeholder='Community Type' value=`${AOPSInfo.type}` required='true' name='type')
                 
-                    .col-12.mb-3
+                    .col-6.mb-3
                       label(for='tagline') Community Tagline
-                      input#tagline.form-control(type='text' placeholder='Community Type' value=`${AOPSInfo.tagline}` required='true' name='tagline')
-              
+                      input#tagline.form-control(type='text' placeholder='Community Tagline' value=`${AOPSInfo.tagline}` required='true' name='tagline')
+
+                    .col-6.mb-3
+                      label(for='displaymsg') Display Message
+                      textarea#displaymsg.form-control(type='text' placeholder='Display Message' required='true' name='displayMessage')
+                        | #{AOPSInfo.displayMessage}
 
                   .form-row
                     .col-12
@@ -109,4 +113,5 @@ html
 
     
     include ../partials/footer
+
 

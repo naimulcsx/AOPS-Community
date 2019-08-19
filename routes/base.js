@@ -1,92 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const {Notice, AOPS, Member} = require('../models');
+const passport = require('passport');
 
+const initializePassport = require('../passport.config');
+initializePassport(passport);
 
-const renderHomepage = async(req, res) => {
-    const AOPSInfo = await AOPS.find({});
-    const AOPSInfoObject = AOPSInfo[0];
-
-    Notice
-        .find({})
-        .sort({created: -1})
-        .limit( AOPSInfoObject.numberOfNoticesOnHomepage )
-        .then(notices => {
-            res.render('index', {
-                notices,
-                AOPSInfo: AOPSInfoObject,
-            });
-        })
-        .catch(err => {
-            console.log(err);
-        });
-}
-
-const renderLoginPage = async(req, res) => {
-    const AOPSInfo = await AOPS.find({});
-    const AOPSInfoObject = AOPSInfo[0];
-
-    res.render('login', {
-        AOPSInfo: AOPSInfoObject
-    });
-}
-
-
-const renderRegisterPage = async(req, res) => {
-    const AOPSInfo = await AOPS.find({});
-    const AOPSInfoObj = AOPSInfo[0];
-
-    res.render('register', {
-        AOPSInfo: AOPSInfoObj
-    });
-}
-
-const handleLogin = async(req, res) => {
-    console.log(req.body);
-    res.send('hello world');
-}
-
-const handleRegister = async (req, res) => {
-    const AOPSInfo = await AOPS.find({});
-    const AOPSInfoObj = AOPSInfo[0];
-    let validationErrors = []
-
-    if (req.body.password != req.body.confPassword) 
-        validationErrors.push('Passwords are not identical.');
-    
-    const newMember = new Member(req.body);
-    
-    newMember
-        .validate()
-        .then(user => {
-            if (validationErrors.length > 0) {
-                return res.render('register', {
-                    AOPSInfo: AOPSInfoObj,
-                    validationErrors
-                });
-            }
-            return newMember.save();
-        })
-        .then(user => {
-            req.flash('success', 'Account created successfully. You may login now.')
-            res.redirect('/login');
-        })
-        .catch(err => {
-            let fields = ['name', 'password', 'email', 'phone'];
-            
-            fields.forEach(field => {
-                if (err.errors[field]) validationErrors.push(err.errors[field].message);
-            });
-
-            console.log(validationErrors);
-
-            res.render('register', {
-                AOPSInfo: AOPSInfoObj,
-                validationErrors,
-                prevData: req.body
-            });
-        });
-}
+const {isAuthenticated, isNotAuthenticated} = require('../handles/authUtility');
+const {renderHomepage, renderLoginPage, renderRegisterPage, handleRegister } = require('../handles/base');
 
 router
     .route('/')
@@ -94,12 +15,24 @@ router
 
 router
     .route('/login')
-    .get( renderLoginPage )
-    .post( handleLogin );
+    .get( isNotAuthenticated, renderLoginPage )
+    .post( isNotAuthenticated, passport.authenticate('local', { 
+        failureRedirect: '/login', 
+        successRedirect: '/dashboard',
+        failureFlash: true
+    }));
 
 router
     .route('/register')
-    .get( renderRegisterPage ) 
-    .post( handleRegister );
+    .get( isNotAuthenticated, renderRegisterPage ) 
+    .post( isNotAuthenticated, handleRegister );
+
+router
+    .route('/logout')
+    .get(isAuthenticated, (req, res) => {
+        req.logout();
+        req.flash('success', 'Logged out successfully.');
+        res.redirect('/login');
+    });
 
 module.exports = router;

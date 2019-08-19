@@ -17,16 +17,15 @@
         max-width: 500px;
         background: #fff;
         border-radius: 2rem;
-        overflow: hidden;
         box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
     }
 
     &__reg {
-        max-width: 700px !important;
+        max-width: 100% !important;
 
         .form-control {
             font-size: 1.6rem;
-            border-radius: 0;
+            border-radius: 2rem;
             border: 0;
             background: #F0F0F6;
             padding: 2.5rem 1.5rem;
@@ -38,7 +37,7 @@
     &__title {
         background: $black;
         padding: 1.25rem 3rem;
-
+        border-radius: 2rem;
         color: $white;
         font-weight: bold;
         font-size: 2.5rem;
@@ -52,20 +51,22 @@
 
             input.form-control {
                 font-size: 1.6rem !important; 
-                border-radius: 0;
+                border-radius: 2rem;
                 border:0; 
                 background: #F0F0F6;
                 padding: 2.5rem 1.5rem;
                 
             }
 
-            .btn {
-                font-size: 1.6rem !important;
-                padding: .8rem 2rem;
-                border-radius: 2rem;
-                border: 0;
-                background-color: $color-primary !important;
-            }
+            
+        }
+
+        .btn {
+            font-size: 1.6rem !important;
+            padding: .8rem 2rem;
+            border-radius: 2rem;
+            border: 0;
+            background-color: $color-primary !important;
         }
 
         p {

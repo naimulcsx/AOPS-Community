@@ -3,10 +3,8 @@ const striptags = require('striptags');
 const ObjectId = mongoose.Types.ObjectId;
 
 const showAllNotices = async (req, res) => {
-    const AOPSInfo = await AOPS.find({});
-    const AOPSInfoObj = AOPSInfo[0];
-    const noticesPerPage = AOPSInfoObj.numberOfNoticesOnNoticeIndex;
 
+    const noticesPerPage = res.locals.AOPSInfo.numberOfNoticesOnNoticeIndex;
     let skipCount = 0, currentPage = 1;
 
     const documentCount = await Notice.countDocuments({});
@@ -16,7 +14,6 @@ const showAllNotices = async (req, res) => {
         currentPage = parseInt(req.query.page);
         skipCount = currentPage - 1;
     }
-
 
     const notices = 
         await Notice
@@ -36,15 +33,12 @@ const showAllNotices = async (req, res) => {
 
     res.render('notice/index', {
         notices,
-        AOPSInfo: AOPSInfoObj,
         paginateCount,
         currentPage,
     });
 }
 
 const showSingleNotice = async (req, res) => {
-    const AOPSInfo = await AOPS.find({});
-    const AOPSInfoObj = AOPSInfo[0];
 
     // if the objectId is not valid
     if ( !ObjectId.isValid(req.params.id) ) {
@@ -65,7 +59,6 @@ const showSingleNotice = async (req, res) => {
     // if every thing goes okay
     res.render('notice/single', {
         notice,
-        AOPSInfo: AOPSInfoObj
     });
 }
 

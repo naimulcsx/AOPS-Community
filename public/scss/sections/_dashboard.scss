@@ -11,8 +11,40 @@
 
     &__header {
         background: #fff;
-        height: 5rem;
+        height: 6.2rem;
         box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.06);
+        display: flex; 
+        flex-direction: row-reverse;
+        margin-left: 16.6%;
+        padding: 0 4rem;
+        align-items: center;
+
+        img {
+            height: 5rem;
+            margin-right: 1rem;
+        }
+
+        .links {
+            position: relative;
+            top: 3px;
+        }
+        a {
+            text-decoration: none;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: row-reverse;
+            font-weight: bold;
+            &:last-child {
+                font-weight: 400;
+                color: #8a949f ;
+                position: relative;
+                top: -5px;
+
+                &:hover {
+                    color: darken(#8a949f, 30%);
+                }
+            }
+        }
     }
 
 

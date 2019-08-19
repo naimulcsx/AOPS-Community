@@ -17,6 +17,9 @@ html
     link(rel='stylesheet' href='/css/all.min.css')
     link(rel='stylesheet' href='/css/bootstrap.css')
     link(rel='stylesheet' href='/css/style.css')
+    script(src='/js/jquery.min.js')
+    script(src='/js/popper.min.js')
+    script(src='/js/bootstrap.min.js')
 
   body
     main.login-box
@@ -26,6 +29,10 @@ html
             - if (successMessage.length > 0)
               .alert.alert-success.mb-5
                 | #{successMessage}
+
+            - if (errorMessage.length > 0)
+              .alert.alert-danger.mb-5
+                | #{errorMessage}
             
             .login-box__container
               .login-box__title
@@ -37,9 +44,10 @@ html
                 form(action="/login" method="POST")
                   .form-group.mb-4
                     input#emailInput.form-control(type='email' placeholder='Email' name="email")
-                  .form-group.mb-3
+                  .form-group.mb-4
                     input#passwordInput.form-control(type='password' placeholder='Password' name="password")
                   p.mb-0.my-3.forget-pass
                     a(href='/reset') Lost your password?
                   .form-group.mb-0
-                    input.btn.btn-primary(type='submit')
+                    input.btn.btn-primary(type='submit' value='Login')
+  
