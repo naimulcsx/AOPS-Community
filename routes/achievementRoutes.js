@@ -3,6 +3,11 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 
+
+/* Validators */
+const {isAuthenticated} = require('../middlewares/authMiddlewares');
+const {userCanCreateNewAchievement, userCanDeleteUpdateAchievement} = require('../middlewares/achievementMiddlewares');
+
 const storage = multer.diskStorage({
     destination: './uploads/cover',
     filename: function(req, file, cb) {
@@ -25,12 +30,12 @@ const {
 router
     .route('/')
     .get( showAllAchievements )
-    .post( upload.single('cover'), createNewAchievement );
+    .post( isAuthenticated, userCanCreateNewAchievement, upload.single('cover'), createNewAchievement );
 
 router
     .route('/:id')
     .get( showSingleAchievement )
-    .delete( deleteSingleAchievement )
-    .put( upload.single('cover'), updateAchievement );
+    .delete(isAuthenticated, userCanDeleteUpdateAchievement, deleteSingleAchievement )
+    .put(isAuthenticated, userCanDeleteUpdateAchievement, upload.single('cover'), updateAchievement );
 
 module.exports = router;

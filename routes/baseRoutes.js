@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 initializePassport(passport);
 
-const {isAuthenticated, isNotAuthenticated} = require('../validators/authValidators');
+const {isAuthenticated, isNotAuthenticated} = require('../middlewares/authMiddlewares');
 const { renderHomepage, 
     renderLoginPage, 
     renderRegisterPage, 

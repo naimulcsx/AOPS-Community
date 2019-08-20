@@ -62,7 +62,10 @@ const renderRegisterPage = async(req, res) => {
 }
 
 const handleRegister = async (req, res) => {
+    console.log(req.body);
     let validationErrors = [];
+
+    // roles must be any one of the below
     const accountTypes = ['Member', 'Faculty Member', 'Lab Assistant', 'Executive', 'Staff'];
 
     if ( !accountTypes.includes(req.body.role) ) {
@@ -80,7 +83,7 @@ const handleRegister = async (req, res) => {
         }
     } catch( err ) {
         req.flash('error', 'Token expired!');
-        res.redirect('/login');
+        return res.redirect('/login');
     }
 
     // check if the token is already used for registration
@@ -97,9 +100,15 @@ const handleRegister = async (req, res) => {
     if (req.body.password != req.body.confPassword) 
         validationErrors.push('Passwords are not identical.');
     
-    const newMember = new Member(req.body);
-
-    console.log(req.originalUrl);
+    // set permissons to the assigned role
+    if (req.body.role === 'Executive' || req.body.role === 'Faculty Member') {
+        req.body.noticePermissions = {
+            createUpdateDeleteSelf: true,
+            updateDeleteOthers: false
+        }
+    }
+    
+    const newMember = new Member(req.body);    
     let errorHtml = `<p class="mb-0" style="font-size: 1.8rem;">Please fix the following errors</p>`;
     
     newMember

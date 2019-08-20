@@ -36,12 +36,16 @@ app.use( flash() );
 app.use(async (req, res, next) => {
     const AOPSInfo = await AOPS.find({});
     const AOPSInfoObj = AOPSInfo[0];
+    const validators = require('./validators');
 
     res.locals.AOPSInfo = AOPSInfoObj;
     res.locals.successMessage = req.flash("success");
     res.locals.errorMessage = req.flash("error");
     res.locals.user = req.user;
     res.locals.url = req.url;
+    res.locals.validators = validators;
+    console.log(req.user);
+
     next();
 });
 

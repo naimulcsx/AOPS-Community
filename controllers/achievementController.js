@@ -83,7 +83,7 @@ const deleteSingleAchievement = async (req, res) => {
 
     // delete the photo from uploads
     let data = await Achievement.findById(req.params.id);
-    if ( data ) {
+    if ( data.cover ) {
         let path = `.\\${data.cover}`;
         fs.unlinkSync(path);
     }
@@ -108,8 +108,10 @@ const updateAchievement = async(req, res) => {
         // Delete the previous achievement cover
         try {
             let achievement = await Achievement.findById(req.params.id);
-            let path = `.\\${achievement.cover}`;
-            fs.unlinkSync(path);
+            if (achievement.cover) {
+                let path = `.\\${achievement.cover}`;
+                fs.unlinkSync(path);
+            }
         } catch(err) {
             req.flash('error', 'Couldn\'t update the achievement.');
             return res.redirect('/dashboard/achievement');

@@ -53,21 +53,28 @@ html
                           |#{achievements[i].createdBy.name}
                   .dashboard-notice__links
                     a.view(href=`/achievement/${achievements[i]._id}`) View
-                    a.update(href=`/dashboard/achievement/update/${achievements[i]._id}`) Edit
+
+                    // if the notice is created by the user || the used has permission to edit and update
+                    - var updateDeleteCond = achievements[i].createdBy._id.equals(user._id) || user.achievementPermissions.updateDeleteOthers
+
+                    a.update(href= updateDeleteCond ? `/dashboard/achievement/update/${achievements[i]._id}` : null) Edit
                     form(class="d-inline delete-notice-form" action=`/achievement/${achievements[i]._id}?_method=DELETE` method="POST")
-                      a.delete(href="/") Delete
+                      a.delete(href= updateDeleteCond ? '/' : null) Delete
               - }
             
     include ../partials/footer
     script. 
       let deleteButtons = document.querySelectorAll('a.delete');
 
-      deleteButtons.forEach(single => {
+      for (let i = 0; i < deleteButtons.length; ++i) {
+        let single = deleteButtons[i];
+        if ( single.getAttribute('href') === null ) continue;
+        
         single.addEventListener('click', (e) => {
           e.preventDefault();
           e.target.parentElement.submit();
-        })
-      })
+        });
+      }
       
                   
 

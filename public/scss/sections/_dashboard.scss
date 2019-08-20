@@ -147,6 +147,7 @@
 
 
     &__links {
+
         a {
             border-radius: .4rem;
             padding: .5rem 1rem;
@@ -155,9 +156,26 @@
             &:not(:last-child) {
                 margin-right: 1rem;
             }
+        }
 
+        a:not([href]) {
+            background: #A0A6AB;
+            border-radius: .4rem;
+            padding: .5rem 1rem;
+            opacity: 0.5;
+            cursor: not-allowed;
+            color: #fff;
+            &:hover {
+                background: #A0A6AB;
+                color: #fff;
+            }
             
         }
+
+        
+
+       
+        
         .view {
             background: #20bf6b;
             color: #fff;

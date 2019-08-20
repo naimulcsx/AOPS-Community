@@ -91,7 +91,6 @@ const deleteSingleNotice = async (req, res) => {
 
 
 const updateNotice = async(req, res) => {
-    req.body.createdBy = req.user._id;
     Notice.findByIdAndUpdate(req.params.id, req.body)
         .then(arr => {
             req.flash('success', 'Successfully updated the notice.');

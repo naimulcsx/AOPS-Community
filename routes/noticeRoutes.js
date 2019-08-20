@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const {Notice} = require('../models');
+
+// validators
+const {isAuthenticated} = require('../middlewares/authMiddlewares');
+const {userCanCreateNewNotice, userCanDeleteUpdateNotice} = require('../middlewares/noticeMiddlewares');
 
 const storage = multer.diskStorage({
     destination: './uploads/cover',
@@ -25,12 +30,12 @@ const {
 router
     .route('/')
     .get( showAllNotices )
-    .post( createNewNotice );
+    .post( isAuthenticated, userCanCreateNewNotice, createNewNotice );
 
 router
     .route('/:id')
     .get( showSingleNotice )
-    .delete( deleteSingleNotice )
-    .put( updateNotice );
+    .delete( isAuthenticated, userCanDeleteUpdateNotice, deleteSingleNotice )
+    .put( isAuthenticated, userCanDeleteUpdateNotice, updateNotice );
 
 module.exports = router;

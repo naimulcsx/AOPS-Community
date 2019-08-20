@@ -50,27 +50,28 @@ const memberSchema = new mongoose.Schema({
         type: String,
         default: null
     },
-    canPostNotices: {
-        type: Boolean,
-        default: false
+    noticePermissions: {
+        type: Object,
+        default: {
+            createUpdateDeleteSelf: false,
+            updateDeleteOthers: false
+        }
     },
-    canDeleteNotices: {
-        type: Boolean,
-        default: false
-    },
-    canPostEvents: {
-        type: Boolean,
-        default: false
-    },
-    canDeleteEvents: {
-        type: Boolean,
-        default: false
-    },
-    canChangeAOPSInfo: {
-        type: Boolean,
-        default: false
+    achievementPermissions: {
+        type: Object,
+        default: {
+            createUpdateDeleteSelf: false,
+            updateDeleteOthers: false
+        }
     }
 });
+
+/*
+    noticePermissions: {
+        
+    }
+*/
+
 
 memberSchema.pre('save', function(next) {
     const user = this;    

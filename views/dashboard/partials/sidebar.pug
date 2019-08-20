@@ -13,17 +13,27 @@
       a.dashboard__link(href="/dashboard/notice/new") Create a new page
       a.dashboard__link(href="/dashboard/notice") All pages
 
+
+
+
+    
     .dashboard__link-group
       a.dashboard__link(href="/dashboard/notice" class= url.includes('notice') ? "active" : "") 
         i.fas.fa-calculator
         | Notice
 
-      a.dashboard__link(href="/dashboard/notice/new" class= url == '/dashboard/notice/new' ? "active" : "") 
-        i.fas.fa-plus
-        |Create a new notice
+      if user.noticePermissions.createUpdateDeleteSelf
+        a.dashboard__link(href="/dashboard/notice/new" class= url == '/dashboard/notice/new' ? "active" : "") 
+          i.fas.fa-plus
+          | Create a new notice
+        
       a.dashboard__link(href="/dashboard/notice" class= url == '/dashboard/notice' ? "active" : "") 
         i.fas.fa-asterisk
         |View all notices
+    
+
+
+
 
     .dashboard__link-group
       a.dashboard__link(href="#") 
@@ -38,8 +48,15 @@
         i.fas.fa-trophy
         | Achievements
 
-      a.dashboard__link(href="/dashboard/achievement/new") Create a new achivement
-      a.dashboard__link(href="/dashboard/achievement") View all achievements
+      if user.achievementPermissions.createUpdateDeleteSelf
+        a.dashboard__link(href="/dashboard/achievement/new") 
+          i.fas.fa-plus
+          |Create a new achivement
+
+
+      a.dashboard__link(href="/dashboard/achievement") 
+        i.fas.fa-asterisk
+        | View all achievements
 
     .dashboard__link-group
       a.dashboard__link(href="#" class= url.includes('members') ? "active" : "") 
