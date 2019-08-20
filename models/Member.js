@@ -46,6 +46,10 @@ const memberSchema = new mongoose.Schema({
         required: [true, 'Phone number is required'],
         validate: [validator.isMobilePhone, 'Phone number is not valid.']
     },
+    token: {
+        type: String,
+        default: null
+    },
     canPostNotices: {
         type: Boolean,
         default: false

@@ -7,6 +7,7 @@ const cookieParser            = require( 'cookie-parser' ),
       app                     = express();
       methodOverride          = require('method-override'),
       passport                = require('passport');
+
 // middlewares
 app.use( morgan('dev') );
 app.use(methodOverride('_method'));
@@ -14,9 +15,9 @@ app.use( express.json() );
 app.use( express.urlencoded({limit: '50mb', extended: false}) );
 app.set( 'view engine', 'pug' );
 app.use( express.static( 'public' ) );
+app.use( '/uploads', express.static(__dirname + '/uploads') );
 app.locals.moment = require('moment');
 app.use( cookieParser('secret') );
-
 
 app.use( session({
     cookie: { maxAge: 6000000 },
@@ -41,8 +42,6 @@ app.use(async (req, res, next) => {
     res.locals.errorMessage = req.flash("error");
     res.locals.user = req.user;
     res.locals.url = req.url;
-
-    console.log( !!req.user );
     next();
 });
 
@@ -58,18 +57,17 @@ mongoose
 
 // seed database
 const seed = require('./db-seed');
-seed();
+// seed();
 
-// routes
-const noticeRoute = require('./routes/notice');
-const dashboardRoute = require('./routes/dashboard');
-const baseRoute = require('./routes/base');
-const memberRoute = require('./routes/member');
+// import routes
+const { noticeRoute, dashboardRoute, baseRoute, memberRoute, achievementRoute } = require('./routes');
 
+// register routes
 app.use('/', baseRoute);
 app.use('/notice', noticeRoute);
 app.use('/dashboard', dashboardRoute);
 app.use('/member', memberRoute);
+app.use('/achievement', achievementRoute);
 
 
 app.listen( 3000, () => console.log('Server has started!') );

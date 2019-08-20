@@ -7,7 +7,7 @@ html
     meta(http-equiv='X-UA-Compatible' content='ie=edge')
 
     // title of the webpage
-    title All Notices &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
+    title All Achievements &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
 
     // favicon
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
@@ -42,19 +42,19 @@ html
                     span(aria-hidden='true') &times;
 
             .dashboard-notice__container.mx-auto
-              - for (let i = 0; i < notices.length; ++i) {
+              - for (let i = 0; i < achievements.length; ++i) {
                 .dashboard-notice__single
                   .dashboard-notice__title
-                    h3 #{notices[i].title}
+                    h3 #{achievements[i].title}
                     p 
-                      span.d-block Posted on #{ moment(notices[i].created).format('llll') }
+                      span.d-block Posted on #{ moment(achievements[i].created).format('llll') }
                       span Created by 
-                        a(href=`/member/${notices[i].createdBy._id}`)
-                          |#{notices[i].createdBy.name}
+                        a(href=`/member/${achievements[i].createdBy._id}`)
+                          |#{achievements[i].createdBy.name}
                   .dashboard-notice__links
-                    a.view(href=`/notice/${notices[i]._id}`) View
-                    a.update(href=`/dashboard/notice/update/${notices[i]._id}`) Edit
-                    form(class="d-inline delete-notice-form" action=`/notice/${notices[i]._id}?_method=DELETE` method="POST")
+                    a.view(href=`/achievement/${achievements[i]._id}`) View
+                    a.update(href=`/dashboard/achievement/update/${achievements[i]._id}`) Edit
+                    form(class="d-inline delete-notice-form" action=`/achievement/${achievements[i]._id}?_method=DELETE` method="POST")
                       a.delete(href="/") Delete
               - }
             

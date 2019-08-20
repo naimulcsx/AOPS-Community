@@ -13,10 +13,14 @@ const noticeSchema  = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    cover: {
+        type: String,
+        default: null
+    },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Member'
     }
 });
 
-module.exports = mongoose.model('Notice', noticeSchema);
+module.exports = mongoose.model('Achievement', noticeSchema);

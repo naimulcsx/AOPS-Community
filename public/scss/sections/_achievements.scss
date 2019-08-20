@@ -1,0 +1,95 @@
+.achievements {
+    background: #F7F7FA;
+    padding: 8rem 0;
+
+    &__contents {
+        .owl-stage-outer {
+            padding: 4rem 0;
+        }
+        .item {
+            background: #fff;
+            margin: 0 15px;
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+
+            .desc {
+              padding: 2.5rem;
+              letter-spacing: 1px;
+            }
+
+            
+        }
+    }
+}
+.achievements-title {
+    text-align: center;
+    text-transform: uppercase;
+    h3 {
+        margin-bottom: 6rem;
+        font-size: 3.2rem;
+        font-weight: bold;
+        .icon {
+          i {
+            color: #E8B928;
+            font-size: 3rem;
+            margin-right: 1rem;
+          }
+        }
+    }
+}
+
+
+.owl-nav button {
+    position: absolute;
+    top: 50%;
+    background-color: #000;
+    color: #fff;
+    margin: 0;
+    translate: transformY(-50%);
+    transition: all 0.3s ease-in-out;
+  }
+  .owl-nav button.owl-prev {
+    left: -50px;
+    
+  }
+  .owl-nav button.owl-next {
+    right: -50px;
+  }
+  
+  .owl-dots {
+    text-align: center;
+    padding-top: 15px;
+  }
+  .owl-dots button.owl-dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    background: #ccc;
+    margin: 0 3px;
+  }
+  .owl-dots button.owl-dot.active {
+    background-color: #333 !important;
+  }
+
+  button.owl-dot {
+      background: rgb(46, 77, 179) !important;
+      border: 1px solid rgba(0,0,0,.4);
+  }
+  .owl-dots button.owl-dot:focus {
+    outline: none;
+    background: red;
+  }
+  .owl-nav button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+  }
+  .owl-prev span, .owl-next span {
+      display: none;
+  }
+  .owl-nav button:focus {
+      outline: none;
+  }

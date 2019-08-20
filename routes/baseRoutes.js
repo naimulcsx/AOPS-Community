@@ -1,13 +1,14 @@
+const initializePassport = require('../passport.config');
+const passport = require('passport');
 const express = require('express');
 const router = express.Router();
-const {Notice, AOPS, Member} = require('../models');
-const passport = require('passport');
-
-const initializePassport = require('../passport.config');
 initializePassport(passport);
 
-const {isAuthenticated, isNotAuthenticated} = require('../handles/authUtility');
-const {renderHomepage, renderLoginPage, renderRegisterPage, handleRegister } = require('../handles/base');
+const {isAuthenticated, isNotAuthenticated} = require('../validators/authValidators');
+const { renderHomepage, 
+    renderLoginPage, 
+    renderRegisterPage, 
+    handleRegister } = require('../controllers/baseController');
 
 router
     .route('/')
@@ -17,10 +18,12 @@ router
     .route('/login')
     .get( isNotAuthenticated, renderLoginPage )
     .post( isNotAuthenticated, passport.authenticate('local', { 
-        failureRedirect: '/login', 
-        successRedirect: '/dashboard',
+        failureRedirect: '/login',
         failureFlash: true
-    }));
+    }), (req, res) => {
+        req.flash('success', `Welcome ${req.user.name}`);
+        res.redirect('/dashboard');
+    });
 
 router
     .route('/register')

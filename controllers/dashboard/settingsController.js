@@ -1,4 +1,4 @@
-const {AOPS} = require('../models');
+const {AOPS} = require('../../models');
 
 const renderDashboard = async (req, res) => {
     res.render('dashboard/index');

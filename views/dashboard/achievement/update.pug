@@ -7,7 +7,7 @@ html
     meta(http-equiv='X-UA-Compatible' content='ie=edge')
 
     // title of the webpage
-    title About Community &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
+    title #{achievement.title} &mdash; Update Achievement
 
     // favicon
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
@@ -29,21 +29,8 @@ html
           include ../partials/sidebar
 
           .col-md-10.dashboard-content
-            form.new-notice.border-0(action=`/dashboard/settings?_method=PUT` method="POST")
-              input.d-none(type="text" name="aboutDesc")
             
-            .dashboard-flash-messages
-              -if (successMessage.length > 0)
-                .alert.alert-success
-                  | #{successMessage}
-                  button.close(type='button' data-dismiss='alert' aria-label='Close')
-                    span(aria-hidden='true') &times;
 
-              - if (errorMessage.length > 0)
-                .alert.alert-danger
-                  | #{errorMessage}
-                  button.close(type='button' data-dismiss='alert' aria-label='Close')
-                    span(aria-hidden='true') &times;
 
             .dashboard-notice__container.mx-auto
               
@@ -85,11 +72,23 @@ html
 
                 a.save(href="/") Update
 
-              .title-about
-                span About #{AOPSInfo.name} #{AOPSInfo.type}
-                             
+              .title-input
+                span Achievement Title
+                input.title(type="text" placeholder='Achievement titles ' value=`${achievement.title}` style="margin-left:17rem;")    
+
+              .cover-image
+                if achievement.cover
+                  img.w-100(src=`/${achievement.cover}`)
+
+              form.new-notice.p-4(action=`/achievement/${achievement._id}?_method=PUT` method="POST" enctype="multipart/form-data")
+                input.d-none(type="text" name="title")
+                textarea.d-none(name="desc", cols="30", rows="10")
+                label(for='file') 
+                  span.font-weight-bold Cover Photo
+                input#file.form-control-file(type='file' name="cover")
+
               #editor
-                | !{AOPSInfo.aboutDesc}
+                | !{achievement.desc}
                 
 
             
@@ -106,11 +105,13 @@ html
 
       var saveBtn = document.querySelector('a.save');
       var form = document.querySelector('form.new-notice');
+      var titleInput = document.querySelector('input.title');
       var editorContents = document.querySelector('.ql-editor');
 
       saveBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        form.elements.aboutDesc.value = editorContents.innerHTML;
+        form.elements.title.value = titleInput.value;
+        form.elements.desc.value = editorContents.innerHTML
         form.submit();
       });
                   

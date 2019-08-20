@@ -7,7 +7,7 @@ html
     meta(http-equiv='X-UA-Compatible' content='ie=edge')
 
     // title of the webpage
-    title All Notices &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
+    title Register &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
 
     // favicon
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
@@ -31,14 +31,10 @@ html
       .container-fluid
         .row
           .col-md-5
-            - if (validationErrors) {
-              .alert.alert-danger.mb-5
-                p.mb-0(style="font-size: 1.8rem;") Please fix the following errors
-                - for (let i = 0; i < validationErrors.length; ++i) {
-                  li 
-                    | #{validationErrors[i]}
-                - }
-            - }
+            if errorMessage.length > 0
+              .alert.alert-danger
+                | !{errorMessage}
+              
 
             .login-box__container.login-box__reg
               .login-box__title

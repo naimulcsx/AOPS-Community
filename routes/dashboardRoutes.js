@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const {AOPS} = require('.././models');
+const {AOPS} = require('../models');
+const {canCreateNotice} = require('../validators/noticeValidators');
 
 const isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -13,7 +14,13 @@ const isAuthenticated = (req, res, next) => {
 /* Import Notice handlers */
 const { renderDashboardNotice, 
         renderDashboardNoticeNew, 
-        renderUpdateNotice } = require('../handles/dashboard.notice');
+        renderUpdateNotice } = require('../controllers/dashboard/noticeController');
+
+/* Import achievement handles */
+const {
+    renderDashboardAchievement,
+    renderDashboardAchievementNew,
+    renderUpdateAchievement } = require('../controllers/dashboard/achievementController');
 
 /* Import Settings handlers */
 const { renderDashboard,
@@ -21,12 +28,12 @@ const { renderDashboard,
         updateAOPSInfo,
         renderAboutCommunity,
         renderAccountSettings,
-        updateAccountInfo } = require('../handles/dashboard.settings');
+        updateAccountInfo } = require('../controllers/dashboard/settingsController');
 
 
 /* Import Member handlers */
 const { renderMemberInvite,
-        inviteMember } = require('../handles/dashboard.member');
+        inviteMember } = require('../controllers/dashboard/memberController');
 
 
 /* Dashboard main Route */
@@ -42,11 +49,15 @@ router
 
 router
     .route('/notice/new')
-    .get( isAuthenticated, renderDashboardNoticeNew );
+    .get( isAuthenticated, canCreateNotice, renderDashboardNoticeNew );
 
 router
     .route('/notice/update/:id')
     .get( isAuthenticated, renderUpdateNotice );
+
+
+// Achivements are just notices with cover images
+
 
 
 /* Dashboard settings routes */
@@ -74,5 +85,20 @@ router
     .route('/members/invite')
     .get( isAuthenticated, renderMemberInvite )
     .post( isAuthenticated, inviteMember );
+
+/* Dashboard achievements route */
+router
+    .route('/achievement')
+    .get( isAuthenticated, renderDashboardAchievement );
+
+router
+    .route('/achievement/new')
+    .get( isAuthenticated, renderDashboardAchievementNew );
+
+router
+    .route('/achievement/update/:id')
+    .get( isAuthenticated, renderUpdateAchievement );
+
+
 
 module.exports = router;
