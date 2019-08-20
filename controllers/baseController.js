@@ -66,7 +66,7 @@ const handleRegister = async (req, res) => {
     let validationErrors = [];
 
     // roles must be any one of the below
-    const accountTypes = ['Member', 'Faculty Member', 'Lab Assistant', 'Executive', 'Staff'];
+    const accountTypes = ['Member', 'Faculty Member', 'Executive Member', 'Lab Assistant'];
 
     if ( !accountTypes.includes(req.body.role) ) {
         req.flash('error', 'Invalid role.');
@@ -101,10 +101,17 @@ const handleRegister = async (req, res) => {
         validationErrors.push('Passwords are not identical.');
     
     // set permissons to the assigned role
-    if (req.body.role === 'Executive' || req.body.role === 'Faculty Member') {
+    if (req.body.role === 'Executive Member' || req.body.role === 'Faculty Member') {
         req.body.noticePermissions = {
             createUpdateDeleteSelf: true,
             updateDeleteOthers: false
+        }
+        // if Faculty member
+        if (req.body.role == 'Faculty Member') {
+            req.body.achievementPermissions = {
+                createUpdateDeleteSelf: true,
+                updateDeleteOthers: false
+            }
         }
     }
     

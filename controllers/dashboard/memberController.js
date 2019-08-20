@@ -22,7 +22,7 @@ const inviteMember = async(req, res) => {
     } catch(err) { }
 
     // otherwise generate a jwt
-    const accountTypes = ['Member', 'Faculty Member', 'Lab Assistant', 'Executive', 'Staff'];
+    const accountTypes = ['Member', 'Faculty Member', 'Executive Member', 'Lab Assistant'];
     const roleId = parseInt(req.body.role) - 1;
     const invitationRole = accountTypes[roleId];
 

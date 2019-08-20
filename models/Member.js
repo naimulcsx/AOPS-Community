@@ -18,6 +18,10 @@ const memberSchema = new mongoose.Schema({
         type: String,
         require: [true, 'Member role is required']
     },
+    position: {
+        type: String,
+        default: null
+    },
     email: {
         type: String,
         require: [true, 'Email is required'],
