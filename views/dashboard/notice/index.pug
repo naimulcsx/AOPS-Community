@@ -53,21 +53,28 @@ html
                           |#{notices[i].createdBy.name}
                   .dashboard-notice__links
                     a.view(href=`/notice/${notices[i]._id}`) View
-                    a.update(href=`/dashboard/notice/update/${notices[i]._id}`) Edit
+
+                    // if the notice is created by the user || the used has permission to edit and update
+                    - var updateDeleteCond = notices[i].createdBy._id.equals(user._id) || user.noticePermissions.updateDeleteOthers
+                    a.update(href= updateDeleteCond ? `/dashboard/notice/update/${notices[i]._id}` : null) Edit
+                  
                     form(class="d-inline delete-notice-form" action=`/notice/${notices[i]._id}?_method=DELETE` method="POST")
-                      a.delete(href="/") Delete
+                      a.delete(href= updateDeleteCond ? '/' : null) Delete
               - }
             
     include ../partials/footer
     script. 
       let deleteButtons = document.querySelectorAll('a.delete');
 
-      deleteButtons.forEach(single => {
+      for (let i = 0; i < deleteButtons.length; ++i) {
+        let single = deleteButtons[i];
+        if ( single.getAttribute('href') === null ) continue;
+        
         single.addEventListener('click', (e) => {
           e.preventDefault();
           e.target.parentElement.submit();
-        })
-      })
+        });
+      }
       
                   
 

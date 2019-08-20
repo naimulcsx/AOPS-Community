@@ -1,7 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const {AOPS} = require('../models');
-const {canCreateNotice} = require('../validators/noticeValidators');
+
+
+/* Import validators */
+const {userCanCreateNewNotice, userCanDeleteUpdateNotice} = require('../middlewares/noticeMiddlewares');
+const {userCanCreateNewAchievement, userCanDeleteUpdateAchievement} =require('../middlewares/achievementMiddlewares');
+
 
 const isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -49,14 +54,26 @@ router
 
 router
     .route('/notice/new')
-    .get( isAuthenticated, canCreateNotice, renderDashboardNoticeNew );
+    .get( isAuthenticated, userCanCreateNewNotice, renderDashboardNoticeNew );
 
 router
     .route('/notice/update/:id')
-    .get( isAuthenticated, renderUpdateNotice );
+    .get( isAuthenticated, userCanDeleteUpdateNotice, renderUpdateNotice );
 
 
-// Achivements are just notices with cover images
+/* Dashboard achievements route */
+router
+    .route('/achievement')
+    .get( isAuthenticated, renderDashboardAchievement );
+
+router
+    .route('/achievement/new')
+    .get( isAuthenticated, userCanCreateNewAchievement ,renderDashboardAchievementNew );
+
+router
+    .route('/achievement/update/:id')
+    .get( isAuthenticated, userCanDeleteUpdateAchievement, renderUpdateAchievement );
+
 
 
 
@@ -86,18 +103,6 @@ router
     .get( isAuthenticated, renderMemberInvite )
     .post( isAuthenticated, inviteMember );
 
-/* Dashboard achievements route */
-router
-    .route('/achievement')
-    .get( isAuthenticated, renderDashboardAchievement );
-
-router
-    .route('/achievement/new')
-    .get( isAuthenticated, renderDashboardAchievementNew );
-
-router
-    .route('/achievement/update/:id')
-    .get( isAuthenticated, renderUpdateAchievement );
 
 
 
