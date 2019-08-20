@@ -29,9 +29,7 @@ html
           include ../partials/sidebar
 
           .col-md-10.dashboard-content
-            form.new-notice(action=`/notice/${notice._id}?_method=PUT` method="POST")
-              input(type="text" name="title")
-              textarea(name="desc", cols="30", rows="10")
+            
 
 
             .dashboard-notice__container.mx-auto
@@ -72,11 +70,23 @@ html
                   button.ql-clean
 
 
-                a.save(href="/") Save
+                a.save(href="/") Update
 
               .title-input
                 span Notice Title
-                input.title(type="text" placeholder="Notice title" value=`${notice.title}`)              
+                input.title(type="text" placeholder='Notice titles ' value=`${notice.title}`)    
+
+              .cover-image
+                if notice.cover
+                  img.w-100(src=`/${notice.cover}`)
+
+              form.new-notice.border-0(action=`/notice/${notice._id}?_method=PUT` method="POST")
+                input.d-none(type="text" name="title")
+                textarea.d-none(name="desc", cols="30", rows="10")
+                //- label(for='file') 
+                //-   span.font-weight-bold Cover Photo
+                //- input#file.form-control-file(type='file' name="cover")
+
               #editor
                 | !{notice.desc}
                 

@@ -18,6 +18,9 @@ html
     link(rel='stylesheet' href='/css/bootstrap.css')
     link(rel='stylesheet' href='/css/style.css')
     link(href='/css/quill.snow.css' rel='stylesheet')
+    
+
+
 
 
   body
@@ -29,9 +32,9 @@ html
           include ../partials/sidebar
 
           .col-md-10.dashboard-content
-            form.new-notice(action=`/notice` method="POST")
-              input(type="text" name="title")
-              textarea(name="desc", cols="30", rows="10")
+            
+              
+
 
 
             .dashboard-notice__container.mx-auto
@@ -76,7 +79,16 @@ html
 
               .title-input
                 span Notice Title
-                input.title(type="text" placeholder="Notice title")              
+                input.title(type="text" placeholder="Notice title")   
+
+              form.new-notice.border-0(action=`/notice` method="POST")
+                input.d-none(type="text" name="title")
+                textarea.d-none(name="desc", cols="30", rows="10")
+                //- label(for='file') 
+                //-   span.font-weight-bold Cover Photo
+                //- input#file.form-control-file(type='file' name="cover")
+
+          
               #editor
                 
 
@@ -104,4 +116,6 @@ html
         form.submit();
       });
                   
-
+    script(src='/js/jquery.min.js')
+    script(src='/js/popper.min.js')
+    script(src='/js/bootstrap.min.js')

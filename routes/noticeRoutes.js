@@ -1,6 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const path = require('path');
 
+const storage = multer.diskStorage({
+    destination: './uploads/cover',
+    filename: function(req, file, cb) {
+        cb(null, 'cover' + '-' + Date.now() + path.extname(file.originalname) )
+    }
+})
+
+const upload = multer({
+    storage: storage,
+});
 
 const {
     showAllNotices,
@@ -8,7 +20,7 @@ const {
     deleteSingleNotice,
     updateNotice,
     showSingleNotice
-} = require('../handles/notice');
+} = require('../controllers/noticeController');
 
 router
     .route('/')

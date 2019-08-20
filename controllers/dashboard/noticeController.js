@@ -1,9 +1,10 @@
-const {Notice, AOPS} = require('.././models');
+const {Notice, AOPS} = require('../../models');
 
 const renderDashboardNotice = async (req, res) => {
     const notices = 
         await Notice
         .find({})
+        .populate('createdBy')
         .sort({created: -1});
 
     res.render('dashboard/notice/index', {

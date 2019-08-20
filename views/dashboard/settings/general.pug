@@ -107,6 +107,14 @@ html
                     .col-md-6.mb-3
                       label(for='notice-page') Number of notices per page
                       input#notice-page.form-control(type='text' placeholder='Notices per page' value=`${AOPSInfo.numberOfNoticesOnNoticeIndex}` name='numberOfNoticesOnNoticeIndex' required='true')
+                    
+                    .col-md-6.mb-3
+                      label(for='notice-homepage') Number of achievements in homepage
+                      input#notice-homepage.form-control(type='text' placeholder='Achievements on homepage' value=`${AOPSInfo.numberOfAchievementsOnHomepage}` name='numberOfAchievementsOnHomepage' required='true')
+
+                    .col-md-6.mb-3
+                      label(for='notice-page') Number of achievements per page
+                      input#notice-page.form-control(type='text' placeholder='Achievements per page' value=`${AOPSInfo.numberOfAchievementsOnAchievementPage}` name='numberOfAchievementsOnAchievementPage' required='true')
                   
                   button.btn.btn-primary(type='submit') Update Info
 

@@ -1,5 +1,5 @@
 const sgMail = require('@sendgrid/mail');
-const {Member} = require('../models');
+const {Member} = require('../../models');
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
 sgMail.setApiKey('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');
@@ -22,7 +22,7 @@ const inviteMember = async(req, res) => {
     } catch(err) { }
 
     // otherwise generate a jwt
-    const accountTypes = ['Member', 'Faculty Member', 'Lab Assistant', 'Executive', 'Stuff'];
+    const accountTypes = ['Member', 'Faculty Member', 'Lab Assistant', 'Executive', 'Staff'];
     const roleId = parseInt(req.body.role) - 1;
     const invitationRole = accountTypes[roleId];
 

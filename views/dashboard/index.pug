@@ -28,6 +28,22 @@ html
       .container-fluid.mx-0
         .row
           include partials/sidebar
+          
+          .col-md-10.dashboard-content
+            .dashboard-flash-messages
+              -if (successMessage.length > 0)
+                .alert.alert-success
+                  | #{successMessage}
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
+
+              - if (errorMessage.length > 0)
+                .alert.alert-danger
+                  | #{errorMessage}
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
+
+            .dashboard-notice__container.mx-auto
     
     include partials/footer
 

@@ -34,6 +34,14 @@
       a.dashboard__link(href="#") View all events
 
     .dashboard__link-group
+      a.dashboard__link(href="/dashboard/achievement" class= url.includes('achievement') ? 'active' : '') 
+        i.fas.fa-trophy
+        | Achievements
+
+      a.dashboard__link(href="/dashboard/achievement/new") Create a new achivement
+      a.dashboard__link(href="/dashboard/achievement") View all achievements
+
+    .dashboard__link-group
       a.dashboard__link(href="#" class= url.includes('members') ? "active" : "") 
         i.fas.fa-user
         | Members

@@ -40,7 +40,15 @@ const AOPSSchema = new mongoose.Schema({
     numberOfNoticesOnNoticeIndex: {
         type: Number,
         required: true
-    }
+    },
+    numberOfAchievementsOnHomepage: {
+        type: Number,
+        required: true
+    },
+    numberOfAchievementsOnAchievementPage: {
+        type: Number,
+        require: true
+    },
 });
 
 module.exports = mongoose.model('AOPS', AOPSSchema);
