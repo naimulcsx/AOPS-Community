@@ -86,6 +86,12 @@ html
                 //- label(for='file') 
                 //-   span.font-weight-bold Cover Photo
                 //- input#file.form-control-file(type='file' name="cover")
+                .form-check
+                  input#exampleCheck1.form-check-input(type='checkbox' name='private')
+                  label.form-check-label(for='exampleCheck1')
+                    | Private Notice
+                    span (can be only seen by the community members only)
+
 
               #editor
                 | !{notice.desc}

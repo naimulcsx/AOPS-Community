@@ -66,3 +66,14 @@
         }
     }
 }
+
+
+.user-info {
+    &__img {
+        img {
+            height: 15rem;
+            width: 15rem;
+            border-radius: 2rem;
+        }
+    }
+}

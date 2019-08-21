@@ -7,7 +7,7 @@ const showAllNotices = async (req, res) => {
     const noticesPerPage = res.locals.AOPSInfo.numberOfNoticesOnNoticeIndex;
     let skipCount = 0, currentPage = 1;
 
-    const documentCount = await Notice.countDocuments({});
+    const documentCount = await Notice.countDocuments({public: true});
     const paginateCount = Math.ceil(documentCount / noticesPerPage);
 
     if (req.query.page && parseInt(req.query.page) > 0) {
@@ -17,7 +17,7 @@ const showAllNotices = async (req, res) => {
 
     const notices = 
         await Notice
-            .find({})
+            .find({public: true})
             .sort({created: -1})
             .limit(noticesPerPage)
             .skip(skipCount * noticesPerPage);
@@ -64,7 +64,9 @@ const showSingleNotice = async (req, res) => {
 
 
 const createNewNotice = (req, res) => {
+    console.log(req.body);
     req.body.createdBy = req.user._id;
+    if (req.body.private === 'on') req.body.public = false;
     Notice
         .create(req.body)
         .then(notice => {
@@ -91,6 +93,8 @@ const deleteSingleNotice = async (req, res) => {
 
 
 const updateNotice = async(req, res) => {
+    if (req.body.private === 'on') req.body.public = false;
+    
     Notice.findByIdAndUpdate(req.params.id, req.body)
         .then(arr => {
             req.flash('success', 'Successfully updated the notice.');

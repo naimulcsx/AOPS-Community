@@ -16,6 +16,10 @@ const noticeSchema  = new mongoose.Schema({
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Member'
+    },
+    public: {
+        type: Boolean,
+        default: true
     }
 });
 

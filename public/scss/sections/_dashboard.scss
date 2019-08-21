@@ -7,12 +7,13 @@
         top: 0;
         left: 0;
         overflow-y: scroll;
+        box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
     }
 
     &__header {
         background: #fff;
         height: 6.2rem;
-        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.06);
+        box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
         display: flex; 
         flex-direction: row-reverse;
         margin-left: 16.6%;
@@ -58,7 +59,7 @@
             &:first-child {
                 &:link, &:visited {
                     padding: .5rem 2rem;
-                    font-size: 1.8rem;
+                    font-size: 1.7rem;
                     display: block;
                     color: darken($white, 30%);
                     text-decoration: none;
@@ -78,7 +79,7 @@
                     color: darken($white, 30%);
                     text-decoration: none;
                     margin-left: 4.5rem;
-                    font-size: 1.5rem;
+                    font-size: 1.4rem;
                 }   
 
                 &:hover, &:active {
@@ -121,9 +122,29 @@
     &__container {
         max-width: 1024px;
         background: #fff;
-        box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+        box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
         border-radius: 1rem;
         overflow: hidden; 
+
+        .form-check {
+            padding: 1rem;
+            padding-left: 3rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+            span {
+                color: #8a949f;
+                margin-left: 1rem;
+            }
+
+            input {
+                position: relative;
+                height: 20px;
+                width: 20px;
+                top: 5px;
+                margin-right: 1rem;
+                
+            }
+        }
     }
 
     &__single {
@@ -177,10 +198,10 @@
        
         
         .view {
-            background: #20bf6b;
+            background: #1dc9b7;
             color: #fff;
             &:hover {
-                background: darken(#20bf6b, 8%);
+                background: darken(#1dc9b7, 8%);
             }
         }
 
@@ -194,10 +215,10 @@
         }
 
         .delete {
-            background: #eb3b5a;
+            background: #fd397a;
             color: #fff;
             &:hover {
-                background: darken(#eb3b5a, 15%);
+                background: darken(#fd397a, 15%);
             }
         }
     }

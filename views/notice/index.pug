@@ -24,7 +24,7 @@ html
 
     
       
-    section.notice
+    section.notice-single
       
       .container
         if errorMessage.length > 0
@@ -32,20 +32,20 @@ html
             | #{errorMessage}
         .row
           .col-8
-            .notice__container
-              .notice__heading 
+            .notice-single__container
+              .notice-single__heading 
                 h3 NOTICES / NEWS
 
               each single in notices
-                .notice__full
-                  .notice__title
+                .notice-single__full
+                  .notice-single__title
                     h3 #{single.title}
-                  .notice__created
+                  .notice-single__created
                     p  #{ moment(single.created).format('LLLL') }
-                  .notice__desc
+                  .notice-single__desc
                     p
                       | #{single.excerpt} . . . 
-                  a.mt-4.btn.button(href=`/notice/${single._id}`) Details
+                  a.btn.button(href=`/notice/${single._id}`) Details
 
           .col-4
             aside.sidebar

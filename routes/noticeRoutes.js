@@ -6,7 +6,7 @@ const {Notice} = require('../models');
 
 // validators
 const {isAuthenticated} = require('../middlewares/authMiddlewares');
-const {userCanCreateNewNotice, userCanDeleteUpdateNotice} = require('../middlewares/noticeMiddlewares');
+const {userCanCreateNewNotice, userCanDeleteUpdateNotice, isPublicNotice} = require('../middlewares/noticeMiddlewares');
 
 const storage = multer.diskStorage({
     destination: './uploads/cover',
@@ -34,7 +34,7 @@ router
 
 router
     .route('/:id')
-    .get( showSingleNotice )
+    .get( isPublicNotice, showSingleNotice )
     .delete( isAuthenticated, userCanDeleteUpdateNotice, deleteSingleNotice )
     .put( isAuthenticated, userCanDeleteUpdateNotice, updateNotice );
 

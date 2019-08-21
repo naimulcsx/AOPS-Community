@@ -57,12 +57,12 @@
         | Achievements
 
       if user.achievementPermissions.createUpdateDeleteSelf
-        a.dashboard__link(href="/dashboard/achievement/new") 
+        a.dashboard__link(href="/dashboard/achievement/new" class= url == '/dashboard/achievement/new' ? "active" : "") 
           i.fas.fa-plus
           |Create a new achivement
 
 
-      a.dashboard__link(href="/dashboard/achievement") 
+      a.dashboard__link(href="/dashboard/achievement" class= url == '/dashboard/achievement' ? "active" : "") 
         i.fas.fa-asterisk
         | View all achievements
 
@@ -75,9 +75,9 @@
         a.dashboard__link(href="/dashboard/member/invite" class= url == '/dashboard/member/invite' ? "active" : "") 
           i.fas.fa-user-plus
           |Invite Members
-      a.dashboard__link(href="#") 
-        i.fas.fa-chalkboard-teacher
-        |Faculty Members
+      a.dashboard__link(href="/dashboard/member/authorize") 
+        i.fas.fa-check
+        | Authorize a member
       a.dashboard__link(href="#") 
         i.fas.fa-user-shield
         |Executive Members

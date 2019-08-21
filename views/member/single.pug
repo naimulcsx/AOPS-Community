@@ -32,7 +32,7 @@ html
               .profile__photo
                 svg(viewbox='0 0 188 188')
                   g.author__img--box
-                    image(xlink:href=member.photo? member.photo : '/img/avatar.png' height='100%' width='100%')
+                    image(xlink:href=member.photo? `\\${member.photo}` : '/img/avatar.png' height='100%' width='100%')
 
               .profile__desc
                 h1 

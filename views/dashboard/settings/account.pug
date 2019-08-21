@@ -53,7 +53,7 @@ html
 
             .dashboard-notice__container.mx-auto
               .dashboard-settings__container 
-                form(action="/dashboard/settings/account?_method=PUT" method="POST")
+                form(action="/dashboard/settings/account?_method=PUT" method="POST" enctype="multipart/form-data")
                   .form-row(style="margin-bottom: 4rem;")
                     .col-12
                       .form-title
@@ -74,6 +74,13 @@ html
                     .col-6.mb-3
                       label(for='role') Role
                       input#role.form-control(disabled type='text' placeholder='Role' value=`${user.role}` required='true' name='role')
+                    
+                    .col-12.mb-3.mt-5
+                      .form-title
+                        h4 Profile photo
+                      input#avatar(class='form-control-file' type='file' name='photo')
+
+
 
                     if user.role === 'Executive Member'
                       .col-6.mb-3
