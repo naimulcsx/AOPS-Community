@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const renderHomepage = async(req, res) => {
     Notice
-        .find({})
+        .find({public: true})
         .sort({created: -1})
         .limit( res.locals.AOPSInfo.numberOfNoticesOnHomepage )
         .then(async(notices) => {

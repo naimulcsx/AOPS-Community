@@ -1,12 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const {AOPS} = require('../models');
+const multer = require('multer');
+const path = require('path');
 
 
 /* Import validators */
 const {userCanCreateNewNotice, userCanDeleteUpdateNotice} = require('../middlewares/noticeMiddlewares');
 const {userCanCreateNewAchievement, userCanDeleteUpdateAchievement} =require('../middlewares/achievementMiddlewares');
 const {canInviteOthers} = require('../middlewares/baseMiddlewares');
+
+
+const storage = multer.diskStorage({
+    destination: './uploads/avatar',
+    filename: function(req, file, cb) {
+        cb(null, 'avatar' + '-' + Date.now() + path.extname(file.originalname) )
+    }
+});
+
+const upload = multer({
+    storage: storage,
+});
 
 
 const isAuthenticated = (req, res, next) => {
@@ -39,7 +52,10 @@ const { renderDashboard,
 
 /* Import Member handlers */
 const { renderMemberInvite,
-        inviteMember } = require('../controllers/dashboard/memberController');
+        inviteMember,
+        handleAuthorize,
+        renderAuthorize,
+        handleUpdateAuthorizedMember } = require('../controllers/dashboard/memberController');
 
 
 /* Dashboard main Route */
@@ -97,7 +113,7 @@ router
 router
     .route('/settings/account')
     .get( isAuthenticated, renderAccountSettings )
-    .put( isAuthenticated, updateAccountInfo );
+    .put( isAuthenticated, upload.single('photo'), updateAccountInfo );
 
 
 /* Dashboard member routes */
@@ -107,6 +123,13 @@ router
     .post( isAuthenticated, canInviteOthers, inviteMember );
 
 
+router
+    .route('/member/authorize')
+    .get( isAuthenticated, isSuperadmin, renderAuthorize )
+    .post( isAuthenticated, isSuperadmin, handleAuthorize );
 
+router
+    .route('/member/authorize/update')
+    .post( isAuthenticated, isSuperadmin, handleUpdateAuthorizedMember );
 
 module.exports = router;

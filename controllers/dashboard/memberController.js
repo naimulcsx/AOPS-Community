@@ -16,7 +16,7 @@ const inviteMember = async(req, res) => {
         const user = await Member.findOne({email: req.body.email});
         if ( user ) {
             req.flash('error', 'User exists with the email.');
-            return res.redirect('/dashboard/members/invite');
+            return res.redirect('/dashboard/member/invite');
         }
     } catch(err) { }
 
@@ -47,15 +47,50 @@ const inviteMember = async(req, res) => {
         .send(msg)
         .then(data => {
             req.flash('success', `Successfully invited ${req.body.name}. The invitation link will expire in ${expirationTime}.`);
-            res.redirect('/dashboard/members/invite');
+            res.redirect('/dashboard/member/invite');
         })
         .catch(err => {
             req.flash('error', `Couldn't send invitation.`);
-            res.redirect('/dashboard/members/invite');
+            res.redirect('/dashboard/member/invite');
         });
 }
 
+const handleAuthorize = async (req, res, next) => {
+    try {
+        let foundUser = await Member.findOne({email: req.body.email});
+
+        // if there is no user
+        if (!foundUser) {
+            req.flash('error', 'Member not found');
+            return res.redirect('/dashboard/member/authorize');
+        }
+
+        // if user is the superadmin
+        if (foundUser.role === 'Superadmin') {
+            req.flash('error', 'Superadmin can not be authorized.');
+            return res.redirect('/dashboard/member/authorize');
+        }
+
+        // if there is a user
+        res.render('dashboard/members/authorize', {
+            foundUser
+        });
+    } catch(err) { }
+}
+
+const renderAuthorize = (req, res) => {
+    res.render('dashboard/members/authorize');
+}
+
+const handleUpdateAuthorizedMember = (req, res) => {
+    res.send(req.body);
+}
+
+
 module.exports = {
     renderMemberInvite,
-    inviteMember
+    inviteMember,
+    renderAuthorize,
+    handleAuthorize,
+    handleUpdateAuthorizedMember
 }

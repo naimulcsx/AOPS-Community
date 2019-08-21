@@ -28,10 +28,13 @@ html
             .notice__container
   
               .notice__full
+                .notice__cover
+                  img.w-100(src= `/${achievement.cover}`)
                 .notice__title
                   h3 #{achievement.title}
                 .notice__created
                   p  #{ moment(achievement.created).format('LLLL') }
+                
                 .notice__desc
                   p
                   | !{achievement.desc}

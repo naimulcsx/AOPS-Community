@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+
 html {
     font-size: 62.5%;
     @media (max-width: 960px) {
@@ -8,10 +11,10 @@ html {
 
 body {
     font-size: 1.6rem;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 400;
-    line-height: 1.8;
-    background: #f7f7f7;
+    line-height: 1.9;
+    background: #F9F9FC;
 }
 
 ::-webkit-scrollbar { width:15px;height:15px;}

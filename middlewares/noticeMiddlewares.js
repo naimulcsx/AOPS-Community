@@ -16,7 +16,15 @@ const userCanDeleteUpdateNotice = async(req, res, next) => {
     res.redirect('/dashboard');
 }
 
+const isPublicNotice = async(req, res, next) => {
+    let notice = await Notice.findById(req.params.id);
+    if ( notice.public || req.isAuthenticated() ) return next();
+    req.flash('error', 'Notice is private.');
+    return res.redirect('/notice');
+}
+
 module.exports = {
     userCanCreateNewNotice,
-    userCanDeleteUpdateNotice
+    userCanDeleteUpdateNotice,
+    isPublicNotice
 }

@@ -1,6 +1,7 @@
 .header {
     color: $black;
     position: relative;
+
 }
 
 .header-topbar {
@@ -103,12 +104,7 @@
     align-items: center;
     max-width: 1024px;
     margin: 0 auto;
-    padding: 18rem 0;
-
-
-    // &__container {
-    //     background: #EDEEF2;
-    // }
+    padding: 22rem 0;
 
 
     &__logo {

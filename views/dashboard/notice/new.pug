@@ -84,6 +84,14 @@ html
               form.new-notice.border-0(action=`/notice` method="POST")
                 input.d-none(type="text" name="title")
                 textarea.d-none(name="desc", cols="30", rows="10")
+                .form-check
+                  input#exampleCheck1.form-check-input(type='checkbox' name='private')
+                  label.form-check-label(for='exampleCheck1') 
+                    | Private Notice
+                    span (can be only seen by the community members only)
+
+
+
                 //- label(for='file') 
                 //-   span.font-weight-bold Cover Photo
                 //- input#file.form-control-file(type='file' name="cover")

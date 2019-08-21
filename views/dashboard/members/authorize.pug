@@ -1,0 +1,158 @@
+doctype html
+html
+  head
+    // meta informations
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+
+    // title of the webpage
+    title General Settings &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
+
+    // favicon
+    link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
+
+    // stylesheets
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='/css/all.min.css')
+    link(rel='stylesheet' href='/css/bootstrap.css')
+    link(rel='stylesheet' href='/css/style.css')
+    link(href='//cdn.quilljs.com/1.3.6/quill.snow.css' rel='stylesheet')
+    script(src='/js/picker.min.js')
+
+
+    
+  body
+    .dashboard
+      include ../partials/header
+
+      .container-fluid.mx-0
+        .row
+          include ../partials/sidebar
+          .col-md-10.dashboard-content
+            .dashboard-flash-messages
+              - if (successMessage.length > 0)
+                .alert.alert-success
+                  | #{successMessage}
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
+
+              - if (errorMessage.length > 0)
+                .alert.alert-danger
+                  | #{errorMessage}
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
+
+
+            .dashboard-notice__container.mx-auto
+              .dashboard-settings__container 
+                form(action="/dashboard/member/authorize" method="POST")
+                  .form-row(style="margin-bottom: 1rem;")
+                    .col-12
+                      .form-title
+                        h4(style="margin-bottom: 2rem;")
+                          | Authorize a member
+                    .col-12.mb-3
+                      label(for='email') Email of the Member
+                      input#email.form-control(type='text' placeholder='Email' required='true' name='email')
+
+                   
+                  button.btn.btn-primary(type='submit') Search
+                
+                - if (foundUser)
+                  .form-title.mt-5
+                    h4(style="margin-bottom: 2rem;")
+                      | User found
+
+                  .col-12
+                    .user-info
+                      .user-info__img
+                        img(src=foundUser.photo ? `\\${foundUser.photo}` : '/img/avatar.png', alt="")
+                      p #{foundUser.name}
+                        span.ml-3 (#{foundUser.role})
+
+
+
+
+                  form(action="/dashboard/member/authorize/update" method="POST")
+                    .form-title.mt-5
+                      h4(style="margin-bottom: 2rem;")
+                        | User role
+                    .col-12
+                      .form-group
+                        label(for="roles") User Role
+                        select#roles.form-control(name="role")
+                          option(value="Member" selected= foundUser.role === 'Member' ? 'true' : null) Member
+                          option(value="Faculty Member" selected= foundUser.role === 'Faculty Member' ? 'true' : null) Faculty Member
+                          option(value="Executive Member" selected= foundUser.role === 'Executive Member' ? 'true' : null) Executive Member
+                          option(value="Lab Assistant" selected= foundUser.role === 'Lab Assistant' ? 'true' : null) Lab Assistant
+                          option(value="Office Staff" selected= foundUser.role === 'Office Staff' ? 'true' : null) Office Staff
+
+                      - if (foundUser.role === 'Executive Member')
+                        .form-group
+                          label(for="roles") Change Position
+                          select#roles.form-control(name="position")
+                            option(value="placeholder" disabled selected= foundUser.position ? null: 'true' ) Select position
+                            option(value="President" selected = foundUser.position === 'President' ? 'true' : null) President
+                            option(value="Secretary" selected = foundUser.position === 'Secretary' ? 'true' : null) Secretary
+                            option(value="General Secretary" selected = foundUser.position === 'General Secretary' ? 'true' : null)  General Secretary
+                            option(value="Assistant General Secretary" selected= foundUser.position === 'Assistant General Secretary' ? 'true' : null) Assistant General Secretary
+                            option(value="Programming Contest Secretary" selected= foundUser.position === 'Programming Contest Secretary' ? 'true' : null) Programming Contest Secretary
+                            option(value="Assistant Programming Contest Secretary" selected= foundUser.position === 'Assistant Programming Contest Secretary' ? 'true' : null) Assistant Programming Contest Secretary
+                            option(value="Finance Secretary" selected= foundUser.position === 'Finance Secretary' ? 'true' : null) Finance Secretary
+                            option(value="Assistant Finance Secretary" selected= foundUser.position === 'Assistant Finance Secretary' ? 'true' : null) Assistant Finance Secretary
+                            option(value="Sports Secretary" selected= foundUser.position === 'Sports Secretary' ? 'true' : null) Sports Secretary
+                            option(value="Assistant Sports Secretary" selected= foundUser.position === 'Assistant Sports Secretary' ? 'true' : null) Assistant Sports Secretary
+                            option(value="Debate Secretary" selected= foundUser.position === 'Debate Secretary' ? 'true' : null) Debate Secretary
+                            option(value="Assistant Debate Secretary" selected = foundUser.position === 'Assistant Debate Secretary' ? 'true' : null) Assistant Debate Secretary
+                            option(value="Office Secretary" selected= foundUser.position === 'Office Secretary' ? 'true' : null) Office Secretary
+                            option(value="Assistant Office Secretary" selected = foundUser.position === 'Assistant Office Secretary' ? 'true' : null) Assistant Office Secretary
+                            option(value="Seminar & Workshop Secretary" selected= foundUser.position === 'Seminar & Workshop Secretary' ? 'true' : null) Seminar &amp; Workshop Secretary
+                            option(value="Assistant Seminar & Workshop Secretary" selected= foundUser.position === 'Assistant Seminar & Workshop Secretary' ? 'true' : null) Assistant Seminar &amp; Workshop Secretary
+                            option(value="Social Welfare Secretary" selected=foundUser.position === 'Social Welfare Secretary' ? 'true' : null) Social Welfare Secretary
+                            option(value="Cultural Secretary" selected= foundUser.position === 'Cultural Secretary' ? 'true' : null) Cultural Secretary
+                            option(value="Assistant Cultural Secretary" selected= foundUser.position === 'Assistant Cultural Secretary' ? 'true' : null) Assistant Cultural Secretary
+                            option(value="Place and Publicity Secretary" selected = foundUser.position === 'Place and Publicity Secretary' ? 'true' : null) Place and Publicity Secretary
+                            option(value="Assistant Place and Publicity Secretary" selected = foundUser.position === 'Assistant Place and Publicity Secretary' ? 'true' : null)  Assistant Place and Publicity Secretary
+                            option(value="Industry Collaboration Secretary" selected= foundUser.position === 'Industry Collaboration Secretary' ? 'true' : null) Industry Collaboration Secretary
+                            option(value="Assistant Industry Collaboration Secretary" selected = foundUser.position === 'Assistant Industry Collaboration Secretary' ? 'true' : null) Assistant Industry Collaboration Secretary
+                            option(value="Creative Designer" selected = foundUser.position === 'Creative Designer' ? 'true' : null) Creative Designer
+                            option(value="Photographer" selected = foundUser.position === 'Photographer' ? 'true': null) Photographer
+                            option(value="Video Edtior" selected = foundUser.position === 'Video Edtior' ? 'true': null) Video Edtior
+
+                    .form-title.mt-5
+                      h4(style="margin-bottom: 2rem;")
+                        | Permissons
+                    .col-12
+                      .form-check.border-0
+                        input#noticeUpdateDeleteSelf.form-check-input(type='checkbox' name='noticeCreateUpdateDeleteSelf' checked = foundUser.noticePermissions.createUpdateDeleteSelf ? 'on' : null)
+                        label.form-check-label(for='noticeUpdateDeleteSelf') Member can create / update / delete notices
+
+                    .col-12
+                      .form-check.border-0
+                        input#noticeUpdateDeleteOthers.form-check-input(type='checkbox' name='noticeUpdateDeleteOthers' checked = foundUser.noticePermissions.updateDeleteOthers ? 'on' : null)
+                        label.form-check-label(for='noticeUpdateDeleteOthers') Member can update / delete other's notices
+                    
+                    .col-12
+                      .form-check.border-0
+                        input#acheivementUpdateDeleteSelf.form-check-input(type='checkbox' name='achievementCreateUpdateDeleteSelf' checked = foundUser.achievementPermissions.createUpdateDeleteSelf ? 'on' : null)
+                        label.form-check-label(for='acheivementUpdateDeleteSelf') Member can create / update / delete achievements
+
+                    .col-12
+                      .form-check.border-0
+                        input#acheievementUpdateDeleteOthers.form-check-input(type='checkbox' name='achievementUpdateDeleteOthers' checked = foundUser.achievementPermissions.updateDeleteOthers ? 'on' : null)
+                        label.form-check-label(for='acheievementUpdateDeleteOthers') Member can create / update / delete achievements
+
+                    button.btn.btn-primary.mt-5(type='submit') Authorize member
+                    
+
+
+                    
+                
+                    
+
+
+    
+    include ../partials/footer
+    script. 
+      

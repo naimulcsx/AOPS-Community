@@ -1,5 +1,6 @@
 const {AOPS, Member} = require('../../models');
 const bcrypt = require('bcrypt');
+const fs = require('fs');
 
 const renderDashboard = async (req, res) => {
     res.render('dashboard/index');
@@ -51,18 +52,47 @@ const renderAccountSettings = (req, res) => {
 }
 
 const updateAccountInfo = async (req, res) => {
+    console.log(req.body);
+    console.log(req.file);
+
+    const deletePreviouslyUploadedPhoto = () => {
+        if (req.file) {
+            let path = `.\\${req.file.path}`;
+            fs.unlinkSync(path);
+        }
+    }
+
     let errors = [], user = {};
     req.body.role = req.user.role;
 
     // if there is no current password
     if ( !req.body.passwordOld ) {
+        // if photo was uploaded, delete the uploaded photo
+        deletePreviouslyUploadedPhoto();
+
         req.flash('error', 'Please enter your old password to update account informations');
         return res.redirect('/dashboard/settings/account');
+    }
+
+    if (req.file) {
+        req.body.photo = req.file.path;
+        try {
+            let account = await Member.findById(req.user._id);
+            console.log(account);
+            if (account.photo) {
+                let path = `.\\${account.photo}`;
+                fs.unlinkSync(path);
+            }
+        } catch(err) {
+            req.flash('error', 'Couldn\'t update account informations.');
+            return res.redirect('/dashboard/settings/account');
+        }
     }
 
     // if the current password is incorrect
     let passwordCorrect = await bcrypt.compare(req.body.passwordOld, req.user.password);
     if (!passwordCorrect) {
+        deletePreviouslyUploadedPhoto();
         req.flash('error', 'Current password is incorrect');
         return res.redirect('/dashboard/settings/account');
     }
@@ -83,6 +113,8 @@ const updateAccountInfo = async (req, res) => {
             } catch(err) { }
         })
         .catch(err => {
+            deletePreviouslyUploadedPhoto();
+
             let fields = ['name', 'password', 'email', 'phone'];
             fields.forEach(field => {
                 if (err.errors[field]) 

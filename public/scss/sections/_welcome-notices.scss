@@ -91,15 +91,28 @@
 
     &__container {
         padding: 0;
+        padding:0rem 2rem 3rem 0rem;
     }
 
+    &__cover {
+        img { border-radius: 2rem; }
+    }
+
+    .button {
+        margin-left: 3rem;
+        margin-bottom: 2rem;
+    }
 
     &__full {
-        
-        padding: 3.5rem 3.5rem 3rem 0rem;
+        overflow: hidden;
+        background:#fff;
+        box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+        border-radius: 2rem;
+      
 
         &:not(:last-child) {
-            border-bottom: 1px solid $color-light;
+            // border-bottom: 1px solid $color-light;
+            margin-bottom: 5rem;
         }
     }
 
@@ -108,10 +121,14 @@
         font-weight: 600;
         font-size: 1.5rem;
         color: #606468;
+        padding: 1rem 3rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        p{margin: 0;}
     }
 
 
     &__heading {
+        
 
         h3 {
             font-size: 3rem;
@@ -137,6 +154,7 @@
                 background: $color-primary;
             }
         }
+        
 
         display: flex;
         align-items: center;
@@ -152,18 +170,113 @@
 
 
     &__title {
+        padding: 2rem 3rem;
+        
+
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         h3 {
             font-size: 2.5rem;
             font-weight: bold;
-            color: $black;
+            color: #2C3A47;
+            margin: 0;
         }
     }
 
 
     &__desc {
+        padding: 2rem 3rem;
         color: #8a949f;
+        text-align: justify;
     }
 }
+
+
+/* Styles for single notices on notices index*/
+.notice-single {
+    margin: 7rem 0;
+
+    &__container {
+        padding: 0;
+    }
+
+    &__cover {
+        img { border-radius: 2rem; }
+    }
+
+    &__full {
+        overflow: hidden;
+        padding: 2rem 0;
+        padding-right: 3.5rem;
+        margin-bottom: 2rem;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid $color-light;
+        }
+    }
+
+
+    &__created {
+        font-weight: 600;
+        font-size: 1.5rem;
+        color: #606468;
+        margin-bottom: 1rem;
+        p{margin: 0;}
+    }
+
+
+    &__heading {
+        h3 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 4.2rem;
+
+            &:after {
+                content: "";
+                display: block;
+                position: relative;
+                top: 8px;
+                height: 3px;
+                width: 120px;
+                background: $color-primary;
+            }
+
+            &:before {
+                content: "";
+                position: relative;
+                top: 55px;
+                display: block;
+                height: 3px;
+                width: 80px;
+                background: $color-primary;
+            }
+        }
+        
+
+        display: flex;
+        align-items: center;
+        height: 8rem;
+        color: $color-primary;
+    }
+
+
+    &__title {
+        margin-bottom: 1rem;
+
+        h3 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2C3A47;
+            margin: 0;
+        }
+    }
+
+
+    &__desc {
+        color: #616972;
+        text-align: justify;
+    }
+}
+
 
 
 .sidebar {
