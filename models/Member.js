@@ -97,7 +97,8 @@ memberSchema.pre('save', function(next) {
 });
 
 memberSchema.pre('findOneAndUpdate', function (next) {
-    this._update.password = bcrypt.hashSync(this._update.password, 10);
+    if (this._update.password) 
+        this._update.password = bcrypt.hashSync(this._update.password, 10);
     next();
 });
 
