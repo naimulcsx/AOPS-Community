@@ -3,10 +3,6 @@ const {Notice, AOPS, Member, Achievement} = require('./models');
 const {noticeSeeds, AOPSSeed, memberSeed, AchievementSeed} = require('./seeds');
 
 const seedDatabase = () => {
-    
-
-
-    
     AOPS // remove AOPSInfo and insert
         .deleteMany({})
         .then( () => {

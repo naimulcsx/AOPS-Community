@@ -1,4 +1,5 @@
-const {AOPS} = require('../../models');
+const {AOPS, Member} = require('../../models');
+const bcrypt = require('bcrypt');
 
 const renderDashboard = async (req, res) => {
     res.render('dashboard/index');
@@ -49,9 +50,48 @@ const renderAccountSettings = (req, res) => {
     res.render('dashboard/settings/account');
 }
 
-const updateAccountInfo = (req, res) => {
+const updateAccountInfo = async (req, res) => {
+    let errors = [], user = {};
     req.body.role = req.user.role;
-    res.send('hello world');
+
+    // if there is no current password
+    if ( !req.body.passwordOld ) {
+        req.flash('error', 'Please enter your old password to update account informations');
+        return res.redirect('/dashboard/settings/account');
+    }
+
+    // if the current password is incorrect
+    let passwordCorrect = await bcrypt.compare(req.body.passwordOld, req.user.password);
+    if (!passwordCorrect) {
+        req.flash('error', 'Current password is incorrect');
+        return res.redirect('/dashboard/settings/account');
+    }
+
+    // if there is no new password
+    if (!req.body.password) req.body.password = req.body.passwordOld;
+
+
+    let errorHtml = '', newUser = new Member(req.body);
+
+    newUser
+        .validate()
+        .then(async(user) => {
+            try {
+                let user =  await Member.findByIdAndUpdate(req.user._id, req.body);
+                req.flash('success', 'Your account information has been updated');
+                return res.redirect('/dashboard/settings/account');
+            } catch(err) { }
+        })
+        .catch(err => {
+            let fields = ['name', 'password', 'email', 'phone'];
+            fields.forEach(field => {
+                if (err.errors[field]) 
+                    errors.push(err.errors[field].message);
+            });
+            errors.forEach(err => errorHtml = errorHtml.concat(`<li>${err}</li>`));
+            req.flash('validationError', errorHtml);
+            return res.redirect('/dashboard/settings/account');
+        });
 }
 
 module.exports = {

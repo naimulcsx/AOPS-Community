@@ -1,9 +1,11 @@
+require('dotenv').config();
+
 module.exports = {
-    name: 'Naimul Haque',
-    email: 'naimul286@gmail.com',
-    password: 'test.password',
+    name: process.env.SUPERADMIN_NAME,
+    email: process.env.SUPERADMIN_EMAIL,
+    password: process.env.SUPERADMIN_PASSWORD,
     role: 'Superadmin',
-    phone: '+8801625644843',
+    phone: process.env.SUPERADMIN_PHONE,
     noticePermissions: {
         createUpdateDeleteSelf: true,
         updateDeleteOthers: true
@@ -11,5 +13,6 @@ module.exports = {
     achievementPermissions: {
         createUpdateDeleteSelf: true,
         updateDeleteOthers: true
-    }
+    },
+    invitePermissions: true
 }

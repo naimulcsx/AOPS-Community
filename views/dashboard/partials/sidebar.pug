@@ -10,8 +10,12 @@
         i.fas.fa-pager
         | Pages
       
-      a.dashboard__link(href="/dashboard/notice/new") Create a new page
-      a.dashboard__link(href="/dashboard/notice") All pages
+      a.dashboard__link(href="/dashboard/notice/new") 
+        i.fas.fa-plus
+        |Create a new page
+      a.dashboard__link(href="/dashboard/notice") 
+        i.fas.fa-asterisk
+        |All pages
 
 
 
@@ -40,8 +44,12 @@
         i.fas.fa-calendar-week
         | Events
 
-      a.dashboard__link(href="#") Create a new event
-      a.dashboard__link(href="#") View all events
+      a.dashboard__link(href="#") 
+        i.fas.fa-plus
+        |Create a new event
+      a.dashboard__link(href="#") 
+        i.fas.fa-asterisk
+        |View all events
 
     .dashboard__link-group
       a.dashboard__link(href="/dashboard/achievement" class= url.includes('achievement') ? 'active' : '') 
@@ -59,15 +67,27 @@
         | View all achievements
 
     .dashboard__link-group
-      a.dashboard__link(href="#" class= url.includes('members') ? "active" : "") 
-        i.fas.fa-user
+      a.dashboard__link(href="#" class= url.includes('member') ? "active" : "") 
+        i.fas.fa-users
         | Members
 
-      a.dashboard__link(href="/dashboard/members/invite" class= url == '/dashboard/members/invite' ? "active" : "") Invite Members
-      a.dashboard__link(href="#") Lab assistants
-      a.dashboard__link(href="#") Faculty members
+      if user.invitePermissions
+        a.dashboard__link(href="/dashboard/member/invite" class= url == '/dashboard/member/invite' ? "active" : "") 
+          i.fas.fa-user-plus
+          |Invite Members
+      a.dashboard__link(href="#") 
+        i.fas.fa-chalkboard-teacher
+        |Faculty Members
+      a.dashboard__link(href="#") 
+        i.fas.fa-user-shield
+        |Executive Members
+      a.dashboard__link(href="#") 
+        i.fas.fa-desktop
+        |Lab Assistant
       
-      a.dashboard__link(href="#") View all members
+      a.dashboard__link(href="#") 
+        i.fas.fa-asterisk
+        |View all members
 
     .dashboard__link-group
       a.dashboard__link(href="/dashboard/settings" class= url.includes('settings') ? "active" : "") 
@@ -75,18 +95,20 @@
         | Settings
 
       
+      if user.role === 'Superadmin'
+        a.dashboard__link(href="/dashboard/settings/general" class= url == '/dashboard/settings/general' ? "active" : "") 
+          i.fas.fa-asterisk
+          |General
 
-      a.dashboard__link(href="/dashboard/settings/general" class= url == '/dashboard/settings/general' ? "active" : "") 
-        i.fas.fa-asterisk
-        |General
+      
+      
+        a.dashboard__link(href="/dashboard/settings/about" class= url == '/dashboard/settings/about' ? "active" : "") 
+          i.fas.fa-home
+          | About Community
 
       a.dashboard__link(href="/dashboard/settings/account" class= url == '/dashboard/settings/account' ? "active" : "") 
         i.fas.fa-user
         | Account settings
-
-      a.dashboard__link(href="/dashboard/settings/about" class= url == '/dashboard/settings/about' ? "active" : "") 
-        i.fas.fa-home
-        | About Community
 
       //a.dashboard__links(href="#") 
         i.fas.fa-user

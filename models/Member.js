@@ -25,11 +25,16 @@ const memberSchema = new mongoose.Schema({
     email: {
         type: String,
         require: [true, 'Email is required'],
-        validate: [validator.isEmail, 'Email is not valid.']
+        validate: [
+            {
+                validator: validator.isEmail, 
+                message: 'Email is not valid.'
+            }
+        ]
     },
     photo: {
         type: String,
-        default: '/img/uploads/avatar.jpg'
+        default: null
     },
     created: {
         type: Date,
@@ -67,20 +72,20 @@ const memberSchema = new mongoose.Schema({
             createUpdateDeleteSelf: false,
             updateDeleteOthers: false
         }
+    },
+    invitePermissions: {
+        type: Boolean,
+        default: false
     }
 });
 
-/*
-    noticePermissions: {
-        
-    }
-*/
 
 
 memberSchema.pre('save', function(next) {
     const user = this;    
-    if (!user.isModified('password')) return next();
-
+    if (!user.isModified('password')) {
+        return next();
+    }
     bcrypt.hash(user.password, 10)
         .then(hash => {
             user.password = hash;
@@ -89,6 +94,11 @@ memberSchema.pre('save', function(next) {
         .catch(err => {
             next(err);
         });
+});
+
+memberSchema.pre('findOneAndUpdate', function (next) {
+    this._update.password = bcrypt.hashSync(this._update.password, 10);
+    next();
 });
 
 module.exports = mongoose.model('Member', memberSchema);

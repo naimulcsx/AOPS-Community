@@ -41,10 +41,10 @@ app.use(async (req, res, next) => {
     res.locals.AOPSInfo = AOPSInfoObj;
     res.locals.successMessage = req.flash("success");
     res.locals.errorMessage = req.flash("error");
+    res.locals.validationError = req.flash('validationError'); // for update account info page
     res.locals.user = req.user;
     res.locals.url = req.url;
     res.locals.validators = validators;
-    console.log(req.user);
 
     next();
 });
@@ -61,7 +61,7 @@ mongoose
 
 // seed database
 const seed = require('./db-seed');
-// seed();
+if (process.env.DB_SEED === "TRUE") seed();
 
 // import routes
 const { noticeRoute, dashboardRoute, baseRoute, memberRoute, achievementRoute } = require('./routes');
