@@ -65,8 +65,14 @@ const handleRegister = async (req, res) => {
     console.log(req.body);
     let validationErrors = [];
 
+    // check if the email is used with other account
+    try {
+        let user = await Member.findOne({email: req.body.email});  
+        if (user) validationErrors.push('Email is already used.');
+    } catch(err) { }
+
     // roles must be any one of the below
-    const accountTypes = ['Member', 'Faculty Member', 'Executive Member', 'Lab Assistant'];
+    const accountTypes = ['Member', 'Faculty Member', 'Executive Member', 'Lab Assistant', 'Office Staff'];
 
     if ( !accountTypes.includes(req.body.role) ) {
         req.flash('error', 'Invalid role.');
@@ -95,6 +101,8 @@ const handleRegister = async (req, res) => {
             return res.redirect('/login');
         })
         .catch(err => {});
+    
+    
 
     // confirm passwords
     if (req.body.password != req.body.confPassword) 
@@ -104,8 +112,9 @@ const handleRegister = async (req, res) => {
     if (req.body.role === 'Executive Member' || req.body.role === 'Faculty Member') {
         req.body.noticePermissions = {
             createUpdateDeleteSelf: true,
-            updateDeleteOthers: false
+            updateDeleteOthers: false,
         }
+        req.body.invitePermissions = true;
         // if Faculty member
         if (req.body.role == 'Faculty Member') {
             req.body.achievementPermissions = {
@@ -131,7 +140,7 @@ const handleRegister = async (req, res) => {
         .then(user => {
             console.log(user);
             req.flash('success', 'Account created successfully. You may login now.')
-            res.redirect('/login');
+            return res.redirect('/login');
         })
         .catch(err => {
             let fields = ['name', 'password', 'email', 'phone'];

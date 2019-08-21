@@ -6,6 +6,7 @@ const {AOPS} = require('../models');
 /* Import validators */
 const {userCanCreateNewNotice, userCanDeleteUpdateNotice} = require('../middlewares/noticeMiddlewares');
 const {userCanCreateNewAchievement, userCanDeleteUpdateAchievement} =require('../middlewares/achievementMiddlewares');
+const {canInviteOthers} = require('../middlewares/baseMiddlewares');
 
 
 const isAuthenticated = (req, res, next) => {
@@ -78,18 +79,20 @@ router
 
 
 /* Dashboard settings routes */
+const {isSuperadmin} = require('../middlewares/baseMiddlewares');
+
 router
     .route('/settings')
-    .get((req, res) => res.redirect('/dashboard/settings/general'))
-    .put( isAuthenticated, updateAOPSInfo );
+    .get( (req, res) => res.redirect('/dashboard/settings/general'))
+    .put( isAuthenticated, isSuperadmin, updateAOPSInfo );
 
 router
     .route('/settings/general')
-    .get( isAuthenticated, renderSettingsGeneral );
+    .get( isAuthenticated, isSuperadmin, renderSettingsGeneral );
 
 router
     .route('/settings/about')
-    .get( isAuthenticated, renderAboutCommunity );
+    .get( isAuthenticated, isSuperadmin, renderAboutCommunity );
 
 router
     .route('/settings/account')
@@ -99,9 +102,9 @@ router
 
 /* Dashboard member routes */
 router
-    .route('/members/invite')
-    .get( isAuthenticated, renderMemberInvite )
-    .post( isAuthenticated, inviteMember );
+    .route('/member/invite')
+    .get( isAuthenticated, canInviteOthers, renderMemberInvite )
+    .post( isAuthenticated, canInviteOthers, inviteMember );
 
 
 

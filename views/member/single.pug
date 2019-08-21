@@ -32,17 +32,17 @@ html
               .profile__photo
                 svg(viewbox='0 0 188 188')
                   g.author__img--box
-                    image(xlink:href=`${member.photo}` height='100%' width='100%')
+                    image(xlink:href=member.photo? member.photo : '/img/avatar.png' height='100%' width='100%')
 
               .profile__desc
                 h1 
                   | #{member.name}
                 p 
                   i.fas.fa-bolt.mr-3
-                  - if (member.role == 'Member')
-                    | Club #{member.role}
-                  - else 
-                    | #{member.role}
+                  | #{member.role}
+                  if (member.position)
+                    span.mx-3 |
+                    | #{member.position}
                 
               .profile__links
                 a(href=`mailto:${member.email}`) 

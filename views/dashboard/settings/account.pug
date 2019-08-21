@@ -30,7 +30,7 @@ html
           include ../partials/sidebar
           .col-md-10.dashboard-content
             .dashboard-flash-messages
-              -if (successMessage.length > 0)
+              - if (successMessage.length > 0)
                 .alert.alert-success
                   | #{successMessage}
                   button.close(type='button' data-dismiss='alert' aria-label='Close')
@@ -41,6 +41,14 @@ html
                   | #{errorMessage}
                   button.close(type='button' data-dismiss='alert' aria-label='Close')
                     span(aria-hidden='true') &times;
+
+              - if (validationError.length > 0)
+                .alert.alert-danger
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
+                  p Please fix the following errors
+                  | !{validationError}
+                  
 
 
             .dashboard-notice__container.mx-auto
@@ -67,21 +75,62 @@ html
                       label(for='role') Role
                       input#role.form-control(disabled type='text' placeholder='Role' value=`${user.role}` required='true' name='role')
 
+                    if user.role === 'Executive Member'
+                      .col-6.mb-3
+                        label(for='position') Position
+                        input#position.form-control(disabled type='text' placeholder='Position' value= user.position ? user.position : 'None')
+
+                      .col-6.mb-3
+                        .form-group
+                          label(for="roles") Change Position
+                          select#roles.form-control(name="position")
+                            option(value="President" disabled selected) Select your positon
+                            option(value="President") President
+                            option(value="Secretary") Secretary
+                            option(value="General Secretary") General Secretary
+                            option(value="Assistant General Secretary") Assistant General Secretary
+                            option(value="Programming Contest Secretary") Programming Contest Secretary
+                            option(value="Assistant Programming Contest Secretary") Assistant Programming Contest Secretary
+                            option(value="Finance Secretary") Finance Secretary
+                            option(value="Assistant Finance Secretary") Assistant Finance Secretary
+                            option(value="Sports Secretary") Sports Secretary
+                            option(value="Assistant Sports Secretary") Assistant Sports Secretary
+                            option(value="Debate Secretary") Debate Secretary
+                            option(value="Assistant Debate Secretary") Assistant Debate Secretary
+                            option(value="Office Secretary") Office Secretary
+                            option(value="Assistant Office Secretary") Assistant Office Secretary
+                            option(value="Seminar & Workshop Secretary") Seminar &amp; Workshop Secretary
+                            option(value="Assistant Seminar & Workshop Secretary") Assistant Seminar &amp; Workshop Secretary
+                            option(value="Social Welfare Secretary") Social Welfare Secretary
+                            option(value="Cultural Secretary") Cultural Secretary
+                            option(value="Assistant Cultural Secretary") Assistant Cultural Secretary
+                            option(value="Place and Publicity Secretary") Place and Publicity Secretary
+                            option(value="Assistant Place and Publicity Secretary") Assistant Place and Publicity Secretary
+                            option(value="Industry Collaboration Secretary") Industry Collaboration Secretary
+                            option(value="Assistant Industry Collaboration Secretary") Assistant Industry Collaboration Secretary
+                            option(value="Creative Designer") Creative Designer
+                            option(value="Photographer") Photographer
+                            option(value="Video Edtior") Video Edtior
+
+
                   .form-row
                     .col-12
                       .form-title
                         h4 Change password
 
-                    .col-6.mb-3
-                      label(for='passwordChange') New password
-                      input#passwordChange.form-control(type='text' placeholder='New password' value=``  name='passwordChange')
-                    .col-6.mb-3
-                      label(for='passwordChange') Repeat new password
-                      input#passwordChange.form-control(type='text' placeholder='Repeat new Ppssword' value=`` name='passwordChangeRepeat')
-                    
                     .col-12.mb-3
-                      label(for='passwordOld') Old password
-                      input#passwordOld.form-control(type='text' placeholder='Repeat new password' value=`` name='passwordOld')
+                      label(for='passwordChange') New password
+                      input#passwordChange.form-control(type='password' placeholder='New password' value=``  name='password')
+
+
+                    .col-12.mb-3
+                      .form-title.mt-5
+                        h4 Current password
+
+                      label(for='passwordOld') Enter current password for changing account information
+                      input#passwordOld.form-control(type='password' placeholder='Current password' value=`` name='passwordOld')
+                    
+                
 
 
 
@@ -89,7 +138,7 @@ html
                  
 
                   
-                  button.btn.btn-primary(type='submit') Update Info
+                  button.btn.btn-primary.mt-4(type='submit') Update Info
 
 
     

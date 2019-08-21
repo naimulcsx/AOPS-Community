@@ -3,8 +3,6 @@ const {Member} = require('./models');
 const bcrypt = require('bcrypt');
 
 module.exports = (passport) => {
-
-
     const authenticate = async(email, password, done) => {
         Member.findOne({email})
             .then(user => {

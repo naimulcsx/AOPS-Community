@@ -14,7 +14,6 @@ const inviteMember = async(req, res) => {
     // if an user with the email exists, give flash message
     try {
         const user = await Member.findOne({email: req.body.email});
-        console.log(user);
         if ( user ) {
             req.flash('error', 'User exists with the email.');
             return res.redirect('/dashboard/members/invite');
@@ -22,7 +21,7 @@ const inviteMember = async(req, res) => {
     } catch(err) { }
 
     // otherwise generate a jwt
-    const accountTypes = ['Member', 'Faculty Member', 'Executive Member', 'Lab Assistant'];
+    const accountTypes = ['Member', 'Faculty Member', 'Executive Member', 'Lab Assistant', 'Office Staff'];
     const roleId = parseInt(req.body.role) - 1;
     const invitationRole = accountTypes[roleId];
 

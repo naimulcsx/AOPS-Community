@@ -1,5 +1,6 @@
 html {
-  font-size: 62.5%; }
+  font-size: 62.5%;
+  scroll-behavior: smooth; }
   @media (max-width: 960px) {
     html {
       font-size: 50%; } }
@@ -155,6 +156,7 @@ body {
 .welcome-notices {
   position: relative;
   padding: 4rem;
+  padding-bottom: 9rem;
   background: #fff; }
 
 .welcome {
@@ -389,7 +391,7 @@ body {
   align-items: center; }
   .dashboard__header img {
     height: 5rem;
-    border-radius: 50%; }
+    border-radius: 1rem; }
   .dashboard__header .links {
     position: relative;
     top: 3px; }
