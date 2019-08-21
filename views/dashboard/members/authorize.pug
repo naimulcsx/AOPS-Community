@@ -141,7 +141,11 @@ html
                     .col-12
                       .form-check.border-0
                         input#acheievementUpdateDeleteOthers.form-check-input(type='checkbox' name='achievementUpdateDeleteOthers' checked = foundUser.achievementPermissions.updateDeleteOthers ? 'on' : null)
-                        label.form-check-label(for='acheievementUpdateDeleteOthers') Member can create / update / delete achievements
+                        label.form-check-label(for='acheievementUpdateDeleteOthers') Member can update / delete other's achievements
+
+                    .col-12.d-none
+                      label(for="user-id")
+                      input#user-id(type='text' name="id" value= foundUser._id)
 
                     button.btn.btn-primary.mt-5(type='submit') Authorize member
                     

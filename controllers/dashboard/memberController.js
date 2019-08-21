@@ -82,8 +82,26 @@ const renderAuthorize = (req, res) => {
     res.render('dashboard/members/authorize');
 }
 
-const handleUpdateAuthorizedMember = (req, res) => {
-    res.send(req.body);
+const handleUpdateAuthorizedMember = async (req, res) => {
+
+    // Initialize every permission to false
+    req.body.noticePermissions = { createUpdateDeleteSelf: false, updateDeleteOthers: false }
+    req.body.achievementPermissions =  { createUpdateDeleteSelf: false, updateDeleteOthers: false}
+
+    // Set permissions
+    if (req.body.noticeCreateUpdateDeleteSelf === 'on') req.body.noticePermissions.createUpdateDeleteSelf = true;
+    if (req.body.noticeUpdateDeleteOthers === 'on') req.body.noticePermissions.updateDeleteOthers = true;
+    if (req.body.achievementCreateUpdateDeleteSelf === 'on') req.body.achievementPermissions.createUpdateDeleteSelf = true;
+    if (req.body.achievementUpdateDeleteOthers === 'on') req.body.achievementPermissions.updateDeleteOthers = true;
+
+    try { 
+        let user = await Member.findByIdAndUpdate({_id: req.body.id}, req.body);
+        console.log(user);
+        req.flash('success', 'Successfully authorized.');
+        return res.redirect('/dashboard/member/authorize');
+    } catch (err) { console.log(err) }
+
+    res.redirect('/dashboard/member/authorize');
 }
 
 
