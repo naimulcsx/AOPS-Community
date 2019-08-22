@@ -133,7 +133,7 @@ const handleRegister = async (req, res) => {
             if (validationErrors.length > 0) {
                 validationErrors.forEach(err => errorHtml = errorHtml.concat(`<li>${err}</li>`));
                 req.flash('error', errorHtml);
-                res.redirect(`${req.originalUrl}?token=${req.body.token}`);
+                return res.redirect(`${req.originalUrl}?token=${req.body.token}`);
             }
             return newMember.save();
         })
@@ -151,7 +151,7 @@ const handleRegister = async (req, res) => {
             validationErrors.forEach(err => errorHtml = errorHtml.concat(`<li>${err}</li>`));
 
             req.flash('error', errorHtml);
-            res.redirect(`${req.originalUrl}?token=${req.body.token}`);
+            return res.redirect(`${req.originalUrl}?token=${req.body.token}`);
         });
 }
 

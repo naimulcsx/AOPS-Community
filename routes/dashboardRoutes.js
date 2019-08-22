@@ -132,4 +132,26 @@ router
     .route('/member/authorize/update')
     .post( isAuthenticated, isSuperadmin, handleUpdateAuthorizedMember );
 
+
+
+
+
+
+
+
+
+/* Dashboard events route */
+const renderDashboardEventNew = (req, res) => {
+    res.render('dashboard/event/new');
+}
+
+router
+    .route('/event/new')
+    .get( isAuthenticated, renderDashboardEventNew )
+
+
+
+
+
+
 module.exports = router;

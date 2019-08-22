@@ -94,6 +94,7 @@ const deleteSingleNotice = async (req, res) => {
 
 const updateNotice = async(req, res) => {
     if (req.body.private === 'on') req.body.public = false;
+    if (!req.body.private) req.body.public = true;
     
     Notice.findByIdAndUpdate(req.params.id, req.body)
         .then(arr => {
