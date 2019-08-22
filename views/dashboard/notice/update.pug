@@ -87,7 +87,7 @@ html
                 //-   span.font-weight-bold Cover Photo
                 //- input#file.form-control-file(type='file' name="cover")
                 .form-check
-                  input#exampleCheck1.form-check-input(type='checkbox' name='private')
+                  input#exampleCheck1.form-check-input(type='checkbox' name='private' checked= !notice.public ? 'true' : null)
                   label.form-check-label(for='exampleCheck1')
                     | Private Notice
                     span (can be only seen by the community members only)

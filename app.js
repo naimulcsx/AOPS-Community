@@ -64,13 +64,14 @@ const seed = require('./db-seed');
 if (process.env.DB_SEED === "TRUE") seed();
 
 // import routes
-const { noticeRoute, dashboardRoute, baseRoute, memberRoute, achievementRoute } = require('./routes');
+const { noticeRoute, dashboardRoute, baseRoute, memberRoute, achievementRoute, eventRoute } = require('./routes');
 
 // register routes
 app.use('/', baseRoute);
 app.use('/notice', noticeRoute);
 app.use('/dashboard', dashboardRoute);
 app.use('/member', memberRoute);
+app.use('/event', eventRoute);
 app.use('/achievement', achievementRoute);
 
 

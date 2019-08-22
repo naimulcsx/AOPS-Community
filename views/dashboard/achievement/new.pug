@@ -19,6 +19,9 @@ html
     link(rel='stylesheet' href='/css/style.css')
     link(href='/css/quill.snow.css' rel='stylesheet')
     
+    style. 
+      
+    
 
 
 
@@ -26,17 +29,10 @@ html
   body
     .dashboard
       include ../partials/header
-
       .container-fluid.mx-0
         .row
           include ../partials/sidebar
-
           .col-md-10.dashboard-content
-            
-              
-
-
-
             .dashboard-notice__container.mx-auto
               
               #toolbar
@@ -81,12 +77,20 @@ html
                 span Achievement Title
                 input.title(type="text" placeholder="Achievement title" style="margin-left:17rem;")   
 
-              form.new-notice.p-4(action=`/achievement` method="POST" enctype="multipart/form-data")
+              form#achievementForm.new-notice.p-4(action=`/achievement` method="POST" enctype="multipart/form-data")
                 input.d-none(type="text" name="title")
                 textarea.d-none(name="desc", cols="30", rows="10")
+
+               
+                .container-fluid
+                  .row
+                    .preview
+
                 label(for='file') 
-                  span.font-weight-bold Cover Photo
+                span.font-weight-bold Cover Photo
                 input#file.form-control-file(type='file' name="cover")
+
+                  
 
           
               #editor
@@ -95,6 +99,11 @@ html
             
     include ../partials/footer
     script(src='/js/image-resize.min.js')
+    script(src='/js/jquery.min.js')
+    script(src='/js/popper.min.js')
+    script(src='/js/bootstrap.min.js')
+    script(src='/js/dropzone.js')
+
     script.
       var editor = new Quill('#editor', {
         modules: { 
@@ -109,13 +118,31 @@ html
       var titleInput = document.querySelector('input.title');
       var editorContents = document.querySelector('.ql-editor');
 
+      document.querySelector('#file').onchange = function() {
+        // remove all the existing images
+        var node = document.querySelector('.preview');
+        while(node.firstChild) node.removeChild(node.firstChild);
+
+        // create image elements
+        for (let i = 0; i < this.files.length; ++i)
+          document.querySelector('.preview').appendChild( document.createElement('img') ); 
+
+
+        // set the image[src] 
+        let images = document.querySelectorAll('.preview img');
+        for (let i = 0; i < this.files.length; ++i)
+          images[i].src = window.URL.createObjectURL(this.files[i]);
+      }
+
       saveBtn.addEventListener('click', (e) => {
         e.preventDefault();
         form.elements.title.value = titleInput.value;
-        form.elements.desc.value = editorContents.innerHTML
+        form.elements.desc.value = editorContents.innerHTML;
         form.submit();
       });
+
+
+
                   
-    script(src='/js/jquery.min.js')
-    script(src='/js/popper.min.js')
-    script(src='/js/bootstrap.min.js')
+      
+
