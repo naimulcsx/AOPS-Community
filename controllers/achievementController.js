@@ -119,15 +119,38 @@ const updateAchievement = async(req, res) => {
     }
 
     
+    new Achievement(req.body)
+        .validate()
+        .then(data => {
 
-    Achievement.findByIdAndUpdate(req.params.id, req.body)
-        .then(arr => {
-            req.flash('success', 'Successfully updated the achievement.');
-            res.redirect('/dashboard/achievement');
+            Achievement.findByIdAndUpdate(req.params.id, req.body)
+                .then(arr => {
+                    req.flash('success', 'Successfully updated the achievement.');
+                    res.redirect('/dashboard/achievement');
+                })
+                .catch(err => {
+                    req.flash('error', 'Couldn\'t update the achievement.');
+                    res.redirect('/dashboard/achievement');
+                });
+
         })
         .catch(err => {
-            req.flash('error', 'Couldn\'t update the achievement.');
-            res.redirect('/dashboard/achievement');
+            let fields = ['title', 'desc'];
+            let validationErrors = [];
+
+            for (let i = 0; i < fields.length; ++i) {
+                if ( err.errors[fields[i]] )
+                    validationErrors.push( err.errors[fields[i]].message );
+            }
+
+            Achievement.findOne({_id: req.params.id})
+                .then( achievement => {
+                    res.render('dashboard/achievement/update', {
+                        achievement, 
+                        validationErrors
+                    })
+                })
+                .catch(err => console.log(err));
         });
 }
 

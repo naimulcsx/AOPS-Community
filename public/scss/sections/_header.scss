@@ -55,9 +55,11 @@
     background: #fff;
     display: flex;
     align-items: center;
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, .01);
 
-
+    &__logo {
+        height: 6.2rem !important;
+    }
 
     &__container {
         display: flex;
@@ -91,10 +93,7 @@
     &__links {
         display: flex;
         flex-direction: row-reverse;
-
-
-       
-    }
+    }   
 }
 
 .display-box {
@@ -104,15 +103,20 @@
     align-items: center;
     max-width: 1024px;
     margin: 0 auto;
-    padding: 22rem 0;
+    padding: 23rem 0;
 
+    &__container {
+        background: #f3f5f7;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, .01);
+
+    }
 
     &__logo {
         margin-right: 7rem;
         svg {
             width: 23rem;
             height: 23rem;
-            filter: drop-shadow(0 2px 8px rgba(134,151,168,.15)) drop-shadow(0 8px 32px rgba(134,151,168,.15));
+            filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.03)) drop-shadow(0 1px 2px rgba(0, 0, 0, .05));
             g {  clip-path: url(#logo-shape);  }
         }
     }
@@ -120,13 +124,13 @@
 
     &__contents {
         h1 {
-            font-weight: 800;
+            font-weight: 700;
             font-size: 5.5rem;
         }
-
+        
         p {
             color: #8a949f;
-            font-size: 1.7rem;
+            font-size: 2rem;
             font-style: italic;
         }
     }

@@ -1,5 +1,5 @@
 .achievements {
-    background: #F9F9FC;
+    background: #fff;
     padding: 8rem 0;
 
     &__contents {
@@ -9,19 +9,20 @@
         .item {
             background: #fff;
             margin: 0 15px;
-            border-radius: 2rem;
             overflow: hidden;
-            box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+            
+            img {border-radius: 2rem;}
+            
 
             .desc {
               padding: 2.5rem;
               letter-spacing: 1px;
+              
             }
-
-            
         }
     }
 }
+
 .achievements-title {
     text-align: center;
     text-transform: uppercase;
@@ -29,12 +30,16 @@
         margin-bottom: 6rem;
         font-size: 3.2rem;
         font-weight: bold;
-        .icon {
-          i {
-            color: #E8B928;
-            font-size: 3rem;
-            margin-right: 1rem;
-          }
+        color: $color-primary;
+
+        &:after {
+          display: block;
+          content: "";
+          width: 13rem;
+          height: 3px;
+          background: $color-primary;
+          margin: 0 auto;
+          margin-top: 10px;
         }
     }
 }
@@ -74,7 +79,7 @@
   }
 
   button.owl-dot {
-      background: rgb(46, 77, 179) !important;
+      background: #CCCCCC !important;
       border: 1px solid rgba(0,0,0,.4);
   }
   .owl-dots button.owl-dot:focus {

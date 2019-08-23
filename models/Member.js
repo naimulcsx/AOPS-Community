@@ -38,7 +38,7 @@ const memberSchema = new mongoose.Schema({
     },
     created: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
     password: {
         type: String,
@@ -76,6 +76,20 @@ const memberSchema = new mongoose.Schema({
     invitePermissions: {
         type: Boolean,
         default: false
+    },
+    galleryPermissions: {
+        type: Object,
+        default: {
+            createUpdateDeleteSelf: false,
+            updateDeleteOthers: false
+        }
+    },
+    eventPermissions: {
+        type: Object,
+        default: {
+            createUpdateDeleteSelf: false,
+            updateDeleteOthers: false
+        }
     }
 });
 

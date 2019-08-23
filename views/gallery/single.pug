@@ -1,0 +1,60 @@
+doctype html
+html
+  head
+    // meta informations
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+
+    // title of the webpage
+    title #{gallery.name} &mdash; Photo Album
+
+    // favicon
+    link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
+
+    // stylesheets
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='/css/all.min.css')
+    link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
+    link(rel='stylesheet' href='/css/style.css')
+    link(rel="stylesheet", href="/css/glightbox.css")
+
+    
+
+  body
+    include ../partials/header
+
+    section.notice
+      .container
+        .row
+          .col-12
+            .notice__container
+              .notice__full
+                .notice__title
+                  h3  #{gallery.name}
+                .notice__created
+                  p  #{ moment(gallery.created).format('LLLL') }
+                .notice__desc
+                  | !{gallery.shortDesc}
+
+                .notice__gallery.my-5
+                  .row
+                    for single in gallery.images
+                      .col-md-4.mb-5
+                        a.mb-5(href=`/${single}` data-lightbox='lightbox')
+                          img.rounded.img-fluid.glightbox(src=`/${single}`)
+             
+
+  
+          
+
+    include ../partials/footer
+
+  script(src='/js/jquery.min.js')
+  script(src='/js/glightbox.js')
+  script. 
+    var lightboxDescription = GLightbox({
+      selector: 'glightbox'
+    });
+ 
+

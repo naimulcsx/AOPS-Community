@@ -10,6 +10,8 @@ module.exports = {
     numberOfNoticesOnNoticeIndex: 5,
     numberOfAchievementsOnHomepage: 5,
     numberOfAchievementsOnAchievementPage: 5,
+    numberOfGalleryOnHomepage: 3,
+    numberOfGalleryOnGalleryPage: 12,
     address: {
         city: 'Chittagong',
         country: 'Bangladesh',

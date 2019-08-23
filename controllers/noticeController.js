@@ -79,7 +79,7 @@ const createNewNotice = (req, res) => {
 }
 
 const deleteSingleNotice = async (req, res) => {
-    let data = await Notice.findByIdAndDelete(req.params.id);
+    let data = await Notice.findOneAndDelete({_id: req.params.id});
 
     if ( !data ) {
         req.flash('error', 'The notice doesn\'t exist.');
@@ -95,15 +95,39 @@ const deleteSingleNotice = async (req, res) => {
 const updateNotice = async(req, res) => {
     if (req.body.private === 'on') req.body.public = false;
     if (!req.body.private) req.body.public = true;
-    
-    Notice.findByIdAndUpdate(req.params.id, req.body)
-        .then(arr => {
-            req.flash('success', 'Successfully updated the notice.');
-            res.redirect('/dashboard/notice');
+
+
+    new Notice(req.body)
+        .validate()
+        .then(data => {
+            Notice.findOneAndUpdate({_id: req.params.id}, req.body)
+                .then(arr => {
+                    req.flash('success', 'Successfully updated the notice.');
+                    res.redirect('/dashboard/notice');
+                })
+                .catch(err => {
+                    req.flash('error', 'Couldn\'t update the notice.');
+                    res.redirect('/dashboard/notice');
+                });
         })
         .catch(err => {
-            req.flash('error', 'Couldn\'t update the notice.');
-            res.redirect('/dashboard/notice');
+            let fields = ['title', 'desc'];
+            let validationErrors = [];
+
+            for (let i = 0; i < fields.length; ++i) {
+                if ( err.errors[fields[i]] )
+                    validationErrors.push( err.errors[fields[i]].message );
+            }
+
+
+            Notice.findOne({_id: req.params.id})
+                .then( notice => {
+                    res.render('dashboard/notice/update', {
+                        notice, 
+                        validationErrors
+                    })
+                })
+                .catch(err => console.log(err));
         });
 }
 

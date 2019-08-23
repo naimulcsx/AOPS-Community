@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const {Notice, AOPS, Member, Achievement} = require('./models');
-const {noticeSeeds, AOPSSeed, memberSeed, AchievementSeed} = require('./seeds');
+const {Notice, AOPS, Member, Achievement, Gallery} = require('./models');
+const {noticeSeeds, AOPSSeed, memberSeed, AchievementSeed, GallerySeed} = require('./seeds');
 
 const seedDatabase = () => {
     AOPS // remove AOPSInfo and insert
@@ -52,6 +52,22 @@ const seedDatabase = () => {
                                 console.log('Achievement created!');
                             } catch(err) { console.log(err) }
                         });
+                    });
+
+                Gallery
+                    .deleteMany({})
+                    .then( () => {
+                        console.log('Remove all albums');
+                        // insert new albums
+                        GallerySeed.forEach(async (gallery) => {
+                            try {
+                                gallery.createdBy = user._id;
+                                await new Gallery(gallery).save();
+                                console.log('Gallery created!');
+                            } catch( err ) { console.log(err) }
+                        })
+                        
+
                     });
 
             } catch(err) { console.log(err); }

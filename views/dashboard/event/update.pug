@@ -7,7 +7,7 @@ html
     meta(http-equiv='X-UA-Compatible' content='ie=edge')
 
     // title of the webpage
-    title New Notice &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
+    title #{event.name} &mdash; Edit Event
 
     // favicon
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
@@ -16,8 +16,8 @@ html
     link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
     link(rel='stylesheet' href='/css/all.min.css')
     link(rel='stylesheet' href='/css/bootstrap.css')
-    link(rel='stylesheet' href='/css/style.css')
     link(href='/css/quill.snow.css' rel='stylesheet')
+    link(rel='stylesheet' href='/css/style.css')
     
 
 
@@ -31,8 +31,17 @@ html
         .row
           include ../partials/sidebar
 
-          .col-md-10.dashboard-content
-            
+          .col-md-9.dashboard-content
+            .dashboard-flash-messages
+              if validationErrors
+                .alert.alert-danger
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                   span(aria-hidden='true') &times;
+
+                  p Please fix the following errors
+                  - validationErrors.forEach(err => {
+                    li #{err}
+                  - })
               
 
 
@@ -75,26 +84,52 @@ html
                   button.ql-clean
 
 
-                a.save(href="/") Save
+                a.save(href="/") Update
 
               .title-input
-                span Notice Title
-                input.title(type="text" placeholder="Notice title")   
+                span Event Name
+                input.title(id="name" type="text" placeholder="Event Name" autocomplete="off" style="margin-left: 13rem;" value=event.name)   
 
-              form.new-notice.p-4(action=`/notice` method="POST")
-                input.d-none(type="text" name="title")
+              form.new-notice.border-0(action=`/event/${event._id}?_method=PUT` method="POST")
+                input.d-none(type="text" name="name")
                 textarea.d-none(name="desc", cols="30", rows="10")
-                label(for='file') 
-                  span.font-weight-bold Cover Photo
-                input#file.form-control-file(type='file' name="cover")
 
+                .form-row
+                  .col-6.px-0
+                    input.title.ml-0(type='text' placeholder='Event Type' name="type" autocomplete="off" value= `${event.type}`)
+                  .col-6.px-0(style="border-left: 1px solid rgba(0,0,0,.1);")
+                    input.title.ml-0(type='text' placeholder='Registration Fee' name="fee" autocomplete="off" value= event.fee > 0 ? event.fee: '')
+
+                .form-row
+                  .col-4.px-0
+                    input.title.ml-0(type="text" id="startTime" placeholder="Event Starting Time" autocomplete ="off" name="startTime" value=`${ moment(event.startTime).format('Y/MM/D hh:mm')}`)
+                  .col-4.px-0(style="border-left: 1px solid rgba(0,0,0,.1);")
+                    input.title.ml-0(type="text" id="finishTime" placeholder="Event Finishing Time" autocomplete="off" name="finishTime" value=`${ moment(event.finishTime).format('Y/MM/D hh:mm')}`)
+                  .col-4.px-0(style="border-left: 1px solid rgba(0,0,0,.1);")
+                    input.title.ml-0(type="text" id="finishTime" placeholder="Album ID" autocomplete="off" name="galleryId" value= event.galleryId ? event.galleryId: '')
+
+
+
+                
+
+
+
+
+                
           
               #editor
                 
 
             
     include ../partials/footer
+    link(rel="stylesheet", href="/css/jquery.datetimepicker.css")
     script(src='/js/image-resize.min.js')
+    script(src='/js/jquery.min.js')
+    script(src='/js/popper.min.js')
+    script(src='/js/bootstrap.min.js')
+    script(src='/js/jquery.datetimepicker.js')
+
+
     script.
       var editor = new Quill('#editor', {
         modules: { 
@@ -102,20 +137,29 @@ html
           imageResize: {} 
         },
         theme: 'snow',
+        placeholder: 'Event description...',
+
       });
 
       var saveBtn = document.querySelector('a.save');
       var form = document.querySelector('form.new-notice');
-      var titleInput = document.querySelector('input.title');
+      var titleInput = document.querySelector('.title-input input.title');
       var editorContents = document.querySelector('.ql-editor');
 
       saveBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        form.elements.title.value = titleInput.value;
+        form.elements.name.value = titleInput.value;
         form.elements.desc.value = editorContents.innerHTML
         form.submit();
       });
-                  
-    script(src='/js/jquery.min.js')
-    script(src='/js/popper.min.js')
-    script(src='/js/bootstrap.min.js')
+
+      $(function () {
+          $('#startTime').datetimepicker({
+            format: 'Y/m/d H:i'
+          });
+          $('#finishTime').datetimepicker({
+            format: 'Y/m/d H:i'
+          });
+      });
+    
+      

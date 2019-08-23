@@ -49,6 +49,14 @@ const AOPSSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
+    numberOfGalleryOnHomepage: {
+        type: Number,
+        required: true
+    },
+    numberOfGalleryOnGalleryPage: {
+        type: Number,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('AOPS', AOPSSchema);

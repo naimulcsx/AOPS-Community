@@ -14,5 +14,13 @@ module.exports = {
         createUpdateDeleteSelf: true,
         updateDeleteOthers: true
     },
-    invitePermissions: true
+    galleryPermissions: {
+        createUpdateDeleteSelf: true,
+        updateDeleteOthers: true
+    },
+    invitePermissions: true,
+    eventPermissions: {
+        createUpdateDeleteSelf: true,
+        updateDeleteOthers: true
+    }
 }

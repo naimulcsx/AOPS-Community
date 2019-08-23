@@ -7,7 +7,7 @@ html
     meta(http-equiv='X-UA-Compatible' content='ie=edge')
 
     // title of the webpage
-    title #{notice.title} &mdash; Update Notice
+    title #{gallery.name} &mdash; Update Album
 
     // favicon
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
@@ -18,22 +18,31 @@ html
     link(rel='stylesheet' href='/css/bootstrap.css')
     link(rel='stylesheet' href='/css/style.css')
     link(href='/css/quill.snow.css' rel='stylesheet')
+    
+
+
+
 
 
   body
     .dashboard
       include ../partials/header
-
       .container-fluid.mx-0
         .row
           include ../partials/sidebar
+          .col-md-9.dashboard-content
+            .dashboard-flash-messages
 
-          .col-md-10.dashboard-content
-            
+              - if ( errorMessage.length > 0 ) {
+                .alert.alert-danger
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
+                  p Please fix the following errors
+                  | !{errorMessage}
+              -}
 
 
             .dashboard-notice__container.mx-auto
-              
               #toolbar
                 span.ql-formats
                   select.ql-header
@@ -70,30 +79,38 @@ html
                   button.ql-clean
 
 
-                a.save(href="/") Update
-
               .title-input
-                span Notice Title
-                input.title(type="text" placeholder='Notice titles ' value=`${notice.title}`)    
+                span Album Name
+                input.title(type="text" placeholder="Enter Album Name" style="margin-left:14rem;" value=`${gallery.name}`)
+                a.save(href="/" style="transform: translateY(-3px);") Update
 
-              .cover-image
-                if notice.cover
-                  img.w-100(src=`/${notice.cover}`)
+              form#achievementForm.new-notice.p-4(action=`/gallery/${gallery._id}?_method=PUT` method="POST" enctype="multipart/form-data")
+                input.d-none(type="text" name="name")
+                textarea.d-none(name="shortDesc", cols="30", rows="10")
+                input#fileSelected.d-none(type='checkbox' name='fileSelected')
+                .container-fluid
+                  .row
+                    .preview
+                        - for (let i = 0; i < gallery.images.length; ++i ) {
+                            img(src=`/${gallery.images[i]}`)
+                        - }
 
-              form.new-notice.p-4(action=`/notice/${notice._id}?_method=PUT` method="POST")
-                input.d-none(type="text" name="title")
-                textarea.d-none(name="desc", cols="30", rows="10")
                 label(for='file') 
-                  span.font-weight-bold Cover Photo
-                input#file.form-control-file(type='file' name="cover")
+                span.font-weight-bold Album photos
+                input#file.form-control-file(type='file' name="album" multiple)
 
               #editor
-                | !{notice.desc}
+                | !{gallery.shortDesc}
+          
                 
 
             
     include ../partials/footer
     script(src='/js/image-resize.min.js')
+    script(src='/js/jquery.min.js')
+    script(src='/js/popper.min.js')
+    script(src='/js/bootstrap.min.js')
+
     script.
       var editor = new Quill('#editor', {
         modules: { 
@@ -108,11 +125,32 @@ html
       var titleInput = document.querySelector('input.title');
       var editorContents = document.querySelector('.ql-editor');
 
+      document.querySelector('#file').onchange = function() {
+        document.getElementById('fileSelected').checked = true;
+        // remove all the existing images
+        var node = document.querySelector('.preview');
+        while(node.firstChild) node.removeChild(node.firstChild);
+
+        // create image elements
+        for (let i = 0; i < this.files.length; ++i)
+          document.querySelector('.preview').appendChild( document.createElement('img') ); 
+
+
+        // set the image[src] 
+        let images = document.querySelectorAll('.preview img');
+        for (let i = 0; i < this.files.length; ++i)
+          images[i].src = window.URL.createObjectURL(this.files[i]);
+      }
+
       saveBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        form.elements.title.value = titleInput.value;
-        form.elements.desc.value = editorContents.innerHTML
+        form.elements.name.value = titleInput.value;
+        form.elements.shortDesc.value = editorContents.innerHTML;
         form.submit();
       });
+
+
+
                   
+      
 

@@ -17,9 +17,7 @@
         i.fas.fa-asterisk
         |All pages
 
-
-
-
+    
     
     .dashboard__link-group
       a.dashboard__link(href="/dashboard/notice" class= url.includes('notice') ? "active" : "") 
@@ -40,14 +38,14 @@
 
 
     .dashboard__link-group
-      a.dashboard__link(href="#") 
+      a.dashboard__link(href="/dashboard/event") 
         i.fas.fa-calendar-week
         | Events
 
       a.dashboard__link(href="/dashboard/event/new") 
         i.fas.fa-plus
         |Create a new event
-      a.dashboard__link(href="#") 
+      a.dashboard__link(href="/dashboard/event") 
         i.fas.fa-asterisk
         |View all events
 
@@ -65,6 +63,19 @@
       a.dashboard__link(href="/dashboard/achievement" class= url == '/dashboard/achievement' ? "active" : "") 
         i.fas.fa-asterisk
         | View all achievements
+
+    .dashboard__link-group
+      a.dashboard__link(href="/dashboard/gallery")
+        i.fas.fa-pager
+        | Photo Gallery 
+
+      if user.galleryPermissions.createUpdateDeleteSelf
+        a.dashboard__link(href="/dashboard/gallery/new") 
+          i.fas.fa-plus
+          | Create a new photo album
+      a.dashboard__link(href="/dashboard/gallery") 
+        i.fas.fa-asterisk
+        | View all albums
 
     .dashboard__link-group
       a.dashboard__link(href="#" class= url.includes('member') ? "active" : "") 

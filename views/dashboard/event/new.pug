@@ -31,8 +31,17 @@ html
         .row
           include ../partials/sidebar
 
-          .col-md-10.dashboard-content
-            
+          .col-md-9.dashboard-content
+            .dashboard-flash-messages
+              if validationErrors
+                .alert.alert-danger
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                   span(aria-hidden='true') &times;
+
+                  p Please fix the following errors
+                  - validationErrors.forEach(err => {
+                    li #{err}
+                  - })
               
 
 
@@ -92,10 +101,13 @@ html
                     input.title.ml-0(type='text' placeholder='Registration Fee' name="fee" autocomplete="off")
 
                 .form-row
-                  .col-6.px-0
+                  .col-4.px-0
                     input.title.ml-0(type="text" id="startTime" placeholder="Event Starting Time" value="" autocomplete ="off" name="startTime")
-                  .col-6.px-0(style="border-left: 1px solid rgba(0,0,0,.1);")
+                  .col-4.px-0(style="border-left: 1px solid rgba(0,0,0,.1);")
                     input.title.ml-0(type="text" id="finishTime" placeholder="Event Finishing Time" value="" autocomplete="off" name="finishTime")
+                  .col-4.px-0(style="border-left: 1px solid rgba(0,0,0,.1);")
+                    input.title.ml-0(type="text" id="finishTime" placeholder="Album ID" value="" autocomplete="off" name="galleryId")
+
 
 
                 

@@ -8,6 +8,7 @@ const path = require('path');
 const {userCanCreateNewNotice, userCanDeleteUpdateNotice} = require('../middlewares/noticeMiddlewares');
 const {userCanCreateNewAchievement, userCanDeleteUpdateAchievement} =require('../middlewares/achievementMiddlewares');
 const {canInviteOthers} = require('../middlewares/baseMiddlewares');
+const { userCanCreateNewGallery, userCanDeleteUpdateGallery } = require('../middlewares/galleryMiddlewares')
 
 
 const storage = multer.diskStorage({
@@ -58,11 +59,14 @@ const { renderMemberInvite,
         handleUpdateAuthorizedMember } = require('../controllers/dashboard/memberController');
 
 
+const { renderDashboardGallery, 
+    renderDashboardGalleryNew,
+    renderDashboardGalleryUpdate } = require('../controllers/dashboard/galleryController');
+
 /* Dashboard main Route */
 router
     .route('/')
     .get( isAuthenticated, renderDashboard );
-
 
 /* Dashboard notice Routes */
 router
@@ -90,8 +94,6 @@ router
 router
     .route('/achievement/update/:id')
     .get( isAuthenticated, userCanDeleteUpdateAchievement, renderUpdateAchievement );
-
-
 
 
 /* Dashboard settings routes */
@@ -140,18 +142,35 @@ router
 
 
 
-/* Dashboard events route */
-const renderDashboardEventNew = (req, res) => {
-    res.render('dashboard/event/new');
-}
+/* Dashboard event routes */
+const {renderDashboardEvent, renderDashboardEventNew, renderDashboardEventUpdate} = require('../controllers/dashboard/eventController');
+
+router
+    .route('/event')
+    .get( isAuthenticated, renderDashboardEvent );
 
 router
     .route('/event/new')
     .get( isAuthenticated, renderDashboardEventNew )
 
+router
+    .route('/event/update/:id')
+    .get( isAuthenticated, renderDashboardEventUpdate );
 
 
+/* Dashboard gallery routes */
 
+router
+    .route('/gallery')
+    .get( isAuthenticated, renderDashboardGallery );
+
+router
+    .route('/gallery/new')
+    .get( isAuthenticated, userCanCreateNewGallery, renderDashboardGalleryNew );
+
+router
+    .route('/gallery/update/:id')
+    .get( isAuthenticated, userCanDeleteUpdateGallery, renderDashboardGalleryUpdate );
 
 
 module.exports = router;

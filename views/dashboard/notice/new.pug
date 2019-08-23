@@ -31,7 +31,7 @@ html
         .row
           include ../partials/sidebar
 
-          .col-md-10.dashboard-content
+          .col-md-9.dashboard-content
             
               
 
@@ -120,7 +120,7 @@ html
       saveBtn.addEventListener('click', (e) => {
         e.preventDefault();
         form.elements.title.value = titleInput.value;
-        form.elements.desc.value = editorContents.innerHTML
+        form.elements.desc.value = editorContents.innerHTML;
         form.submit();
       });
                   
