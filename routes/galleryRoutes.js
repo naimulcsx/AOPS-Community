@@ -6,7 +6,7 @@ const uuidv1 = require('uuid/v1');
 const {Gallery} = require('../models');
 
 
-const {showSingleGallery, createNewGallery, deleteSingleGallery, updateSingleGallery} = require('../controllers/galleryController');
+const {showSingleGallery, createNewGallery, deleteSingleGallery, updateSingleGallery, showAllGalleries} = require('../controllers/galleryController');
 const { userCanCreateNewGallery, userCanDeleteUpdateGallery } = require('../middlewares/galleryMiddlewares')
 const { isAuthenticated } = require('../middlewares/authMiddlewares');
 
@@ -24,6 +24,7 @@ const upload = multer({
 
 router
     .route('/')
+    .get( showAllGalleries )
     .post( isAuthenticated, userCanCreateNewGallery, upload.array('album'), createNewGallery );
 
 router

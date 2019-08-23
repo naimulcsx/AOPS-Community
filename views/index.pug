@@ -51,17 +51,17 @@ html
       .container
         .row.gallery__contents
           
-            for single in galleries
-              .col-md-4
-                - let imgPath = '/' + path.normalize(single.images[0])
-                a.gallery__single(style=`background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(./${single.images[0].replace(/\\/g, "/")})` href=`/gallery/${single._id}`)
-                  h3 #{single.name}1
-                  p   
-                    i.fas.fa-image
-                    | #{single.images.length} Images
+          for single in galleries
+            .col-md-4
+              - let imgPath = '/' + path.normalize(single.images[0])
+              a.gallery__single(style=`background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(./${single.images[0].replace(/\\/g, "/")})` href=`/gallery/${single._id}`)
+                h3 #{single.name}1
+                p   
+                  i.fas.fa-image
+                  | #{single.images.length} Images
 
-            .gallery__link
-              a.view_more_gallery(href='/gallery') View All Albums
+        .gallery__link
+          a.view_more_gallery(href='/gallery') View All Albums
 
     section.events#events
       .achievements-title

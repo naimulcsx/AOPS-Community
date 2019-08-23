@@ -352,10 +352,12 @@
         border-radius: 2rem;
         text-decoration: none;
         transition: all .4s;
+        margin-bottom: 3rem;
+        color: #fff;
 
         &:hover {
             text-decoration: none;
-            h3, p { transform: scale(1.1); }
+            h3, p { transform: scale(1.1); color: #fff;  }
         }
 
         padding: 2rem;
@@ -375,16 +377,19 @@
         }
 
         p {
+            color: #fff;
             i {margin-right: 5px;}
             font-size: 1.8rem;
             color: #fff;
             transition: all .3s;
+            span {color: #fff;}
         }
     }
 
     &__link {
         margin: 0 auto;
-        margin-top: 6rem;
+        margin-top: 3rem;
+        text-align: center;
         a {
             color: #fff;
             background: $color-primary;

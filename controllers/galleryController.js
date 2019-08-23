@@ -2,6 +2,32 @@ const {Gallery} = require('../models');
 const fs = require('fs');
 
 
+const showAllGalleries = async (req, res) => {
+    const galleriesPerPage = res.locals.AOPSInfo.numberOfGalleryOnGalleryPage;
+    let skipCount = 0, currentPage = 1;
+
+    const documentCount = await Gallery.countDocuments({});
+    const paginateCount = Math.ceil(documentCount / galleriesPerPage);
+
+    if (req.query.page && parseInt(req.query.page) > 0) {
+        currentPage = parseInt(req.query.page);
+        skipCount = currentPage - 1;
+    }
+
+    const galleries = 
+        await Gallery
+            .find()
+            .sort({created: -1})
+            .limit(galleriesPerPage)
+            .skip(skipCount * galleriesPerPage);
+
+    res.render('gallery/index', {
+        galleries,
+        paginateCount,
+        currentPage,
+    });
+}
+
 const showSingleGallery = async (req, res) => {
     try {
         let gallery = await Gallery.findOne({_id: req.params.id})
@@ -119,5 +145,6 @@ module.exports = {
     showSingleGallery,
     createNewGallery,
     deleteSingleGallery,
-    updateSingleGallery
+    updateSingleGallery,
+    showAllGalleries
 }
