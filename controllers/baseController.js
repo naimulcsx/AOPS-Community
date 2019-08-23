@@ -1,4 +1,4 @@
-const {Notice, Member, Achievement} = require('../models');
+const {Notice, Member, Achievement, Gallery} = require('../models');
 const jwt = require('jsonwebtoken');
 
 const renderHomepage = async(req, res) => {
@@ -14,9 +14,15 @@ const renderHomepage = async(req, res) => {
                         .sort({created: -1})
                         .limit(res.locals.AOPSInfo.numberOfAchievementsOnHomepage);
 
+                let galleries = 
+                    await Gallery 
+                        .find()
+                        .sort({created: -1});
+
                 res.render('index', {
                     notices,
-                    achievements
+                    achievements,
+                    galleries
                 });
             } catch(err) { console.log(err) }
         })
@@ -110,11 +116,13 @@ const handleRegister = async (req, res) => {
     
     // set permissons to the assigned role
     if (req.body.role === 'Executive Member' || req.body.role === 'Faculty Member') {
-        req.body.noticePermissions = {
+        
+        req.body.noticePermissions = req.body.galleryPermissions = req.body.eventPermissions = {
             createUpdateDeleteSelf: true,
             updateDeleteOthers: false,
         }
         req.body.invitePermissions = true;
+
         // if Faculty member
         if (req.body.role == 'Faculty Member') {
             req.body.achievementPermissions = {

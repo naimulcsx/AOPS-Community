@@ -1,0 +1,97 @@
+doctype html
+html
+  head
+    // meta informations
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+
+    // title of the webpage
+    title All Events &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
+
+    // favicon
+    link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
+
+    // stylesheets
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='/css/all.min.css')
+    link(rel='stylesheet' href='/css/bootstrap.css')
+    link(rel='stylesheet' href='/css/style.css')
+
+
+  body
+    .dashboard
+      include ../partials/header
+
+      .container-fluid.mx-0
+        .row
+          include ../partials/sidebar
+
+          - if ( events.length == 0 ) {
+            .text-center.w-100.mt-5
+              p No events posted yet...!
+
+          - }
+
+          .col-md-9.dashboard-content
+            .dashboard-flash-messages
+              -if (successMessage.length > 0)
+                .alert.alert-success
+                  | #{successMessage}
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
+
+              - if (errorMessage.length > 0)
+                .alert.alert-danger
+                  | #{errorMessage}
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                    span(aria-hidden='true') &times;
+
+            .dashboard-notice__container.mx-auto
+              - for (let i = 0; i < events.length; ++i) {
+                .dashboard-notice__single
+                  .dashboard-notice__title
+                    h3 #{events[i].name}
+                      if moment(events[i].startTime).isAfter()
+                        span.ml-3 (Upcoming)
+                      else
+                        span.ml-3 (Ended)
+
+                    p 
+                      span.d-block
+                        i.fas.fa-clock.mr-2
+                        | #{ moment(events[i].startTime).format('lll')} &mdash; #{ moment(events[i].finishTime).format('lll') }
+
+                      span.d-block Posted on #{ moment(events[i].created).format('llll') }
+
+                      span Created by 
+                        a(href=`/member/${events[i].createdBy._id}`)
+                          |#{events[i].createdBy.name}
+                      
+                  .dashboard-notice__links
+                    a.view(href=`/notice/${events[i]._id}`) View
+
+                    // if the notice is created by the user || the used has permission to edit and update
+                    - var updateDeleteCond = events[i].createdBy._id.equals(user._id) || user.eventPermissons.updateDeleteOthers
+                    a.update(href= updateDeleteCond ? `/dashboard/event/update/${events[i]._id}` : null) Edit
+                  
+                    form(class="d-inline delete-notice-form" action=`/event/${events[i]._id}?_method=DELETE` method="POST")
+                      a.delete(href= updateDeleteCond ? '/' : null) Delete
+              - }
+            
+    include ../partials/footer
+    script. 
+      let deleteButtons = document.querySelectorAll('a.delete');
+
+      for (let i = 0; i < deleteButtons.length; ++i) {
+        let single = deleteButtons[i];
+        if ( single.getAttribute('href') === null ) continue;
+        
+        single.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.target.parentElement.submit();
+        });
+      }
+      
+                  
+

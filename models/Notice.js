@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const noticeSchema  = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: [true, 'Notice title is required']
     },
     desc: {
         type: String,
-        required: true
+        required: [true, 'Notice description is required']
     },
     created: {
         type: Date,

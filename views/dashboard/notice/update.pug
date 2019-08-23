@@ -28,7 +28,17 @@ html
         .row
           include ../partials/sidebar
 
-          .col-md-10.dashboard-content
+          .col-md-9.dashboard-content
+            .dashboard-flash-messages
+              if validationErrors
+                .alert.alert-danger
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                   span(aria-hidden='true') &times;
+
+                  p Please fix the following errors
+                  - validationErrors.forEach(err => {
+                    li #{err}
+                  - })
             
 
 

@@ -44,6 +44,7 @@ app.use(async (req, res, next) => {
     res.locals.validationError = req.flash('validationError'); // for update account info page
     res.locals.user = req.user;
     res.locals.url = req.url;
+    res.locals.path = require('path');
     res.locals.validators = validators;
 
     next();
@@ -64,7 +65,7 @@ const seed = require('./db-seed');
 if (process.env.DB_SEED === "TRUE") seed();
 
 // import routes
-const { noticeRoute, dashboardRoute, baseRoute, memberRoute, achievementRoute, eventRoute } = require('./routes');
+const { noticeRoute, dashboardRoute, baseRoute, memberRoute, achievementRoute, eventRoute, galleryRoute } = require('./routes');
 
 // register routes
 app.use('/', baseRoute);
@@ -73,6 +74,7 @@ app.use('/dashboard', dashboardRoute);
 app.use('/member', memberRoute);
 app.use('/event', eventRoute);
 app.use('/achievement', achievementRoute);
+app.use('/gallery', galleryRoute);
 
 
 app.listen( 3000, () => console.log('Server has started!') );

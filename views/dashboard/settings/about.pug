@@ -28,7 +28,7 @@ html
         .row
           include ../partials/sidebar
 
-          .col-md-10.dashboard-content
+          .col-md-9.dashboard-content
             form.new-notice.border-0(action=`/dashboard/settings?_method=PUT` method="POST")
               input.d-none(type="text" name="aboutDesc")
             

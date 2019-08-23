@@ -2,16 +2,16 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-
+const uuidv1 = require('uuid/v1');
 
 /* Validators */
 const {isAuthenticated} = require('../middlewares/authMiddlewares');
 const {userCanCreateNewAchievement, userCanDeleteUpdateAchievement} = require('../middlewares/achievementMiddlewares');
 
 const storage = multer.diskStorage({
-    destination: './uploads/cover',
+    destination: './uploads/cover_images',
     filename: function(req, file, cb) {
-        cb(null, 'cover' + '-' + Date.now() + path.extname(file.originalname) )
+        cb(null, uuidv1() + path.extname(file.originalname) )
     }
 });
 

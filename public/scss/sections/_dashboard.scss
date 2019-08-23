@@ -5,9 +5,15 @@
         background: $color-primary;
         color: $white;
         top: 0;
+        min-width: 350px !important;
         left: 0;
         overflow-y: scroll;
         box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
+
+
+        // &::-webkit-scrollbar { width:15px;height:15px;}
+        // &::-webkit-scrollbar-track {background: transparent;}
+        // &::-webkit-scrollbar-thumb {background: #b3b3b3; }
     }
 
     &__header {
@@ -16,7 +22,7 @@
         box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
         display: flex; 
         flex-direction: row-reverse;
-        margin-left: 16.6%;
+        margin-left: 350px;
         padding: 0 4rem;
         align-items: center;
 
@@ -101,9 +107,11 @@
 
 
 .dashboard-content {
-    margin: 4rem 0;
+    margin: 4rem auto;
+}
 
-    margin-left: 16.66%;
+.dashboard .container-fluid.mx-0 > .row {
+    margin-left: 335px;
 }
 
 

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap");
 html {
   font-size: 62.5%;
   scroll-behavior: smooth; }
@@ -8,10 +8,10 @@ html {
 
 body {
   font-size: 1.6rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 400;
   line-height: 1.9;
-  background: #F9F9FC; }
+  background: #F3F5F7; }
 
 ::-webkit-scrollbar {
   width: 15px;
@@ -87,7 +87,9 @@ body {
   background: #fff;
   display: flex;
   align-items: center;
-  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.06); }
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.01); }
+  .header-navbar__logo {
+    height: 6.2rem !important; }
   .header-navbar__container {
     display: flex;
     flex-direction: row;
@@ -118,21 +120,24 @@ body {
   align-items: center;
   max-width: 1024px;
   margin: 0 auto;
-  padding: 22rem 0; }
+  padding: 23rem 0; }
+  .display-box__container {
+    background: #f3f5f7;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.01); }
   .display-box__logo {
     margin-right: 7rem; }
     .display-box__logo svg {
       width: 23rem;
       height: 23rem;
-      filter: drop-shadow(0 2px 8px rgba(134, 151, 168, 0.15)) drop-shadow(0 8px 32px rgba(134, 151, 168, 0.15)); }
+      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.03)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05)); }
       .display-box__logo svg g {
         clip-path: url(#logo-shape); }
   .display-box__contents h1 {
-    font-weight: 800;
+    font-weight: 700;
     font-size: 5.5rem; }
   .display-box__contents p {
     color: #8a949f;
-    font-size: 1.7rem;
+    font-size: 2rem;
     font-style: italic; }
 
 .footer {
@@ -182,10 +187,9 @@ body {
 .notices {
   background: #fff;
   margin-top: -100px;
-  box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0px 1px 4px 0 rgba(0, 0, 0, 0.1);
   padding: 0;
   color: #636e79;
-  border-radius: 2.5rem;
   overflow: hidden; }
   @media (max-width: 1200px) {
     .notices {
@@ -227,21 +231,14 @@ body {
     padding: 0rem 2rem 3rem 0rem; }
   .notice__cover img {
     border-radius: 2rem; }
-  .notice .button {
-    margin-left: 3rem;
-    margin-bottom: 2rem; }
-  .notice__full {
-    overflow: hidden;
-    background: #fff;
-    box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
-    border-radius: 2rem; }
-    .notice__full:not(:last-child) {
-      margin-bottom: 5rem; }
+  .notice__full:not(:last-child) {
+    margin-bottom: 5rem; }
   .notice__created {
+    padding-bottom: 1.25rem;
+    margin-bottom: 3rem;
     font-weight: 600;
     font-size: 1.5rem;
     color: #606468;
-    padding: 1rem 3rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
     .notice__created p {
       margin: 0; }
@@ -270,15 +267,13 @@ body {
         width: 80px;
         background: #2C3A47; }
   .notice__title {
-    padding: 2rem 3rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+    margin-bottom: 1rem; }
     .notice__title h3 {
       font-size: 2.5rem;
       font-weight: bold;
       color: #2C3A47;
       margin: 0; }
   .notice__desc {
-    padding: 2rem 3rem;
     color: #8a949f;
     text-align: justify; }
 
@@ -393,6 +388,57 @@ body {
     width: 50px;
     background: #2C3A47; }
 
+.gallery {
+  padding: 10rem 0;
+  padding-top: 7rem; }
+  .gallery__contents {
+    margin-top: 7rem; }
+  .gallery__single {
+    height: 30rem;
+    background-size: cover;
+    background-position: center;
+    border-radius: 2rem;
+    text-decoration: none;
+    transition: all .4s;
+    padding: 2rem;
+    color: #fff;
+    box-shadow: 0px 1px 4px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; }
+    .gallery__single:hover {
+      text-decoration: none; }
+      .gallery__single:hover h3, .gallery__single:hover p {
+        transform: scale(1.1); }
+    .gallery__single h3 {
+      font-weight: bold;
+      font-size: 2.5rem;
+      color: #fff;
+      transition: all .3s; }
+    .gallery__single p {
+      font-size: 1.8rem;
+      color: #fff;
+      transition: all .3s; }
+      .gallery__single p i {
+        margin-right: 5px; }
+  .gallery__link {
+    margin: 0 auto;
+    margin-top: 6rem; }
+    .gallery__link a {
+      color: #fff;
+      background: #2C3A47;
+      text-decoration: none;
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      font-size: 1.7rem;
+      border-radius: 3rem;
+      transition: all .3s;
+      font-weight: bold; }
+      .gallery__link a:hover {
+        background: #536d86; }
+
 .login-box {
   height: 100vh;
   display: flex;
@@ -453,6 +499,7 @@ body {
   background: #2C3A47;
   color: #fff;
   top: 0;
+  min-width: 350px !important;
   left: 0;
   overflow-y: scroll;
   box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05); }
@@ -463,7 +510,7 @@ body {
   box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
   display: flex;
   flex-direction: row-reverse;
-  margin-left: 16.6%;
+  margin-left: 350px;
   padding: 0 4rem;
   align-items: center; }
   .dashboard__header img {
@@ -517,8 +564,10 @@ body {
       color: #fff !important; }
 
 .dashboard-content {
-  margin: 4rem 0;
-  margin-left: 16.66%; }
+  margin: 4rem auto; }
+
+.dashboard .container-fluid.mx-0 > .row {
+  margin-left: 335px; }
 
 .dashboard-flash-messages {
   max-width: 1024px;
@@ -715,16 +764,16 @@ form.new-notice {
   border-radius: 2rem; }
 
 .achievements {
-  background: #F9F9FC;
+  background: #fff;
   padding: 8rem 0; }
   .achievements__contents .owl-stage-outer {
     padding: 4rem 0; }
   .achievements__contents .item {
     background: #fff;
     margin: 0 15px;
-    border-radius: 2rem;
-    overflow: hidden;
-    box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06); }
+    overflow: hidden; }
+    .achievements__contents .item img {
+      border-radius: 2rem; }
     .achievements__contents .item .desc {
       padding: 2.5rem;
       letter-spacing: 1px; }
@@ -735,11 +784,16 @@ form.new-notice {
   .achievements-title h3 {
     margin-bottom: 6rem;
     font-size: 3.2rem;
-    font-weight: bold; }
-    .achievements-title h3 .icon i {
-      color: #E8B928;
-      font-size: 3rem;
-      margin-right: 1rem; }
+    font-weight: bold;
+    color: #2C3A47; }
+    .achievements-title h3:after {
+      display: block;
+      content: "";
+      width: 13rem;
+      height: 3px;
+      background: #2C3A47;
+      margin: 0 auto;
+      margin-top: 10px; }
 
 .owl-nav button {
   position: absolute;
@@ -772,7 +826,7 @@ form.new-notice {
   background-color: #333 !important; }
 
 button.owl-dot {
-  background: #2e4db3 !important;
+  background: #CCCCCC !important;
   border: 1px solid rgba(0, 0, 0, 0.4); }
 
 .owl-dots button.owl-dot:focus {

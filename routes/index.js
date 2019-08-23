@@ -4,6 +4,7 @@ const baseRoute = require('./baseRoutes');
 const memberRoute = require('./memberRoutes');
 const achievementRoute = require('./achievementRoutes');
 const eventRoute = require('./eventRoutes');
+const galleryRoute = require('./galleryRoutes');
 
 module.exports = {
     noticeRoute,
@@ -11,5 +12,6 @@ module.exports = {
     baseRoute,
     memberRoute,
     achievementRoute,
-    eventRoute
+    eventRoute,
+    galleryRoute
 }
