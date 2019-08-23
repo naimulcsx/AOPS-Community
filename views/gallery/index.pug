@@ -1,0 +1,80 @@
+doctype html
+html
+  head
+
+    // meta informations
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+
+    // title of the webpage
+    title Notices &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
+
+    // favicon
+    link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
+
+    // stylesheets
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='/css/all.min.css')
+    link(rel='stylesheet' href='/css/bootstrap.css')
+    link(rel='stylesheet' href='/css/style.css')
+
+  body
+    include ../partials/header
+
+    section.notice-single
+      .container
+        if errorMessage.length > 0
+          .alert.alert-danger
+            | #{errorMessage}
+        .row
+          .col-12
+            .notice-single__container
+              .notice-single__heading 
+                h3 ALBUMS
+              .row
+                each single in galleries
+                  .col-md-4
+                    - let imgPath = '/' + path.normalize(single.images[0])
+                    a.gallery__single(style=`background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(./${single.images[0].replace(/\\/g, "/")})` href=`/gallery/${single._id}`)
+                        h3 #{single.name}1
+                        p   
+                          i.fas.fa-image
+                          | #{single.images.length} Images
+
+          
+
+        nav(aria-label='Page navigation example')
+          ul.pagination
+            - if (currentPage == 1)
+              li.page-item.disabled
+                span.page-link Previous
+            - else
+              li.page-item
+                a.page-link(href=`/notice?page=${currentPage - 1}`) Previous
+
+
+            - for (let i = 1; i <= paginateCount; ++i) {
+              - if (i == currentPage)
+                  li.page-item.active
+                    a.page-link(href=`/notice?page=${i}`) #{i}
+              - else 
+                li.page-item
+                    a.page-link(href=`/notice?page=${i}`) #{i}
+            - }
+            
+
+            - if (currentPage == paginateCount)
+              li.page-item.disabled
+                span.page-link Next
+                
+            - else
+              li.page-item
+                a.page-link(href=`/notice?page=${currentPage + 1}`) Next
+            
+
+
+
+
+
+    include ../partials/footer

@@ -400,6 +400,8 @@ body {
     border-radius: 2rem;
     text-decoration: none;
     transition: all .4s;
+    margin-bottom: 3rem;
+    color: #fff;
     padding: 2rem;
     color: #fff;
     box-shadow: 0px 1px 4px 0 rgba(0, 0, 0, 0.1);
@@ -411,21 +413,26 @@ body {
     .gallery__single:hover {
       text-decoration: none; }
       .gallery__single:hover h3, .gallery__single:hover p {
-        transform: scale(1.1); }
+        transform: scale(1.1);
+        color: #fff; }
     .gallery__single h3 {
       font-weight: bold;
       font-size: 2.5rem;
       color: #fff;
       transition: all .3s; }
     .gallery__single p {
+      color: #fff;
       font-size: 1.8rem;
       color: #fff;
       transition: all .3s; }
       .gallery__single p i {
         margin-right: 5px; }
+      .gallery__single p span {
+        color: #fff; }
   .gallery__link {
     margin: 0 auto;
-    margin-top: 6rem; }
+    margin-top: 3rem;
+    text-align: center; }
     .gallery__link a {
       color: #fff;
       background: #2C3A47;

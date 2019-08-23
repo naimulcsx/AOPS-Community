@@ -11,7 +11,7 @@ module.exports = {
     numberOfAchievementsOnHomepage: 5,
     numberOfAchievementsOnAchievementPage: 5,
     numberOfGalleryOnHomepage: 3,
-    numberOfGalleryOnGalleryPage: 12,
+    numberOfGalleryOnGalleryPage: 9,
     address: {
         city: 'Chittagong',
         country: 'Bangladesh',
