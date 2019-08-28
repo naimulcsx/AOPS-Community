@@ -36,15 +36,18 @@ const updateAOPSInfo = async(req, res) => {
         else AOPSInfoObj[prop] = req.body[prop];
     }
 
-    // if we have an old logo, delete it
-    let data = await AOPS.findById(id);
-    if ( data.logo ) {
-        let path = `.\\${data.logo}`;
-        fs.unlinkSync(path);
-    }
+    
 
     // handle logo file upload from req.file
-    if (req.file) AOPSInfoObj.logo = req.file.path;
+    if (req.file) {
+        AOPSInfoObj.logo = req.file.path;
+        // if we have an old logo, delete it
+        let data = await AOPS.findById(id);
+        if ( data.logo ) {
+            let path = `.\\${data.logo}`;
+            fs.unlinkSync(path);
+        }
+    }
 
     AOPS
         .findByIdAndUpdate(id, AOPSInfoObj)

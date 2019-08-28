@@ -3,6 +3,18 @@
     position: relative;
 }
 
+.header-display {
+    height: 85vh;
+    position: relative;
+
+
+    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+    background-image: linear-gradient(120deg, rgba(#fdfbfb, .8) 0%, rgba(#ebedee, .8) 100%), url(../img/header_bg_blur.jpg);
+    background-size: cover;
+    background-position: bottom;
+    
+}
+
 .header-topbar {
     height: 4rem;
     display: flex;
@@ -10,7 +22,6 @@
     align-items: center;
     color: #eeeeee;
     
-
     &__links {
         a {
             i { margin-right: 5px; }
@@ -57,7 +68,10 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, .01);
 
     &__logo {
-        height: 6.2rem !important;
+        height: 18rem !important;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     &__container {
@@ -100,10 +114,12 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    max-width: 1024px;
-    margin: 0 auto;
-    padding: 23rem 0;
-    
+    position: absolute;
+    max-width: 720px;
+    top: 52%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
 
 
     &__container {
@@ -128,12 +144,18 @@
     &__contents {
         h1 {
             font-weight: 700;
-            font-size: 5.5rem;
+            font-size: 6rem;
+            letter-spacing: 10px;
+            span {
+                font-size: 8rem;
+                font-weight: 800;
+                letter-spacing: 10px;
+            }
         }
         
         p {
             color: #8a949f;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-style: italic;
         }
     }

@@ -79,10 +79,18 @@ body.white {
   color: #2C3A47;
   position: relative; }
 
+.header-display {
+  height: 85vh;
+  position: relative;
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  background-image: linear-gradient(120deg, rgba(253, 251, 251, 0.8) 0%, rgba(235, 237, 238, 0.8) 100%), url(../img/header_bg_blur.jpg);
+  background-size: cover;
+  background-position: bottom; }
+
 .header-topbar {
   height: 4rem;
   display: flex;
-  background: linear-gradient(to left, #2C3A47, #09203f);
+  background: #33278D;
   align-items: center;
   color: #eeeeee; }
   .header-topbar__links a i {
@@ -112,7 +120,10 @@ body.white {
   align-items: center;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.01); }
   .header-navbar__logo {
-    height: 6.2rem !important; }
+    height: 18rem !important;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); }
   .header-navbar__container {
     display: flex;
     flex-direction: row;
@@ -141,9 +152,12 @@ body.white {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  max-width: 1024px;
-  margin: 0 auto;
-  padding: 23rem 0; }
+  position: absolute;
+  max-width: 720px;
+  top: 52%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%); }
   .display-box__container {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
   .display-box__logo {
@@ -156,10 +170,15 @@ body.white {
         clip-path: url(#logo-shape); }
   .display-box__contents h1 {
     font-weight: 700;
-    font-size: 5.5rem; }
+    font-size: 6rem;
+    letter-spacing: 10px; }
+    .display-box__contents h1 span {
+      font-size: 8rem;
+      font-weight: 800;
+      letter-spacing: 10px; }
   .display-box__contents p {
     color: #8a949f;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-style: italic; }
 
 .footer {
@@ -174,7 +193,7 @@ body.white {
   .footer i {
     margin-right: 5px; }
   .footer__top {
-    background: linear-gradient(to left, #2C3A47, #09203f);
+    background: #33278D;
     padding-top: 5rem;
     padding-bottom: 2rem; }
   .footer__bottom {
@@ -222,7 +241,7 @@ body.white {
     .notices {
       margin-top: 30px !important; } }
   .notices__title {
-    background: linear-gradient(to left, #2C3A47, #09203f);
+    background: #33278D;
     height: 9rem;
     color: #fff;
     display: flex;
@@ -374,7 +393,7 @@ body.white {
     display: flex;
     padding-left: 2rem;
     align-items: center;
-    background: linear-gradient(to left, #2C3A47, #09203f);
+    background: #33278D;
     color: #fff;
     font-size: 2rem;
     text-transform: uppercase;
