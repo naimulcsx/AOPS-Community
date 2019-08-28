@@ -1,13 +1,13 @@
 .achievements {
-    background: #fff;
-    padding: 8rem 0;
+    padding: 7rem 0;
+    background: #F3F6FB;
+
 
     &__contents {
         .owl-stage-outer {
-            padding: 4rem 0;
+            padding-top: 4rem;
         }
         .item {
-            background: #fff;
             margin: 0 15px;
             overflow: hidden;
             
@@ -65,6 +65,7 @@
   .owl-dots {
     text-align: center;
     padding-top: 15px;
+    display: none;
   }
   .owl-dots button.owl-dot {
     width: 15px;

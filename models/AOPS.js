@@ -33,6 +33,13 @@ const AOPSSchema = new mongoose.Schema({
         type: Object,
         require: true
     },
+    social: {
+        type: Object,
+        default: {
+            facebook: 'https://www.facebook.com',
+            twitter: 'https://twitter.com'
+        }
+    },
     numberOfNoticesOnHomepage: {
         type: Number,
         required: true
@@ -56,6 +63,18 @@ const AOPSSchema = new mongoose.Schema({
     numberOfGalleryOnGalleryPage: {
         type: Number,
         required: true
+    },
+    numberOfEventsOnHomepage: {
+        type: Number,
+        required: true
+    },
+    numberOfEventsOnEventsPage: {
+        type: Number,
+        required: true
+    },
+    logo: {
+        type: String,
+        default: null
     }
 });
 

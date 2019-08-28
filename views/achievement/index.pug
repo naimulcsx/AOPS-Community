@@ -53,27 +53,24 @@ html
               .sidebar__single--title
                 | Upcoming events
               .sidebar__single--content
-                p
-                  a(href='#') AOPS Intra Programming Contest
-                p
-                  a(href='#') AOPS Intra Gaming Contest
-                p
-                  a(href='#') AOPS Intra Research Cup
-                p
-                  a(href='#') AOPS Intra Web development Contest
+
+                for single in events
+                  p
+                    a(href=`/event/${single._id}`) #{single.name}
+                      span
+                        br
+                        | #{moment(single.startTime).format('LL')}
 
 
             .sidebar__single
               .sidebar__single--title Past events
               .sidebar__single--content
-                p
-                  a(href='#') AOPS Spring 2019 Programming Contest
-                p
-                  a(href='#') AOPS Intra Gaming Contest
-                p
-                  a(href='#') AOPS Intra Research Cup
-                p
-                  a(href='#') AOPS Intra Web development Contest
+                 for single in eventsEnded
+                  p
+                    a(href=`/event/${single._id}`) #{single.name}
+                      span 
+                        br
+                        | #{moment(single.startTime).format('LL')}
 
         nav(aria-label='Page navigation example')
           ul.pagination

@@ -1,4 +1,4 @@
-const {Gallery} = require('../models');
+const {Gallery, Member} = require('../models');
 const fs = require('fs');
 
 
@@ -34,7 +34,11 @@ const showSingleGallery = async (req, res) => {
         res.render('gallery/single', {
             gallery
         });
-    } catch(err) { console.log(err) }
+    } catch(err) { 
+        // if no notice of the objectId exist
+        req.flash('error', 'Gallery doesn\'t exist.');
+        return res.redirect('/gallery');
+     }
 }   
 
 const createNewGallery = (req, res) => {
@@ -49,6 +53,17 @@ const createNewGallery = (req, res) => {
     newGallery
         .save()
         .then(gallery => {
+
+            Member
+                .findById(req.user._id)
+                .then(async (user) =>{
+                    user.galleriesPosted.push(gallery);
+                    await user.save();
+                    console.log(user);
+                });
+
+           
+
             req.flash('success', 'Successfully created album.')
             res.redirect('/dashboard/gallery');
         })

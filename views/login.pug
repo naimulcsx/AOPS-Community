@@ -13,14 +13,10 @@ html
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
 
     // stylesheets
-    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
     link(rel='stylesheet' href='/css/all.min.css')
     link(rel='stylesheet' href='/css/bootstrap.css')
     link(rel='stylesheet' href='/css/style.css')
-    script(src='/js/jquery.min.js')
-    script(src='/js/popper.min.js')
-    script(src='/js/bootstrap.min.js')
-
+    
   body
     main.login-box
       .container-fluid
@@ -47,7 +43,9 @@ html
                   .form-group.mb-4
                     input#passwordInput.form-control(type='password' placeholder='Password' name="password")
                   p.mb-0.my-3.forget-pass
-                    a(href='/reset') Lost your password?
-                  .form-group.mb-0
+                  .form-group.mb-0.mt-5
                     input.btn.btn-primary(type='submit' value='Login')
-  
+
+    script(src='/js/jquery.min.js')
+    script(src='/js/popper.min.js')
+    script(src='/js/bootstrap.min.js')

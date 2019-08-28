@@ -1,0 +1,90 @@
+doctype html
+html
+  head
+
+    // meta informations
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+
+    // title of the webpage
+    title #{event.name} &mdash; Event
+
+    // favicon
+    link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
+
+    // stylesheets
+    link(rel='stylesheet' href='/css/all.min.css')
+    link(rel='stylesheet' href='/css/bootstrap.css')
+    link(rel='stylesheet' href='/css/style.css')
+    link(rel="stylesheet", href="/css/glightbox.css")
+
+
+  body
+    include ../partials/header
+
+    
+      
+    section.notice-single
+      
+      .container
+        if errorMessage.length > 0
+          .alert.alert-danger
+            | #{errorMessage}
+
+        
+        .row.notice-single__container.events.events__full
+          .col-md-12.px-0.events__full
+            .card.mx-4
+                img.card-img-top
+                .card-body
+                  h5.card-title 
+                    i.fas.fa-calendar-day.mr-3
+                    | #{event.name} 
+                    if moment(event.startTime).isAfter()
+                      span.ml-3 ( Upcoming )
+                    else
+                      span.ml-3 ( Ended )
+
+                .card-contents.container-fluid
+                  .card-event-info.row
+                    
+                    .col-6
+                      p.card-text 
+                        i.fas.fa-route.mr-3
+                        | Event Type : #{event.type}
+
+                      p.card-text
+                        i.fas.fa-location-arrow.mr-3
+                        | Location : #{event.location}
+                    .col-6
+                      p.card-text
+                        i.fas.fa-clock.mr-3
+                        | #{moment(event.startTime).format('lll')} &mdash; #{moment(event.finishTime).format('lll')}
+                      
+                      p.card-text
+                        i.fas.fa-money-check-alt.mr-3
+                        | Registration Fee : #{event.fee} BDT
+                    
+                  if (striptags(event.desc).length > 0)
+                    h6.desc-title Event details
+                    .desc
+                      | !{event.desc}
+
+                  if gallery
+                    h6.desc-title Event Gallery
+                    .desc
+                      | !{gallery.shortDesc}
+                      .row
+                        for single in gallery.images
+                          .col-md-4.my-4
+                            a.mb-5(href=`/${single}` data-lightbox='lightbox')
+                              img.rounded.img-fluid.glightbox(src=`/${single}`)
+
+    include ../partials/footer
+    script(src='/js/jquery.min.js')
+    script(src='/js/glightbox.js')
+    script. 
+      var lightboxDescription = GLightbox({
+        selector: 'glightbox'
+      });

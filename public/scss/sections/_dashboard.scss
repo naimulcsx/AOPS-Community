@@ -19,12 +19,24 @@
     &__header {
         background: #fff;
         height: 6.2rem;
-        box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
+        // box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.01);
+        // border-bottom: 1px solid rgba(0,0,0,.1);
+
         display: flex; 
         flex-direction: row-reverse;
         margin-left: 350px;
         padding: 0 4rem;
         align-items: center;
+        position: relative;
+
+        .aops-link {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            
+        }
 
         img {
             height: 5rem;
@@ -41,6 +53,8 @@
             display: flex;
             flex-direction: row-reverse;
             font-weight: bold;
+            color: $color-primary;
+            
             &:last-child {
                 font-weight: 400;
                 color: #8a949f ;
@@ -326,5 +340,83 @@ form.new-notice {
         margin: 1rem;
         max-width: 100%;
         height: 20rem;
+    }
+}
+
+
+.dashboard__dash-links {
+
+    .single {
+        &:nth-child(1) {
+            i {
+            color: #2e86de;
+            }
+        }
+        &:nth-child(2) {
+            i {
+                color: #fa8231;
+            }
+        }
+
+        &:nth-child(3) {
+            i {
+                color:#8e44ad;
+            }
+        }
+
+        &:nth-child(4) {
+            i {
+                color: #ee5253;
+            }
+        }
+
+        &:nth-child(5) {
+            i {
+                color: #5f27cd;
+            }
+        }
+
+        &:nth-child(6) {
+            i {
+                color: #10ac84;
+            }
+        }
+
+        
+
+        &__container {
+            background: #fff;
+            box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            i {
+                font-size: 7rem;
+
+                
+            }
+
+            .content {
+                text-align: right;
+            }
+
+            .links {
+                a {
+                    color: $color-text;
+                    text-decoration: none;
+                    font-size: 1.5rem;
+                }
+            }
+
+            h4 {
+                font-size: 2.7rem;
+                letter-spacing: 1px;
+                
+            }
+        }
     }
 }

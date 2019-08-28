@@ -1,0 +1,46 @@
+header.header
+  .header-topbar
+    .container
+      .header-topbar__container
+        .header-topbar__links
+          a(href='#')
+            i.fas.fa-envelope
+            | #{AOPSInfo.contactEmail}
+          a(href='#')
+            i.fas.fa-phone
+            | #{AOPSInfo.contactPhone}
+        .header-topbar__login
+          - if (!user) {
+            a(href='/login')
+              i.fas.fa-sign-in-alt
+              |  Login
+            span /
+            a(href='/register')
+              i.fas.fa-user
+              |  Registration
+          - } else {
+            span 
+              | Logged in as,
+            a(href=`/member/${user._id}`)
+              | #{user.name}
+            span.mx-3 |
+            a(href='/dashboard')
+              i.fas.fa-tachometer-alt
+              | Dashboard
+          - }
+
+  nav.header-navbar
+    .container
+      .header-navbar__container
+        a(href="/")
+          img.header-navbar__logo(src=AOPSInfo.logo ? AOPSInfo.logo : '/img/logo_demo.png' alt='')
+        .header-navbar__links
+          .header-navbar__links-container
+            a(href='/') Home
+            a(href='/notice') Notices
+            a(href='/event') Events
+            a(href='/gallery') Gallery
+            a(href='/member/executive') Executives
+
+
+  include display

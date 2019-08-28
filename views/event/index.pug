@@ -1,0 +1,107 @@
+doctype html
+html
+  head
+
+    // meta informations
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+
+    // title of the webpage
+    title Events &mdash; #{AOPSInfo.name} #{AOPSInfo.type}
+
+    // favicon
+    link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
+
+    // stylesheets
+    link(rel='stylesheet' href='/css/all.min.css')
+    link(rel='stylesheet' href='/css/bootstrap.css')
+    link(rel='stylesheet' href='/css/style.css')
+
+  body
+    include ../partials/header
+
+    
+      
+    section.notice-single
+      
+      .container
+        if errorMessage.length > 0
+          .alert.alert-danger
+            | #{errorMessage}
+
+        .notice-single__heading
+          h3 EVENTS
+        .row.notice-single__container.events(style="padding: 4rem 0;")
+          
+            
+
+            each single in events 
+              .col-md-6.px-0.events__single
+                .card.mx-4
+                  img.card-img-top
+                  .card-body
+                    h5.card-title 
+                      i.fas.fa-calendar-day.mr-3
+                      | #{single.name} 
+                      if moment(single.startTime).isAfter()
+                        span.ml-3 ( Upcoming )
+                      else
+                        span.ml-3 ( Ended )
+
+                    .card-contents
+                      p.card-text 
+                        i.fas.fa-route.mr-3
+                        | Event Type : #{single.type}
+
+                      p.card-text
+                        i.fas.fa-location-arrow.mr-3
+                        | Location : #{single.location}
+
+                      p.card-text
+                        i.fas.fa-clock.mr-3
+                        | #{moment(single.startTime).format('lll')} &mdash; #{moment(single.finishTime).format('lll')}
+                      
+                      p.card-text
+                        i.fas.fa-money-check-alt.mr-3
+                        | Registration Fee : #{single.fee} BDT
+
+                      a.btn.view_event.mt-4(href=`/event/${single._id}`)
+                        | Details
+                
+
+
+        nav(aria-label='Page navigation example')
+          ul.pagination
+            - if (currentPage == 1)
+              li.page-item.disabled
+                span.page-link Previous
+            - else
+              li.page-item
+                a.page-link(href=`/event?page=${currentPage - 1}`) Previous
+
+
+            - for (let i = 1; i <= paginateCount; ++i) {
+              - if (i == currentPage)
+                  li.page-item.active
+                    a.page-link(href=`/event?page=${i}`) #{i}
+              - else 
+                li.page-item
+                    a.page-link(href=`/event?page=${i}`) #{i}
+            - }
+            
+
+            - if (currentPage == paginateCount)
+              li.page-item.disabled
+                span.page-link Next
+                
+            - else
+              li.page-item
+                a.page-link(href=`/event?page=${currentPage + 1}`) Next
+            
+
+
+
+
+
+    include ../partials/footer

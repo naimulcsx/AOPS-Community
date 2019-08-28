@@ -1,0 +1,84 @@
+doctype html
+html
+  head
+    // meta informations
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+
+    // title of the webpage
+    title Members &mdash; #{AOPSInfo.title} #{AOPSInfo.type}
+
+    // favicon
+    link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
+
+    // stylesheets
+    link(rel='stylesheet' href='/css/all.min.css')
+    link(rel='stylesheet' href='/css/bootstrap.css')
+    link(rel='stylesheet' href='/css/style.css')
+
+  body
+    include ../partials/header
+
+    section.notice
+      .container
+        .row.notice__container
+          for member in members
+            .col-md-6.member__single
+              .card
+                img.card-img-member(src= member.photo ? `\\${member.photo}`: `https://api.adorable.io/avatars/285/${member.email}`)
+                .card-body
+          
+                
+                  .profile__desc
+                    h3
+                      a(href=`/member/${member._id}`)
+                        | #{member.name}
+                    p 
+                      i.fas.fa-bolt.mr-3
+                      | #{member.role}
+                      if (member.position)
+                        span.mx-2 |
+                        | #{member.position}
+                    
+                  .profile__links
+                    a(href=`mailto:${member.email}`) 
+                      i.fas.fa-envelope
+                      |#{member.email}
+                    
+                    a(href=`tel:${member.phone}`) 
+                      i.fas.fa-phone
+                      |#{member.phone}
+
+    
+        nav(aria-label='Page navigation example')
+          ul.pagination
+            - if (currentPage == 1)
+              li.page-item.disabled
+                span.page-link Previous
+            - else
+              li.page-item
+                a.page-link(href=`/member?page=${currentPage - 1}`) Previous
+
+            - for (let i = 1; i <= paginateCount; ++i) {
+              - if (i == currentPage)
+                  li.page-item.active
+                    a.page-link(href=`/member?page=${i}`) #{i}
+              - else 
+                li.page-item
+                    a.page-link(href=`/member?page=${i}`) #{i}
+            - }
+            
+
+            - if (currentPage == paginateCount)
+              li.page-item.disabled
+                span.page-link Next
+                
+            - else
+              li.page-item
+                a.page-link(href=`/member?page=${currentPage + 1}`) Next
+              
+
+          
+
+    include ../partials/footer

@@ -13,7 +13,6 @@ html
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
 
     // stylesheets
-    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
     link(rel='stylesheet' href='/css/all.min.css')
     link(rel='stylesheet' href='/css/bootstrap.css')
     link(rel='stylesheet' href='/css/style.css')
@@ -32,6 +31,16 @@ html
           include ../partials/sidebar
 
           .col-md-9.dashboard-content
+            .dashboard-flash-messages
+              if validationErrors
+                .alert.alert-danger
+                  button.close(type='button' data-dismiss='alert' aria-label='Close')
+                   span(aria-hidden='true') &times;
+
+                  p Please fix the following errors
+                  - validationErrors.forEach(err => {
+                    li #{err}
+                  - })
             
               
 
@@ -110,6 +119,7 @@ html
           imageResize: {} 
         },
         theme: 'snow',
+        placeholder: 'Notice description...'
       });
 
       var saveBtn = document.querySelector('a.save');

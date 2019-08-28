@@ -2,28 +2,46 @@ footer.footer
   .footer__top
     .container
       .row
+
         .col-lg-4.col-md-6
           img.rounded(src='https://dummyimage.com/70x70/fff/aaa&text=Logo' alt='Logo')
           .my-4
             p
               | #{AOPSInfo.displayMessage}
+
+          h4.h5.text-white.mt-5 Social Links
+          .width-3rem.bg-primary.height-3.mt-3
+          .social__links
+
+            a(href= AOPSInfo.social.facebook )
+              i.fab.fa-facebook-f 
+
+            a(href= AOPSInfo.social.twitter)
+              i.fab.fa-twitter
+        
+              
+        
         .col-lg-4.col-md-6
           h4.h5.text-white Contact Us
           .width-3rem.bg-primary.height-3.mt-3
           ul.list-unstyled.marginTop-40
             li.mb-3
               i.fa.fa-envelope
-              a(href='tel:+8801740411513')  #{AOPSInfo.contactPhone}
+              a(href=`tel:${AOPSInfo.contactPhone}`)  #{AOPSInfo.contactPhone}
             li.mb-3
               i.fa.fa-phone
-              a(href='mailto:contact@acs.aops.org') #{AOPSInfo.contactEmail}
+              a(href=`mailto:${AOPSInfo.contactEmail}`) #{AOPSInfo.contactEmail}
             li.mb-3
               i.fa.fa-map-marker
               span #{AOPSInfo.address.city}, #{AOPSInfo.address.country}
+          
+          
+
+
         .col-lg-4.col-md-6
           h4.h5.text-white Quick links
           .width-3rem.bg-primary.height-3.mt-3
-          ul.list-unstyled.marginTop-40
+          ul.list-unstyled
             li.mb-2
               a(href='page-about.html') About Us
             li.mb-2
@@ -36,6 +54,13 @@ footer.footer
               a(href='page-events.html') Events
             li.mb-2
               a(href='blog-card.html') Latest News
+
+        
+
+          
+           
+            
+        
       // END row
     // END container
   .footer__bottom.text-center

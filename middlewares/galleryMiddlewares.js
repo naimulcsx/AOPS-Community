@@ -10,7 +10,7 @@ const userCanCreateNewGallery = (req, res, next) => {
 
 const userCanDeleteUpdateGallery = async(req, res, next) => {
     let gallery = await Gallery.findOne({_id: req.params.id});
-    if ( gallery.createdBy._id.equals( req.user._id) || req.user.noticePermissions.updateDeleteOthers ) 
+    if ( gallery.createdBy._id.equals( req.user._id) || req.user.galleryPermissions.updateDeleteOthers ) 
         return next();
     req.flash('error', 'You are not allowed to update galleries.');
     res.redirect('/dashboard');

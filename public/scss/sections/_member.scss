@@ -1,9 +1,9 @@
 .profile {
-    margin-top: 10rem;
+    margin-top: 15rem;
     position: relative;
 
     a {
-        color: #168dee;
+        color: $color-text;
     }
 
 
@@ -17,20 +17,19 @@
     &__container {
         background: #fff;
         box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
-        padding: 3rem;
+        padding-top: 3rem;
         border-radius: 3rem;
     }
 
     &__header {
         text-align: center;
-        margin-top: -9rem;
+        margin-top: -11rem;
     }
 
     &__photo {
         margin-bottom: 2rem;
         svg {
-            height: 17rem;
-            filter: drop-shadow(0 2px 8px rgba(134,151,168,.15)) drop-shadow(0 8px 32px rgba(134,151,168,.15));
+            height:22rem;
             g {
                 clip-path: url('#member-image-shape');
             }
@@ -41,26 +40,38 @@
     &__desc {
         h1 {
             font-weight: bold;
-            font-size: 3rem;
+            font-size: 4rem;
+            color: #2E86DE;
+            letter-spacing: 1px;
         }
 
         p {
-            background: #f0f0f6;
             display: inline-block;
             padding: .5rem 1rem;
-            font-size: 1.4rem;
+            font-size: 2rem !important;
             border-radius: 1rem;
-            font-weight: bold;
             font-size: 1.7rem;
         }
     }
 
 
     &__links {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        background: #142841;
+        border-bottom-left-radius: 2.2rem;
+        border-bottom-right-radius: 2.2rem;
+        padding: 2rem 2rem;
         a {
+            color: #fff;
+            font-size: 1.7rem;
+            
             i {
                 margin-right: 5px;
             }
+            letter-spacing: 1px;
             text-decoration: none;
             margin-right: 1rem;
         }
@@ -76,4 +87,110 @@
             border-radius: 2rem;
         }
     }
+}
+
+
+.member__single {
+    margin: 6rem 0;
+
+    .card {
+        border-radius: 1rem;
+        background: transparent;
+        text-align: center;
+        background: #fff;
+        border: 0;
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+
+        .card-body {
+            padding: 0;
+        }
+    }
+
+    img.card-img-member {
+        height: 15rem !important;
+        width: 15rem !important;
+        display: block;
+        margin: 0 auto;
+        border-radius: 2rem;
+        margin-top: -7.5rem;
+    }
+
+    .profile__desc p {
+        background: transparent;
+
+        
+    }
+
+    h3 {
+        color: $color-primary;
+        font-size: 2.5rem;    
+        font-weight: bold;
+        margin: 1rem 0;
+
+        a {
+            color: #2E86DE;
+            text-decoration: none;
+        }
+    }
+
+    .profile__links {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        background: $color-primary;
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        padding: 1.25rem 0 !important;
+
+        a {
+            color: #fff;
+        }
+    }
+    
+   
+
+    
+}
+
+
+.profile__activity {
+    background: #fff;
+    box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+    margin-top: 5rem;
+    border-radius: 3rem;
+    padding: 5rem;
+    margin-bottom: 8rem;
+
+    span.gray {
+        color: rgb(126, 126, 126);
+    }
+
+    a {
+        
+        color: #2E86DE;
+        text-decoration: none;
+    }
+
+
+    .notices__container > p {
+        font-size: 2.8rem;
+        font-weight: bold;
+
+        &:after{
+            display: block;
+            content: "";
+            width: 100%;
+            height: 1px;
+            background: rgba(0,0,0,.1);
+            margin-top: 3px;
+        }   
+    }
+
+    .single {
+        margin-left: 20px;
+        p {margin-bottom: .5rem;}
+    }
+
+    
 }

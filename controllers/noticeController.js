@@ -1,5 +1,6 @@
-const {Notice, AOPS} = require('.././models');
+const {Notice, Event, Member} = require('.././models');
 const striptags = require('striptags');
+const moment = require('moment');
 const ObjectId = mongoose.Types.ObjectId;
 
 const showAllNotices = async (req, res) => {
@@ -22,6 +23,32 @@ const showAllNotices = async (req, res) => {
             .limit(noticesPerPage)
             .skip(skipCount * noticesPerPage);
 
+    let eventsArr = 
+            await Event
+                .find({})
+                .sort({startTime: 1});
+
+    let eventsAfter = eventsArr.filter(event => moment(event.startTime).isAfter());
+    let eventsBefore = eventsArr.filter(event => moment(event.startTime).isBefore());
+    eventsBefore = eventsBefore.reverse();
+
+
+    let events = [], max = 5, cnt = 0;
+    for (let i = 0; i < eventsAfter.length; ++i) {
+        if ( cnt < max ) {
+            events.push(eventsAfter[i]);
+            cnt++;
+        }
+    }
+
+    cnt = 0;
+    let eventsEnded = [];
+    for (let i = 0; i < eventsBefore.length; ++i) {
+        if ( cnt < max ) {
+            eventsEnded.push(eventsBefore[i]);
+            cnt++;
+        }
+    }
 
     notices.forEach(notice => {
         notice.excerpt = 
@@ -35,31 +62,58 @@ const showAllNotices = async (req, res) => {
         notices,
         paginateCount,
         currentPage,
+        events,
+        eventsEnded
     });
 }
 
 const showSingleNotice = async (req, res) => {
-
-    // if the objectId is not valid
-    if ( !ObjectId.isValid(req.params.id) ) {
-        req.flash('error', 'Notice doesn\'t exist.');
-        res.redirect('/notice');
-        return;
-    }
-
     // find the Notice
-    let notice = await Notice.findById( {_id: req.params.id} );
+    Notice.findOne({_id: req.params.id})
+        .then(async (notice) => {
+            if ( !notice ) {
+                req.flash('error', 'Notice doesn\'t exist.');
+                return res.redirect('/notice');
+            }
 
-    // if no notice of the objectId exist
-    if ( !notice ) {
-        req.flash('error', 'Notice doesn\'t exist.');
-        res.redirect('/notice');
-    }
+            let eventsArr = 
+                await Event
+                    .find({})
+                    .sort({startTime: 1});
 
-    // if every thing goes okay
-    res.render('notice/single', {
-        notice,
-    });
+            let eventsAfter = eventsArr.filter(event => moment(event.startTime).isAfter());
+            let eventsBefore = eventsArr.filter(event => moment(event.startTime).isBefore());
+            eventsBefore = eventsBefore.reverse();
+
+            let events = [], max = 5, cnt = 0;
+            for (let i = 0; i < eventsAfter.length; ++i) {
+                if ( cnt < max ) {
+                    events.push(eventsAfter[i]);
+                    cnt++;
+                }
+            }
+
+            cnt = 0;
+            let eventsEnded = [];
+            for (let i = 0; i < eventsBefore.length; ++i) {
+                if ( cnt < max ) {
+                    eventsEnded.push(eventsBefore[i]);
+                    cnt++;
+                }
+            }
+    
+            // if every thing goes okay
+            res.render('notice/single', {
+                notice,
+                events,
+                eventsEnded
+            });
+        })
+        .catch(err => {
+            // if no notice of the objectId exist
+            req.flash('error', 'Notice doesn\'t exist.');
+            return res.redirect('/notice');
+        });
 }
 
 
@@ -67,15 +121,43 @@ const createNewNotice = (req, res) => {
     console.log(req.body);
     req.body.createdBy = req.user._id;
     if (req.body.private === 'on') req.body.public = false;
-    Notice
-        .create(req.body)
+
+    new Notice(req.body)
+        .validate()
         .then(notice => {
-            req.flash('success', 'Notice created successfully.');
-            res.redirect('/dashboard/notice');
+
+            Notice.create(req.body)
+                .then(notice => {
+                    Member
+                        .findById(req.user._id)
+                        .then(async (user) => {
+                            user.noticesPosted.push(notice);
+                            await user.save();
+                        });
+
+                    req.flash('success', 'Notice created successfully.');
+                    res.redirect('/dashboard/notice');
+                })
+                .catch(err => {
+                    res.redirect('/dashboard/notice/new');
+                });
+
+
+            
         })
         .catch(err => {
-            res.redirect('/dashboard/notice/new');
-        });
+            let fields = ['title', 'desc'];
+            let validationErrors = [];
+
+            for (let i = 0; i < fields.length; ++i) {
+                if ( err.errors[fields[i]] )
+                    validationErrors.push( err.errors[fields[i]].message );
+            }
+
+            res.render('dashboard/notice/new', {
+                validationErrors
+            });
+        })
 }
 
 const deleteSingleNotice = async (req, res) => {

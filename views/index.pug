@@ -14,18 +14,14 @@ html
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
 
     // stylesheets
-    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
     link(rel='stylesheet' href='/css/all.min.css')
     link(rel='stylesheet' href='/css/bootstrap.css')
     link(rel='stylesheet' href='/css/style.css')
-    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css')
-    script(src='/js/jquery.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js')
+    link(rel='stylesheet' href='/css/owl.carousel.min.css')
+    
 
   body  
-    include partials/header
-    .display-box__container
-      include partials/display
+    include partials/header-display
     
     // Welcome and notices section
     section.welcome-notices#about
@@ -41,9 +37,51 @@ html
                 | !{AOPSInfo.aboutDesc}
           .col-xl-4
             include partials/notices
+
     
-    
-                    
+
+    if events.length > 0
+      section.events#events
+        .achievements-title
+          h3 Upcoming Events
+        
+        .container
+          .row
+            for single in events
+              .col-md-6.events__single
+                .card.mx-4
+                  img.card-img-top
+                  .card-body
+                    h5.card-title 
+                      i.fas.fa-calendar-day.mr-3
+                      | #{single.name} 
+                      if moment(single.startTime).isAfter()
+                        span.ml-3 ( Upcoming )
+                      else
+                        span.ml-3 ( Ended )
+
+                    .card-contents
+                      p.card-text 
+                        i.fas.fa-route.mr-3
+                        | Event Type : #{single.type}
+
+                      p.card-text
+                        i.fas.fa-location-arrow.mr-3
+                        | Location : #{single.location}
+
+                      p.card-text
+                        i.fas.fa-clock.mr-3
+                        | #{moment(single.startTime).format('lll')} &mdash; #{moment(single.finishTime).format('lll')}
+                      
+                      p.card-text
+                        i.fas.fa-money-check-alt.mr-3
+                        | Registration Fee : #{single.fee} BDT
+
+                      a.btn.view_event.mt-4(href=`/event/${single._id}`)
+                        | Details
+          .events__link.text-center
+            a.view_more(href='/event') View All Events
+
     section.gallery
       .achievements-title
         h3
@@ -55,18 +93,15 @@ html
             .col-md-4
               - let imgPath = '/' + path.normalize(single.images[0])
               a.gallery__single(style=`background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(./${single.images[0].replace(/\\/g, "/")})` href=`/gallery/${single._id}`)
-                h3 #{single.name}1
+                h3 #{single.name}
                 p   
                   i.fas.fa-image
                   | #{single.images.length} Images
 
-        .gallery__link
-          a.view_more_gallery(href='/gallery') View All Albums
+      .gallery__link.text-center
+        a.view_more(href='/gallery') View All Albums
+    
 
-    section.events#events
-      .achievements-title
-        
-                    
     section.achievements#achievements
       .achievements-title
         h3
@@ -84,6 +119,21 @@ html
                     .desc
                       h3 #{single.title}
                       a(href=`/achievement/${single._id}`) Read more
+      .achievement__link.text-center
+        a.view_more(href='/achievement') View All Achivements
+    
+    
+                    
+    
+
+
+
+
+    
+
+
+                    
+   
                   
 
 
@@ -95,6 +145,8 @@ html
         path(d='M1.85379 38.4859C2.9221 18.6653 18.6653 2.92275 38.4858 1.85453 56.0986.905299 77.2792 0 94 0c16.721 0 37.901.905299 55.514 1.85453 19.821 1.06822 35.564 16.81077 36.632 36.63137C187.095 56.0922 188 77.267 188 94c0 16.733-.905 37.908-1.854 55.514-1.068 19.821-16.811 35.563-36.632 36.631C131.901 187.095 110.721 188 94 188c-16.7208 0-37.9014-.905-55.5142-1.855-19.8205-1.068-35.5637-16.81-36.63201-36.631C.904831 131.908 0 110.733 0 94c0-16.733.904831-37.9078 1.85379-55.5141z')
 
     include partials/footer
+    script(src='/js/jquery.min.js')
+    script(src='/js/owl.carousel.min.js')
     script. 
       $('.owl-carousel').owlCarousel({
         loop:true,

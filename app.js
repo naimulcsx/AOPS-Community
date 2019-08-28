@@ -6,7 +6,8 @@ const cookieParser            = require( 'cookie-parser' ),
       morgan                  = require( 'morgan' ),
       app                     = express();
       methodOverride          = require('method-override'),
-      passport                = require('passport');
+      passport                = require('passport'),
+      striptags               = require('striptags');
 
 // middlewares
 app.use( morgan('dev') );
@@ -46,6 +47,7 @@ app.use(async (req, res, next) => {
     res.locals.url = req.url;
     res.locals.path = require('path');
     res.locals.validators = validators;
+    res.locals.striptags = striptags;
 
     next();
 });

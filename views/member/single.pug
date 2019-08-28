@@ -14,25 +14,27 @@ html
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
 
     // stylesheets
-    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
     link(rel='stylesheet' href='/css/all.min.css')
     link(rel='stylesheet' href='/css/bootstrap.css')
     link(rel='stylesheet' href='/css/style.css')
 
   body  
+    //- include ../partials/header
+
     .container
       .row
-        .col-md-9.mx-auto.profile
+        .col-md-10.mx-auto.profile
           .profile__container
             .profile__header
-              a.settings(href="/dashboard/settings/account")
-                i.d-block.fas.fa-cog
-                span.d-block Settings
+              if (user)
+                a.settings(href="/dashboard/settings/account")
+                  i.d-block.fas.fa-cog(style="color: #10ac84")
+                  span.d-block Settings
 
               .profile__photo
                 svg(viewbox='0 0 188 188')
                   g.author__img--box
-                    image(xlink:href=member.photo? `\\${member.photo}` : '/img/avatar.png' height='100%' width='100%')
+                    image(xlink:href=member.photo ? `\\${member.photo}`: `https://api.adorable.io/avatars/285/${member.email}` height='100%' width='100%')
 
               .profile__desc
                 h1 
@@ -48,10 +50,66 @@ html
                 a(href=`mailto:${member.email}`) 
                   i.fas.fa-envelope
                   |#{member.email}
-                a(href='`tel:${member.phone}`') 
+                a(href=`tel:${member.phone}`) 
                   i.fas.fa-phone
                   |#{member.phone}
+
+          .profile__activity
+            .notices__container
+              p 
+                i.fas.fa-calculator.mr-3(style="color: #fa8231")
+                |Notices posted
+              if member.noticesPosted.length === 0
+                span.gray User haven't created any notices yet . . .
+              .single
+                for single in member.noticesPosted
+                  p  
+                    a(href=`/notice/${single._id}`)
+                      | #{single.title} 
+                    | , Created on #{moment(single.created).format('ll')}
+            .notices__container.mt-5
+              
+              p 
+                i.fas.fa-calendar-week.mr-3(style="color: #5f27cd")
+                |Events posted
+              
+              if member.eventsPosted.length === 0
+                span.gray User haven't created any events yet . . .
+
+              .single
+                for single in member.eventsPosted
+                  p 
+                    a(href=`/event/${single._id}`)
+                      | #{single.name}
+                    | , Created on #{moment(single.created).format('ll')}
+
+            .notices__container.mt-5
+              p 
+                i.fas.fa-images.mr-3(style="color: #10ac84")
+                |Albums posted
+              if member.galleriesPosted.length === 0
+                span.gray User haven't created any gallery yet . . .
+              .single
+                for single in member.galleriesPosted
+                  p
+                    a(href=`/gallery/${single._id}`)
+                      |#{single.name}
+                    | , Created on #{moment(single.created).format('ll')}
+            
+            .notices__container.mt-5
+              p 
+                i.fas.fa-trophy.mr-3(style="color: #8e44ad")
+                | Achievements Posted
+              if member.galleriesPosted.length === 0
+                span.gray User haven't created any achievements yet . . .
+              .single
+                for single in member.achievementsPosted
+                    p
+                      a(href=`/achievement/${single._id}`)
+                        |#{single.title}
+                      | , Created on #{moment(single.created).format('ll')}
 
     svg.svg-masks(style='height: 0; position: fixed;')
       clippath#member-image-shape
         path(d='M1.85379 38.4859C2.9221 18.6653 18.6653 2.92275 38.4858 1.85453 56.0986.905299 77.2792 0 94 0c16.721 0 37.901.905299 55.514 1.85453 19.821 1.06822 35.564 16.81077 36.632 36.63137C187.095 56.0922 188 77.267 188 94c0 16.733-.905 37.908-1.854 55.514-1.068 19.821-16.811 35.563-36.632 36.631C131.901 187.095 110.721 188 94 188c-16.7208 0-37.9014-.905-55.5142-1.855-19.8205-1.068-35.5637-16.81-36.63201-36.631C.904831 131.908 0 110.733 0 94c0-16.733.904831-37.9078 1.85379-55.5141z')
+
