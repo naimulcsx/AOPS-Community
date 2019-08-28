@@ -9,6 +9,8 @@ const {userCanCreateNewNotice, userCanDeleteUpdateNotice} = require('../middlewa
 const {userCanCreateNewAchievement, userCanDeleteUpdateAchievement} =require('../middlewares/achievementMiddlewares');
 const {canInviteOthers} = require('../middlewares/baseMiddlewares');
 const { userCanCreateNewGallery, userCanDeleteUpdateGallery } = require('../middlewares/galleryMiddlewares')
+const {userCanCreateNewEvent, userCanDeleteUpdateEvent} = require('../middlewares/eventMiddlewares');
+
 
 
 const storage = multer.diskStorage({
@@ -63,6 +65,8 @@ const { renderDashboardGallery,
     renderDashboardGalleryNew,
     renderDashboardGalleryUpdate } = require('../controllers/dashboard/galleryController');
 
+
+
 /* Dashboard main Route */
 router
     .route('/')
@@ -98,11 +102,23 @@ router
 
 /* Dashboard settings routes */
 const {isSuperadmin} = require('../middlewares/baseMiddlewares');
+const uuidv1 = require('uuid/v1');
+
+const storageLogo = multer.diskStorage({
+    destination: './uploads/images',
+    filename: function(req, file, cb) {
+        cb(null, uuidv1() + path.extname(file.originalname) )
+    }
+});
+
+const uploadLogo = multer({
+    storage: storageLogo,
+});
 
 router
     .route('/settings')
     .get( (req, res) => res.redirect('/dashboard/settings/general'))
-    .put( isAuthenticated, isSuperadmin, updateAOPSInfo );
+    .put( isAuthenticated, isSuperadmin, uploadLogo.single('logo'), updateAOPSInfo );
 
 router
     .route('/settings/general')
@@ -151,11 +167,11 @@ router
 
 router
     .route('/event/new')
-    .get( isAuthenticated, renderDashboardEventNew )
+    .get( isAuthenticated, userCanCreateNewEvent, renderDashboardEventNew )
 
 router
     .route('/event/update/:id')
-    .get( isAuthenticated, renderDashboardEventUpdate );
+    .get( isAuthenticated, userCanDeleteUpdateEvent, renderDashboardEventUpdate );
 
 
 /* Dashboard gallery routes */

@@ -13,13 +13,20 @@
 
 
     &__top {
-        background: $black;
+        background: $color-gradient;
         padding-top: 5rem;
         padding-bottom: 2rem;
     }
 
     &__bottom {
         padding: 1.5rem 0;
-        background: darken($black, 5%);
+        background: darken($color-primary, 5%);
+    }
+
+    .social__links {
+        a {
+            i { font-size: 2rem; }
+            margin-right: 2rem;
+        }
     }
 }

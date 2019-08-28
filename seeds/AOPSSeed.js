@@ -1,6 +1,6 @@
 module.exports = {
     name: 'AOPS',
-    type: 'Computing Society',
+    type: 'Community',
     tagline: 'Promoting Interest in Computing',
     displayMessage: 'Dedicated to promoting interest in computing and information technologies among members of the AOPS community.',
     contactEmail: 'contact@acs.aops.org',
@@ -11,7 +11,9 @@ module.exports = {
     numberOfAchievementsOnHomepage: 5,
     numberOfAchievementsOnAchievementPage: 5,
     numberOfGalleryOnHomepage: 3,
-    numberOfGalleryOnGalleryPage: 9,
+    numberOfGalleryOnGalleryPage: 2,
+    numberOfEventsOnEventsPage: 5,
+    numberOfEventsOnHomepage: 4,
     address: {
         city: 'Chittagong',
         country: 'Bangladesh',

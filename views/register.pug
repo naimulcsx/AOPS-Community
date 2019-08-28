@@ -13,14 +13,11 @@ html
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
 
     // stylesheets
-    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
     link(rel='stylesheet' href='/css/all.min.css')
     link(rel='stylesheet' href='/css/bootstrap.css')
     link(rel='stylesheet' href='/css/style.css')
     link(rel='stylesheet' href='/css/picker.min.css')
-    script(src='/js/jquery.min.js')
-    script(src='/js/popper.min.js')
-    script(src='/js/bootstrap.min.js')
+    
     style. 
       .picker {display: block;}
       .pc-select{min-width: 100% !important;}
@@ -35,7 +32,6 @@ html
               .alert.alert-danger
                 | !{errorMessage}
               
-
             .login-box__container.login-box__reg
               .login-box__title
                 p Register
@@ -76,5 +72,7 @@ html
                     .col-12
                       input.btn.btn-primary(type='submit' value='Register')
                       
-    script. 
+    script(src='/js/jquery.min.js')
+    script(src='/js/popper.min.js')
+    script(src='/js/bootstrap.min.js')
       

@@ -3,10 +3,10 @@ header.header
     .container
       .header-topbar__container
         .header-topbar__links
-          a(href='#')
+          a(href=`mailto:${AOPSInfo.contactEmail}`)
             i.fas.fa-envelope
             | #{AOPSInfo.contactEmail}
-          a(href='#')
+          a(href=`tel:${AOPSInfo.contactPhone}`)
             i.fas.fa-phone
             | #{AOPSInfo.contactPhone}
         .header-topbar__login
@@ -32,13 +32,14 @@ header.header
   nav.header-navbar
     .container
       .header-navbar__container
-        img.header-navbar__logo(src='https://dummyimage.com/70x70/fff/aaa&text=Logo' alt='')
+        a(href="/")
+          img.header-navbar__logo(src= AOPSInfo.logo ? AOPSInfo.logo : '/img/logo_demo.png' alt='')
         .header-navbar__links
           .header-navbar__links-container
             a(href='/') Home
-            a(href='#about') About
-            a(href='#achievements') Achievements
-            a(href='#') Club Activities
-            a(href='#') Members
+            a(href='/notice') Notices
+            a(href='/event') Events
+            a(href='/gallery') Gallery
+            a(href='/member/executive') Executives
 
 

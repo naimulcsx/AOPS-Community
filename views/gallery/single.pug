@@ -13,7 +13,6 @@ html
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
 
     // stylesheets
-    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
     link(rel='stylesheet' href='/css/all.min.css')
     link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
     link(rel='stylesheet' href='/css/style.css')
@@ -42,7 +41,7 @@ html
                     for single in gallery.images
                       .col-md-4.mb-5
                         a.mb-5(href=`/${single}` data-lightbox='lightbox')
-                          img.rounded.img-fluid.glightbox(src=`/${single}`)
+                          img.img-fluid.glightbox(src=`/${single}`)
              
 
   

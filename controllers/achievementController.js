@@ -1,6 +1,7 @@
-const {Achievement} = require('../models');
+const {Achievement, Event, Member} = require('../models');
 const striptags = require('striptags');
 const fs = require('fs');
+const moment = require('moment');
 const ObjectId = mongoose.Types.ObjectId;
 
 const showAllAchievements = async (req, res) => {
@@ -32,35 +33,89 @@ const showAllAchievements = async (req, res) => {
                 .join(" ");
     });
 
+
+    let eventsArr = 
+            await Event
+                .find({})
+                .sort({startTime: 1});
+
+    let eventsAfter = eventsArr.filter(event => moment(event.startTime).isAfter());
+    let eventsBefore = eventsArr.filter(event => moment(event.startTime).isBefore());
+    eventsBefore = eventsBefore.reverse();
+
+    let events = [], max = 5, cnt = 0;
+    for (let i = 0; i < eventsAfter.length; ++i) {
+        if ( cnt < max ) {
+            events.push(eventsAfter[i]);
+            cnt++;
+        }
+    }
+
+    cnt = 0;
+    let eventsEnded = [];
+    for (let i = 0; i < eventsBefore.length; ++i) {
+        if ( cnt < max ) {
+            eventsEnded.push(eventsBefore[i]);
+            cnt++;
+        }
+    }
+
     res.render('achievement/index', {
         achievements,
         paginateCount,
         currentPage,
+        events,
+        eventsEnded
     });
 }
 
-const showSingleAchievement = async (req, res) => {
-
-    // if the objectId is not valid
-    if ( !ObjectId.isValid(req.params.id) ) {
-        req.flash('error', 'Achievement doesn\'t exist.');
-        res.redirect('/achievement');
-        return;
-    }
-
+const showSingleAchievement = (req, res) => {
     // find the Notice
-    let achievement = await Achievement.findById( {_id: req.params.id} );
+    Achievement.findById( {_id: req.params.id} )
+        .then(async (achievement) => {
+            // if no notice of the objectId exist
+            if ( !achievement ) {
+                req.flash('error', 'Achievement doesn\'t exist.');
+                res.redirect('/achievement');
+            }
 
-    // if no notice of the objectId exist
-    if ( !achievement ) {
-        req.flash('error', 'Achievement doesn\'t exist.');
-        res.redirect('/achievement');
-    }
+            let eventsArr = 
+            await Event
+                .find({})
+                .sort({startTime: 1});
 
-    // if every thing goes okay
-    res.render('achievement/single', {
-        achievement,
-    });
+            let eventsAfter = eventsArr.filter(event => moment(event.startTime).isAfter());
+            let eventsBefore = eventsArr.filter(event => moment(event.startTime).isBefore());
+            eventsBefore = eventsBefore.reverse();
+
+            let events = [], max = 5, cnt = 0;
+            for (let i = 0; i < eventsAfter.length; ++i) {
+                if ( cnt < max ) {
+                    events.push(eventsAfter[i]);
+                    cnt++;
+                }
+            }
+
+            cnt = 0;
+            let eventsEnded = [];
+            for (let i = 0; i < eventsBefore.length; ++i) {
+                if ( cnt < max ) {
+                    eventsEnded.push(eventsBefore[i]);
+                    cnt++;
+                }
+            }
+
+            // if every thing goes okay
+            res.render('achievement/single', {
+                achievement,
+                events,
+                eventsEnded
+            });
+        }) 
+        .catch(err => {
+            req.flash('error', 'Achievement doesn\'t exist.');
+             return res.redirect('/achievement');
+        });
 }
 
 
@@ -71,6 +126,12 @@ const createNewAchievement = (req, res) => {
     Achievement
         .create(req.body)
         .then(achievement => {
+            Member
+                .findById(req.user._id)
+                .then(async (user) =>{
+                    user.achievementsPosted.push(achievement);
+                    await user.save();
+                });
             req.flash('success', 'Achievement created successfully.');
             res.redirect('/dashboard/achievement');
         })

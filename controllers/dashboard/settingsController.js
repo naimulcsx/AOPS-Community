@@ -1,9 +1,21 @@
-const {AOPS, Member} = require('../../models');
+const {AOPS, Member, Event, Notice, Gallery, Achievement} = require('../../models');
 const bcrypt = require('bcrypt');
 const fs = require('fs');
 
 const renderDashboard = async (req, res) => {
-    res.render('dashboard/index');
+    const achievementCount = await Achievement.countDocuments({});
+    const noticeCount = await Notice.countDocuments({});
+    const eventCount = await Event.countDocuments({});
+    const galleryCount = await Gallery.countDocuments({});
+    const memberCount = await Member.countDocuments({});
+
+    res.render('dashboard/index', {
+        achievementCount,
+        noticeCount,
+        eventCount,
+        galleryCount,
+        memberCount
+    });
 }
 
 const renderSettingsGeneral = async (req, res) => {
@@ -14,12 +26,25 @@ const updateAOPSInfo = async(req, res) => {
     const AOPSInfoObj = res.locals.AOPSInfo;
     const id = res.locals.AOPSInfo._id;
 
+
     for (let prop in req.body) {
         let addressFields = ['city', 'country', 'zip'];
+        let socialFields = ['facebook', 'twitter'];
         if (prop === '_id') continue;
         if ( addressFields.includes(prop) ) AOPSInfoObj.address[prop] = req.body[prop];
+        else if ( socialFields.includes(prop) ) AOPSInfoObj.social[prop] = req.body[prop];
         else AOPSInfoObj[prop] = req.body[prop];
     }
+
+    // if we have an old logo, delete it
+    let data = await AOPS.findById(id);
+    if ( data.logo ) {
+        let path = `.\\${data.logo}`;
+        fs.unlinkSync(path);
+    }
+
+    // handle logo file upload from req.file
+    if (req.file) AOPSInfoObj.logo = req.file.path;
 
     AOPS
         .findByIdAndUpdate(id, AOPSInfoObj)

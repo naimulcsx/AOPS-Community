@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const {Notice, AOPS, Member, Achievement, Gallery} = require('./models');
-const {noticeSeeds, AOPSSeed, memberSeed, AchievementSeed, GallerySeed} = require('./seeds');
+const {Notice, AOPS, Member, Achievement, Gallery, Event} = require('./models');
+const {noticeSeeds, AOPSSeed, memberSeed, AchievementSeed, GallerySeed, eventSeed, executiveSeed} = require('./seeds');
 
 const seedDatabase = () => {
     AOPS // remove AOPSInfo and insert
@@ -22,6 +22,14 @@ const seedDatabase = () => {
 
             try {
                 let user = await Member.create(memberSeed);
+
+                let userData = {
+                    noticesPosted: [],
+                    achievementsPosted: [],
+                    galleriesPosted: [],
+                    eventsPosted: []
+                };
+
                 console.log('Created superadmin.');
 
                 Notice // remove all notices and insert seed
@@ -32,7 +40,14 @@ const seedDatabase = () => {
                         noticeSeeds.forEach(async (notice) => {
                             try {
                                 notice.createdBy = user._id;
-                                await new Notice(notice).save();
+                                let data = await new Notice(notice).save();                                
+                                Member
+                                    .findById(user._id)
+                                    .then(async (user) =>{
+                                        user.noticesPosted.push(data);
+                                        await user.save();
+                                    });
+
                                 console.log('Notice created!');
                             } catch(err) { console.log(err)  }
                         });
@@ -48,8 +63,13 @@ const seedDatabase = () => {
                         AchievementSeed.forEach(async (achievement) => {
                             try {
                                 achievement.createdBy = user._id;
-                                await new Achievement(achievement).save();
-                                console.log('Achievement created!');
+                                let data = await new Achievement(achievement).save();
+                                Member
+                                    .findById(user._id)
+                                    .then(async (user) =>{
+                                        user.achievementsPosted.push(data);
+                                        await user.save();
+                                    });
                             } catch(err) { console.log(err) }
                         });
                     });
@@ -62,18 +82,58 @@ const seedDatabase = () => {
                         GallerySeed.forEach(async (gallery) => {
                             try {
                                 gallery.createdBy = user._id;
-                                await new Gallery(gallery).save();
-                                console.log('Gallery created!');
+                                let data = await new Gallery(gallery).save();
+                                Member
+                                    .findById(user._id)
+                                    .then(async (user) =>{
+                                        user.galleriesPosted.push(data);
+                                        await user.save();
+                                    });
                             } catch( err ) { console.log(err) }
                         })
-                        
-
                     });
+
+                // delete all the events
+                Event
+                    .deleteMany({})
+                    .then(() => {
+                        console.log('Events deleted');
+                        eventSeed.forEach(async (event) => {
+                            try {
+                                event.createdBy = user._id;
+                                let data = await new Event(event).save();
+                                Member
+                                    .findById(user._id)
+                                    .then(async (user) =>{
+                                        user.eventsPosted.push(data);
+                                        await user.save();
+                                    });
+
+                                console.log('Event saved');
+                            } catch(err) { console.log(err) }
+                        })
+                    })
+                    .catch(err => console.log(err));
+                
+
+                
 
             } catch(err) { console.log(err); }
 
+
+            
+
         })
         .catch(err => console.log('Member coundn\'t be created'));    
+
+    executiveSeed.forEach(async (executive) => {
+        try {
+            let data = await Member.create(executive);
+        console.log('Created executive!');
+        } catch(err) {
+            console.log(err);
+        }
+    });
 }
 
 module.exports = seedDatabase;

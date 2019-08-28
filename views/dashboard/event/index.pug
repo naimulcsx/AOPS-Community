@@ -13,7 +13,6 @@ html
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
 
     // stylesheets
-    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
     link(rel='stylesheet' href='/css/all.min.css')
     link(rel='stylesheet' href='/css/bootstrap.css')
     link(rel='stylesheet' href='/css/style.css')
@@ -69,10 +68,10 @@ html
                           |#{events[i].createdBy.name}
                       
                   .dashboard-notice__links
-                    a.view(href=`/notice/${events[i]._id}`) View
+                    a.view(href=`/event/${events[i]._id}`) View
 
                     // if the notice is created by the user || the used has permission to edit and update
-                    - var updateDeleteCond = events[i].createdBy._id.equals(user._id) || user.eventPermissons.updateDeleteOthers
+                    - var updateDeleteCond = events[i].createdBy._id.equals(user._id) || user.eventPermissions.updateDeleteOthers
                     a.update(href= updateDeleteCond ? `/dashboard/event/update/${events[i]._id}` : null) Edit
                   
                     form(class="d-inline delete-notice-form" action=`/event/${events[i]._id}?_method=DELETE` method="POST")

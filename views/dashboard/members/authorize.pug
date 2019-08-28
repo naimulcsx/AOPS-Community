@@ -13,7 +13,6 @@ html
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
 
     // stylesheets
-    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
     link(rel='stylesheet' href='/css/all.min.css')
     link(rel='stylesheet' href='/css/bootstrap.css')
     link(rel='stylesheet' href='/css/style.css')
@@ -142,6 +141,32 @@ html
                       .form-check.border-0
                         input#acheievementUpdateDeleteOthers.form-check-input(type='checkbox' name='achievementUpdateDeleteOthers' checked = foundUser.achievementPermissions.updateDeleteOthers ? 'on' : null)
                         label.form-check-label(for='acheievementUpdateDeleteOthers') Member can update / delete other's achievements
+                    
+                    .col-12
+                      .form-check.border-0
+                        input#eventCreateUpdateDeleteSelf.form-check-input(type='checkbox' name='eventCreateUpdateDeleteSelf' checked = foundUser.eventPermissions.createUpdateDeleteSelf ? 'on' : null)
+                        label.form-check-label(for='eventCreateUpdateDeleteSelf') Member can create / update / delete events
+
+                    .col-12
+                      .form-check.border-0
+                        input#eventUpdateDeleteOthers.form-check-input(type='checkbox' name='eventUpdateDeleteOthers' checked = foundUser.eventPermissions.updateDeleteOthers ? 'on' : null)
+                        label.form-check-label(for='eventUpdateDeleteOthers') Member can update / delete other's events
+
+                    .col-12
+                      .form-check.border-0
+                        input#galleryCreateUpdateDeleteSelf.form-check-input(type='checkbox' name='galleryCreateUpdateDeleteSelf' checked = foundUser.eventPermissions.createUpdateDeleteSelf ? 'on' : null)
+                        label.form-check-label(for='galleryCreateUpdateDeleteSelf') Member can create / update / delete gallery
+
+                    .col-12
+                      .form-check.border-0
+                        input#galleryUpdateDeleteOthers.form-check-input(type='checkbox' name='galleryUpdateDeleteOthers' checked = foundUser.galleryPermissions.updateDeleteOthers ? 'on' : null)
+                        label.form-check-label(for='galleryUpdateDeleteOthers') Member can update / delete other's gallery
+
+                    .col-12
+                      .form-check.border-0
+                        input#invitePermissions.form-check-input(type='checkbox' name='invitePermissions' checked = foundUser.invitePermissions ? 'on' : null)
+                        label.form-check-label(for='invitePermissions') Member can invite other people
+
 
                     .col-12.d-none
                       label(for="user-id")

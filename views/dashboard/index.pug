@@ -13,7 +13,6 @@ html
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
 
     // stylesheets
-    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
     link(rel='stylesheet' href='/css/all.min.css')
     link(rel='stylesheet' href='/css/bootstrap.css')
     link(rel='stylesheet' href='/css/style.css')
@@ -43,7 +42,74 @@ html
                   button.close(type='button' data-dismiss='alert' aria-label='Close')
                     span(aria-hidden='true') &times;
 
-            .dashboard-notice__container.mx-auto
+            .dashboard-notice__container.mx-auto(style="background: #F3F6FB; border: 0; box-shadow: none;")
+              .container.dashboard__dash-links.px-0
+                .row
+                  .col-md-4.single
+                    .single__container
+                      i.fas.fa-calculator
+                      .content
+                        h4 
+                          span #{noticeCount} 
+                          | Notices
+                        .links
+                          a(href="/dashboard/notice") View All Notice
+
+                  .col-md-4.single
+                    .single__container
+                      i.fas.fa-calculator
+                      .content
+                        h4 
+                          span #{achievementCount} 
+                          | Events
+                        .links
+                          a(href="/dashboard/event") View All Events
+
+                  .col-md-4.single
+                   .single__container
+                      i.fas.fa-images
+                      .content
+                        h4 
+                          span #{galleryCount} 
+                          | Albums
+
+                        .links
+                          a(href="/dashboard/gallery") View All Albums
+
+                  .col-md-6.single
+                    .single__container
+                      i.fas.fa-trophy
+                      .content
+                        h4
+                          span #{achievementCount}  
+                          | Achievements
+                        .links
+                          a(href="/dashboard/achievement") View All Achievements
+                  
+                  .col-md-6.single
+                    .single__container
+                      i.fas.fa-users
+                      .content
+                        h4
+                          span #{memberCount}  
+                          | Member
+                          if memberCount > 1
+                            | s
+
+                        .links
+                          a(href="/member") View All Members
+
+                  .col-md-6.single
+                    .single__container
+                      i.fas.fa-cog
+                      .content
+                        h4 User Settings
+                        .links
+                          a(href="/dashboard/settings/account") Update profile
+                   
+                      
+
+
     
     include partials/footer
 

@@ -1,5 +1,6 @@
-const {Notice, Member, Achievement, Gallery} = require('../models');
+const {Notice, Member, Achievement, Gallery, Event} = require('../models');
 const jwt = require('jsonwebtoken');
+const moment = require('moment');
 
 const renderHomepage = async(req, res) => {
     Notice
@@ -17,12 +18,31 @@ const renderHomepage = async(req, res) => {
                 let galleries = 
                     await Gallery 
                         .find()
-                        .sort({created: -1});
+                        .sort({created: -1})
+                        .limit(res.locals.AOPSInfo.numberOfGalleryOnHomepage)
+
+
+                let eventsArr = 
+                    await Event
+                        .find({})
+                        .sort({startTime: 1});
+
+                let events = [], max = res.locals.AOPSInfo.numberOfEventsOnHomepage, cnt = 0;
+                for (let i = 0; i < eventsArr.length; ++i) {
+                    if ( moment(eventsArr[i].startTime).isAfter() && cnt < max ) {
+                        events.push(eventsArr[i]);
+                        cnt++;
+                    }
+                }
+                
+                
+                
 
                 res.render('index', {
                     notices,
                     achievements,
-                    galleries
+                    galleries,
+                    events
                 });
             } catch(err) { console.log(err) }
         })

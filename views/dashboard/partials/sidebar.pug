@@ -5,17 +5,17 @@
         i.fas.fa-tachometer-alt
         | Dashboard
 
-    .dashboard__link-group
-      a.dashboard__link(href="/dashboard" class= url == '/pages' ? "active" : "")
-        i.fas.fa-pager
-        | Pages
+    //- .dashboard__link-group
+    //-   a.dashboard__link(href="/dashboard" class= url == '/pages' ? "active" : "")
+    //-     i.fas.fa-pager
+    //-     | Pages
       
-      a.dashboard__link(href="/dashboard/notice/new") 
-        i.fas.fa-plus
-        |Create a new page
-      a.dashboard__link(href="/dashboard/notice") 
-        i.fas.fa-asterisk
-        |All pages
+    //-   a.dashboard__link(href="/dashboard/notice/new") 
+    //-     i.fas.fa-plus
+    //-     |Create a new page
+    //-   a.dashboard__link(href="/dashboard/notice") 
+    //-     i.fas.fa-asterisk
+    //-     |All pages
 
     
     
@@ -42,9 +42,10 @@
         i.fas.fa-calendar-week
         | Events
 
-      a.dashboard__link(href="/dashboard/event/new") 
-        i.fas.fa-plus
-        |Create a new event
+      if user.eventPermissions.createUpdateDeleteSelf
+        a.dashboard__link(href="/dashboard/event/new") 
+          i.fas.fa-plus
+          |Create a new event
       a.dashboard__link(href="/dashboard/event") 
         i.fas.fa-asterisk
         |View all events
@@ -89,19 +90,17 @@
       a.dashboard__link(href="/dashboard/member/authorize" class= url == '/dashboard/member/authorize' ? 'active' : "") 
         i.fas.fa-check
         | Authorize a member
-      a.dashboard__link(href="#") 
+      a.dashboard__link(href="/member/executive") 
         i.fas.fa-user-shield
         |Executive Members
-      a.dashboard__link(href="#") 
-        i.fas.fa-desktop
-        |Lab Assistant
+
       
-      a.dashboard__link(href="#") 
+      a.dashboard__link(href="/member") 
         i.fas.fa-asterisk
         |View all members
 
     .dashboard__link-group
-      a.dashboard__link(href="/dashboard/settings" class= url.includes('settings') ? "active" : "") 
+      a.dashboard__link(href="/dashboard/settings/account" class= url.includes('settings') ? "active" : "") 
         i.fas.fa-cog
         | Settings
 

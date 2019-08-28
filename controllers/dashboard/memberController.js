@@ -87,12 +87,20 @@ const handleUpdateAuthorizedMember = async (req, res) => {
     // Initialize every permission to false
     req.body.noticePermissions = { createUpdateDeleteSelf: false, updateDeleteOthers: false }
     req.body.achievementPermissions =  { createUpdateDeleteSelf: false, updateDeleteOthers: false}
+    req.body.galleryPermissions = { createUpdateDeleteSelf: false, updateDeleteOthers: false}
+    req.body.eventPermissions = { createUpdateDeleteSelf: false, updateDeleteOthers: false}
+    if (req.body.invitePermissions === 'on') req.body.invitePermissions = false;
+    else req.body.invitePermissions =  true;
 
     // Set permissions
     if (req.body.noticeCreateUpdateDeleteSelf === 'on') req.body.noticePermissions.createUpdateDeleteSelf = true;
     if (req.body.noticeUpdateDeleteOthers === 'on') req.body.noticePermissions.updateDeleteOthers = true;
     if (req.body.achievementCreateUpdateDeleteSelf === 'on') req.body.achievementPermissions.createUpdateDeleteSelf = true;
     if (req.body.achievementUpdateDeleteOthers === 'on') req.body.achievementPermissions.updateDeleteOthers = true;
+    if (req.body.eventCreateUpdateDeleteSelf === 'on')  req.body.eventPermissions.createUpdateDeleteSelf = true;
+    if (req.body.eventUpdateDeleteOthers === 'on')  req.body.eventPermissions.updateDeleteOthers = true;
+    if (req.body.galleryCreateUpdateDeleteSelf === 'on') req.body.galleryPermissions.createUpdateDeleteSelf = true;
+    if (req.body.galleryUpdateDeleteOthers === 'on') req.body.galleryPermissions.updateDeleteOthers = true;
 
     try { 
         let user = await Member.findByIdAndUpdate({_id: req.body.id}, req.body);

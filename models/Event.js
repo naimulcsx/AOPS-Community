@@ -36,6 +36,10 @@ const eventSchema = new mongoose.Schema({
     galleryId: {
         type: String,
         default: null
+    },
+    location: {
+        type: String,
+        required: [true, 'Location is required']
     }
 });
 

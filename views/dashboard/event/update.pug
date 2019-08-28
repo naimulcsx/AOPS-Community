@@ -13,7 +13,6 @@ html
     link(rel='icon' href='https://dummyimage.com/70x70/fff/000333&text=ACS')
 
     // stylesheets
-    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' rel='stylesheet')
     link(rel='stylesheet' href='/css/all.min.css')
     link(rel='stylesheet' href='/css/bootstrap.css')
     link(href='/css/quill.snow.css' rel='stylesheet')
@@ -95,10 +94,12 @@ html
                 textarea.d-none(name="desc", cols="30", rows="10")
 
                 .form-row
-                  .col-6.px-0
+                  .col-4.px-0
                     input.title.ml-0(type='text' placeholder='Event Type' name="type" autocomplete="off" value= `${event.type}`)
-                  .col-6.px-0(style="border-left: 1px solid rgba(0,0,0,.1);")
+                  .col-4.px-0(style="border-left: 1px solid rgba(0,0,0,.1);")
                     input.title.ml-0(type='text' placeholder='Registration Fee' name="fee" autocomplete="off" value= event.fee > 0 ? event.fee: '')
+                  .col-4.px-0(style="border-left: 1px solid rgba(0,0,0,.1);")
+                    input.title.ml-0(type='text' placeholder='Event Location' name="location" autocomplete="off" value= event.location)
 
                 .form-row
                   .col-4.px-0
@@ -118,7 +119,7 @@ html
                 
           
               #editor
-                
+                | !{event.desc}
 
             
     include ../partials/footer

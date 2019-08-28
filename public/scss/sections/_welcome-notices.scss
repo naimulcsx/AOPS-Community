@@ -1,7 +1,7 @@
 .welcome-notices {
     position: relative;
-    padding: 4rem;
-    padding-bottom: 9rem;
+    padding: 3rem;
+    padding-bottom: 7rem;
     background: #fff;
 }
 
@@ -32,16 +32,18 @@
 .notices {
     background: #fff;
     margin-top: -100px;
-    box-shadow: 0px 1px 4px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
     padding: 0;
     color: $color-text;
     overflow: hidden;
+    border-radius: 2rem;
+    
     @media (max-width: 1200px) {
         margin-top: 30px !important;
     }
 
     &__title {
-        background: $color-primary;
+        background: $color-gradient;
         height: 9rem;
         color: #fff;
         display: flex;
@@ -57,7 +59,7 @@
 
 
     &__single {
-        border-bottom: 1px solid $color-light;
+        border-bottom: 1px solid rgba($color-primary,.1) ;
         padding: 2rem;
 
         p {
@@ -99,6 +101,12 @@
     &__full {
         &:not(:last-child) {
             margin-bottom: 5rem;
+        }
+    }
+
+    &__gallery {
+        img {
+            border-radius: 1rem;
         }
     }
 
@@ -255,17 +263,18 @@
 .sidebar {
     &__single {
         background: $white;
-        box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
         border-radius: 2rem;
         overflow: hidden;
         margin-bottom: 5rem;
+        box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+
 
         &--title {
             height: 8rem;
             display: flex;
             padding-left: 2rem;
             align-items: center ;
-            background: $color-primary;
+            background: $color-gradient;
             color: $white;
             font-size: 2rem;
             text-transform: uppercase;
@@ -275,7 +284,11 @@
         &--content {
             a {
                 &:link, &:visited {
-                    color: #8a949f;
+                    color: $color-primary;
+                    letter-spacing: .5px;
+                    span {
+                        color: #8a949f;
+                    }
                     text-decoration: none;
                 }
             }
@@ -337,8 +350,9 @@
 
 // Gallery
 .gallery {
-    padding: 10rem 0;
+    padding: 7rem 0;
     padding-top: 7rem;
+    background: #fff;
 
     &__contents {
         margin-top: 7rem;
@@ -351,18 +365,16 @@
         background-position: center;
         border-radius: 2rem;
         text-decoration: none;
-        transition: all .4s;
         margin-bottom: 3rem;
-        color: #fff;
+        color: #fafafa;
 
         &:hover {
             text-decoration: none;
-            h3, p { transform: scale(1.1); color: #fff;  }
+            h3, p { color: #fff;  }
         }
 
         padding: 2rem;
-        color: #fff;
-        box-shadow: 0px 1px 4px 0 rgba(0, 0, 0, 0.1);
+        color: #fafafa;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -372,37 +384,136 @@
         h3 {
             font-weight: bold;
             font-size: 2.5rem;
-            color: #fff;
-            transition: all .3s;
+            color: #fafafa;
         }
 
         p {
-            color: #fff;
+            color: #fafafa;
             i {margin-right: 5px;}
             font-size: 1.8rem;
             color: #fff;
-            transition: all .3s;
             span {color: #fff;}
         }
     }
+}
 
-    &__link {
-        margin: 0 auto;
-        margin-top: 3rem;
-        text-align: center;
-        a {
-            color: #fff;
+
+.events {
+    padding: 7rem 0;
+    background: #F3F6FB;
+
+
+
+    .card-body {padding: 0;}
+    .card-contents {padding: 1rem 4rem; padding-bottom: 3rem; }
+
+    .card {
+        border-radius: 2rem;
+        box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+        border: 0;
+        margin-bottom: 6rem;
+        overflow: hidden;
+
+
+        .view_event {
             background: $color-primary;
-            text-decoration: none;
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            font-size: 1.7rem;
-            border-radius: 3rem;
-            transition: all .3s;
-            font-weight: bold;
-            &:hover {
-                background: lighten($color-primary, 20%);
+            padding: .5rem 1rem;
+            border: 0;
+            font-size: 1.4rem;
+            color: #fff;
+        }
+
+
+        p {
+            margin-bottom: 0;
+            color: #8a949f;
+
+        }
+        i { color: $color-primary; }
+
+        h5 {
+            font-weight : 700;
+            font-size: 2.2rem;
+            border-bottom: 1px solid rgba(0,0,0,.1);
+            padding: 2rem;
+
+            span {
+                font-size: 1.3rem;
+                color: #8a949f;
+
             }
         }
     }
+
+
+    &__full {
+        padding: 0;
+            .card {
+            background: transparent;
+            box-shadow: none;
+            border: 0;
+            margin-bottom: 0rem;
+
+
+                .card-title {
+                    padding: 1rem 0;
+                    font-size: 3rem;
+                }
+
+                .card-contents{padding: 0;}
+
+                
+
+                .card-event-info {
+                    padding: 1rem 3rem;
+                }
+                
+                p {margin-bottom: 1rem; }
+
+                
+
+            
+            }
+
+
+            .desc-title {
+                font-size: 2.2rem;
+                font-weight: bold;
+                margin-top: 3rem;
+                margin-bottom: 2rem;
+
+                &:after {
+                    content: '';
+                    display: block;
+                    width: 60px;
+                    height: 2px;
+                    background: $color-primary;
+                    margin-top: 5px;
+                }
+            }
+            
+
+    }
 }
+
+
+
+a.view_more {
+    
+    margin-top: 3rem;
+    
+    color: #fff;
+    background: $color-primary;
+    text-decoration: none;
+    display: inline-block;
+    padding: .7rem 2.5rem;
+    font-size: 1.6rem;
+    border-radius: 3rem;
+    transition: all .3s;
+    font-weight: bold;
+    &:hover {
+        background: lighten($color-primary, 20%);
+    }
+    
+}
+

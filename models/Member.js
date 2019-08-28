@@ -90,7 +90,23 @@ const memberSchema = new mongoose.Schema({
             createUpdateDeleteSelf: false,
             updateDeleteOthers: false
         }
-    }
+    },
+    noticesPosted: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Notice'
+    }],
+    achievementsPosted: [{
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Achievement'
+    }],
+    eventsPosted: [{
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Event'
+    }],
+    galleriesPosted: [{
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Gallery'
+    }]
 });
 
 

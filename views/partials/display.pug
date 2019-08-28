@@ -2,7 +2,7 @@
     .display-box__logo
       svg(viewbox='0 0 188 188')
         g.author__img--box
-          image(xlink:href='https://dummyimage.com/360x360/fff/aaa&text=Logo' height='100%' width='100%')
+          image(xlink:href=AOPSInfo.logo ? AOPSInfo.logo : '/img/logo_demo.png' height='100%' width='100%')
     .display-box__contents
       h1(style="text-transform: uppercase;")
         | #{AOPSInfo.name} 
